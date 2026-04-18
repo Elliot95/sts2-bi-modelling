@@ -1,0 +1,64 @@
+key_path,type,example_value
+acts,list,[3 items]
+acts[],str,ACT.OVERGROWTH
+ascension,int,0
+build_id,str,v0.98.0
+game_mode,str,standard
+killed_by_encounter,str,ENCOUNTER.THE_INSATIABLE_BOSS
+killed_by_event,str,NONE.NONE
+map_point_history,list,[2 items]
+map_point_history[],list,[17 items]
+map_point_history[][],dict,{...}
+map_point_history[][].map_point_type,str,monster
+map_point_history[][].player_stats,list,[1 items]
+map_point_history[][].player_stats[],dict,{...}
+map_point_history[][].player_stats[].card_choices,list,[3 items]
+map_point_history[][].player_stats[].card_choices[],dict,{...}
+map_point_history[][].player_stats[].card_choices[].card,dict,{...}
+map_point_history[][].player_stats[].card_choices[].card.floor_added_to_deck,int,1
+map_point_history[][].player_stats[].card_choices[].card.id,str,CARD.SETUP_STRIKE
+map_point_history[][].player_stats[].card_choices[].was_picked,bool,True
+map_point_history[][].player_stats[].cards_gained,list,[1 items]
+map_point_history[][].player_stats[].cards_gained[],dict,{...}
+map_point_history[][].player_stats[].cards_gained[].id,str,CARD.SETUP_STRIKE
+map_point_history[][].player_stats[].current_gold,int,110
+map_point_history[][].player_stats[].current_hp,int,78
+map_point_history[][].player_stats[].damage_taken,int,8
+map_point_history[][].player_stats[].gold_gained,int,11
+map_point_history[][].player_stats[].gold_lost,int,0
+map_point_history[][].player_stats[].gold_spent,int,0
+map_point_history[][].player_stats[].gold_stolen,int,0
+map_point_history[][].player_stats[].hp_healed,int,6
+map_point_history[][].player_stats[].max_hp,int,80
+map_point_history[][].player_stats[].max_hp_gained,int,0
+map_point_history[][].player_stats[].max_hp_lost,int,0
+map_point_history[][].player_stats[].player_id,int,1
+map_point_history[][].rooms,list,[1 items]
+map_point_history[][].rooms[],dict,{...}
+map_point_history[][].rooms[].model_id,str,ENCOUNTER.NIBBITS_WEAK
+map_point_history[][].rooms[].monster_ids,list,[1 items]
+map_point_history[][].rooms[].monster_ids[],str,MONSTER.NIBBIT
+map_point_history[][].rooms[].room_type,str,monster
+map_point_history[][].rooms[].turns_taken,int,4
+modifiers,list,[0 items]
+platform_type,str,steam
+players,list,[1 items]
+players[],dict,{...}
+players[].character,str,CHARACTER.IRONCLAD
+players[].deck,list,[26 items]
+players[].deck[],dict,{...}
+players[].deck[].floor_added_to_deck,int,1
+players[].deck[].id,str,CARD.STRIKE_IRONCLAD
+players[].id,int,1
+players[].max_potion_slot_count,int,3
+players[].potions,list,[0 items]
+players[].relics,list,[10 items]
+players[].relics[],dict,{...}
+players[].relics[].floor_added_to_deck,int,1
+players[].relics[].id,str,RELIC.BURNING_BLOOD
+run_time,int,2803
+schema_version,int,8
+seed,str,UG5XJZ75Y5
+start_time,int,1772738139
+was_abandoned,bool,False
+win,bool,False
