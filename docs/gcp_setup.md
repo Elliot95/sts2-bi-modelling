@@ -110,3 +110,42 @@ new name), run the uploader manually once, then check:
 bq query --use_legacy_sql=false 'SELECT * FROM sts2.fact_run ORDER BY run_date DESC LIMIT 5'
 ```
 If Cloud Functions logs show an error, `gcloud functions logs read sts2-load-run --gen2` shows the traceback.
+
+## Troubleshooting
+
+A few errors are near-guaranteed the first time you run this on a fresh
+project — none of them mean anything is actually wrong, they're just gaps
+in what gets auto-configured:
+
+**`functions deploy` fails with an Eventarc/Cloud Run permission error**
+right after you've just enabled an API (e.g. `run.googleapis.com`) — IAM
+grants for a newly-enabled API's service agent can take a few minutes to
+propagate. Wait ~5 minutes and re-run the exact same deploy command.
+
+**`functions deploy` fails with `Failed to update storage bucket
+metadata`**, mentioning the Cloud Storage service agent can't publish to
+the Eventarc Pub/Sub topic — the GCS service agent isn't automatically
+granted `pubsub.publisher` on the project. Get your project number (`gcloud
+projects describe YOUR_PROJECT_ID --format="value(projectNumber)"`) and run:
+```
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member="serviceAccount:service-YOUR_PROJECT_NUMBER@gs-project-accounts.iam.gserviceaccount.com" \
+  --role="roles/pubsub.publisher"
+```
+Then retry the deploy.
+
+**The function deploys fine but fails at runtime (BigQuery/Storage
+permission errors in the logs)** — on projects created after ~mid-2024,
+the default compute service account no longer gets the broad `Editor`
+role automatically. Grant it what the function actually needs:
+```
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member="serviceAccount:YOUR_PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+  --role="roles/bigquery.dataEditor"
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member="serviceAccount:YOUR_PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+  --role="roles/bigquery.jobUser"
+gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
+  --member="serviceAccount:YOUR_PROJECT_NUMBER-compute@developer.gserviceaccount.com" \
+  --role="roles/storage.objectViewer"
+```

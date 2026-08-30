@@ -44,7 +44,8 @@ Power BI (dashboards)
 
 Setup guides: [`docs/gcp_setup.md`](docs/gcp_setup.md) for provisioning
 GCP, [`docs/powerbi_setup.md`](docs/powerbi_setup.md) for connecting and
-modelling in Power BI.
+modelling in Power BI. Current build status, deployed resource names, and
+issues hit along the way are tracked in [`docs/progress.md`](docs/progress.md).
 
 ---
 
