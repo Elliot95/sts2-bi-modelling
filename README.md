@@ -104,11 +104,17 @@ choices live in `sql/schema.sql`.
 
 ## 🚧 Current Scope
 
-* Focused on single-player analysis (multiplayer fields are captured
-  structurally — `player_id` throughout — but not exercised or tested)
+* Co-op runs are real and queryable — `player_id` (a genuine Steam64 ID
+  in multiplayer runs, confirmed against real data with up to 4 distinct
+  players in one run) is carried on every relevant fact table, so
+  teammates' decks/relics/floor state can be compared directly
+* `fact_run.character` only extracts `players[0]` — non-host players'
+  character choices aren't captured anywhere yet
 * `dim_card` / `dim_relic` hold IDs only; enriching with real card names,
   rarity, and character affiliation is future work
 * Modifiers/challenge-run data isn't modelled yet
+* Potions (`players[].potions` in the source JSON) aren't flattened into
+  any table yet
 
 ---
 
