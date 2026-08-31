@@ -20,7 +20,7 @@ The goal is to understand:
 
 ```
 Local .run files (game saves)
-        │  scripts/upload_to_gcs.py  (Task Scheduler, daily)
+        │  scripts/upload_to_gcs.py  (Task Scheduler, monthly)
         ▼
 GCS bucket (raw landing zone)
         │  cloud_function/  (triggered on new object)

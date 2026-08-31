@@ -16,7 +16,7 @@ land — it's the fastest way to answer "where did we leave off?"
 | Cloud Function deployed (GCS → BigQuery)      | ✅ Done        |
 | End-to-end test (1 real run, upload → BigQuery) | ✅ Verified — `fact_run` returned the correct row |
 | Bulk backfill of full local run history       | ✅ Done — 946/946 runs loaded, no duplicates |
-| Task Scheduler automation (daily upload)      | ⬜ Not yet set up |
+| Task Scheduler automation                     | ✅ Done — monthly, verified with a manual test run (0x0 success) |
 | Power BI connected to BigQuery                | ⬜ Not started |
 | Power BI report pages / dashboards            | ⬜ Not started |
 
@@ -27,6 +27,7 @@ land — it's the fastest way to answer "where did we leave off?"
 - **BigQuery dataset**: `sts2` (all 9 tables from `sql/schema.sql` created)
 - **Cloud Function**: `sts2-load-run` (2nd gen, Python 3.12, triggered on new objects in the bucket)
 - **Function service account**: default compute SA (`448620880316-compute@developer.gserviceaccount.com`), granted `roles/bigquery.dataEditor`, `roles/bigquery.jobUser`, `roles/storage.objectViewer`
+- **Task Scheduler task**: `STS2 Upload to GCS`, monthly trigger (day 1, 14:32), runs `scripts/upload_to_gcs.py` via the real Python interpreter path (not the Microsoft Store execution alias, which is unreliable under Task Scheduler) — `STS2_GCS_BUCKET` is set as a permanent user environment variable via `setx` rather than hardcoded in the script
 
 ## Verified end-to-end
 
@@ -103,10 +104,8 @@ scratch (a new environment, a second machine, etc.):
 
 ## Next steps
 
-1. Set up Task Scheduler for daily automatic uploads (`docs/gcp_setup.md`
-   step 9).
-2. Connect Power BI Desktop to BigQuery (`docs/powerbi_setup.md`), build
+1. Connect Power BI Desktop to BigQuery (`docs/powerbi_setup.md`), build
    the star schema relationships, and start on report pages.
-3. Consider extracting `players[1:]` character identity into `fact_run`
+2. Consider extracting `players[1:]` character identity into `fact_run`
    (or a new player-per-run table) now that real co-op data confirms
    it's worth modelling properly.
