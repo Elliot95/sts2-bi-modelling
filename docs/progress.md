@@ -15,7 +15,7 @@ land — it's the fastest way to answer "where did we leave off?"
 | `dim_date` seeded                             | ✅ Done (2024–2029) |
 | Cloud Function deployed (GCS → BigQuery)      | ✅ Done        |
 | End-to-end test (1 real run, upload → BigQuery) | ✅ Verified — `fact_run` returned the correct row |
-| Bulk backfill of full local run history       | ⬜ Not yet run |
+| Bulk backfill of full local run history       | ✅ Done — 946/946 runs loaded, no duplicates |
 | Task Scheduler automation (daily upload)      | ⬜ Not yet set up |
 | Power BI connected to BigQuery                | ⬜ Not started |
 | Power BI report pages / dashboards            | ⬜ Not started |
@@ -73,11 +73,40 @@ scratch (a new environment, a second machine, etc.):
    `roles/storage.objectViewer` to the function's service account before
    it could read from GCS or write to BigQuery.
 
+5. **Bulk backfill (946 files at once) hit BigQuery's 20-concurrent-DML
+   limit.** The delete-then-load idempotency pattern issues a `DELETE
+   ... WHERE run_id = @run_id` per fact table per run. That's fine for a
+   trickle of runs, but 946 files landing on GCS simultaneously let Cloud
+   Functions gen2 scale out well past 20 concurrent invocations, each
+   racing to DELETE against `fact_run` at once — BigQuery rejected the
+   excess with `Too many DML statements outstanding`, and since the
+   trigger's retry policy is do-not-retry, every failed invocation's run
+   was silently dropped (no automatic retry, no error surfaced except in
+   the function logs). Fixed by redeploying with `--max-instances=10`
+   (see `docs/gcp_setup.md`) to cap concurrency below the limit, clearing
+   the local upload manifest, and re-running the uploader — the
+   delete-then-load design makes re-processing already-successful runs a
+   safe no-op, so this recovered the dropped runs without any duplicates.
+   Final check: 946 total rows, 946 distinct `run_id`s in `fact_run`.
+
+## Findings from the backfilled data
+
+- **Multiplayer is real, not hypothetical.** The schema was designed
+  assuming `player_id` might support co-op some day; the actual history
+  contains genuine 4-player runs, with `player_id` populated as real
+  Steam64 IDs (not a small integer as the single sample file used during
+  schema design suggested). Every fact table carries `player_id`, so
+  teammates' decks/relics/floor state are already fully queryable.
+- **Gap this exposed**: `fact_run.character` only ever extracts
+  `players[0]` — non-host players' character choices aren't captured
+  anywhere. Worth fixing if co-op analysis becomes a priority.
+
 ## Next steps
 
-1. Bulk-upload the full local run history via `scripts/upload_to_gcs.py`
-   and confirm `fact_run` row count matches total run count.
-2. Set up Task Scheduler for daily automatic uploads (`docs/gcp_setup.md`
+1. Set up Task Scheduler for daily automatic uploads (`docs/gcp_setup.md`
    step 9).
-3. Connect Power BI Desktop to BigQuery (`docs/powerbi_setup.md`), build
+2. Connect Power BI Desktop to BigQuery (`docs/powerbi_setup.md`), build
    the star schema relationships, and start on report pages.
+3. Consider extracting `players[1:]` character identity into `fact_run`
+   (or a new player-per-run table) now that real co-op data confirms
+   it's worth modelling properly.

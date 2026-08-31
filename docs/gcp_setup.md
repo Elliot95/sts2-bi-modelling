@@ -73,7 +73,18 @@ gcloud functions deploy sts2-load-run \
   --source=cloud_function \
   --entry-point=load_run \
   --trigger-bucket=YOUR_BUCKET_NAME \
-  --set-env-vars=BQ_DATASET=sts2
+  --set-env-vars=BQ_DATASET=sts2 \
+  --max-instances=10
+```
+
+`--max-instances=10` matters more than it looks: BigQuery caps concurrent
+DML statements (the DELETE half of the delete-then-load pattern) against
+a single table at 20. A steady trickle of runs never gets close to that,
+but a bulk backfill — hundreds of files landing on GCS at once — lets
+Cloud Functions gen2 scale out past it by default, and every invocation
+past the limit fails outright (and does not retry, since the trigger's
+retry policy is do-not-retry). Capping instances makes Eventarc queue
+and drip-feed events instead.
 ```
 
 This grants the function's default service account access to the bucket
