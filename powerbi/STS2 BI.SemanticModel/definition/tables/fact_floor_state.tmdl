@@ -1,0 +1,163 @@
+table fact_floor_state
+	lineageTag: dbc49055-a27a-4fc2-b8ba-3f77c438bc7d
+
+	column run_id
+		dataType: int64
+		lineageTag: b91bab4f-ab7c-4e21-95a9-1865d70b3562
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: ccbbe091-86fc-4a66-8fc9-57e2c5e0ca28
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column act_index
+		dataType: int64
+		lineageTag: 6e62e05b-03a1-45df-91ce-f06d70d0696a
+		summarizeBy: none
+		sourceColumn: act_index
+
+		annotation SummarizationSetBy = Automatic
+
+	column map_point_index
+		dataType: int64
+		lineageTag: 6ad4ed97-b9b0-4daf-803d-b252418336b7
+		summarizeBy: none
+		sourceColumn: map_point_index
+
+		annotation SummarizationSetBy = Automatic
+
+	column floor_number
+		dataType: int64
+		lineageTag: b0534e68-cfef-4617-99d5-6b85c5498150
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column player_id
+		dataType: int64
+		lineageTag: 21f42a69-ef21-41aa-b73c-6a738001b2af
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column map_point_type
+		dataType: string
+		lineageTag: de857533-0eeb-46fb-9c79-8d7d6c29d149
+		summarizeBy: none
+		sourceColumn: map_point_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_hp
+		dataType: int64
+		lineageTag: 762440e5-3f9a-453d-ac9b-ef1351787a65
+		summarizeBy: none
+		sourceColumn: current_hp
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_hp
+		dataType: int64
+		lineageTag: abd965f2-27ed-42c0-ab41-a788ab67d499
+		summarizeBy: none
+		sourceColumn: max_hp
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_gold
+		dataType: int64
+		lineageTag: 0869008d-f530-4630-b4a8-fe4df3773045
+		summarizeBy: none
+		sourceColumn: current_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	column damage_taken
+		dataType: int64
+		lineageTag: bca8bf72-7d2d-460e-8e0f-36c98020560e
+		summarizeBy: none
+		sourceColumn: damage_taken
+
+		annotation SummarizationSetBy = Automatic
+
+	column hp_healed
+		dataType: int64
+		lineageTag: 8da41046-a5e1-42da-aa90-ac6d77644ffa
+		summarizeBy: none
+		sourceColumn: hp_healed
+
+		annotation SummarizationSetBy = Automatic
+
+	column gold_gained
+		dataType: int64
+		lineageTag: 8be2419d-e21e-41e2-a45f-51aca19b8da2
+		summarizeBy: none
+		sourceColumn: gold_gained
+
+		annotation SummarizationSetBy = Automatic
+
+	column gold_lost
+		dataType: int64
+		lineageTag: ef14b687-8715-4268-b179-6f286ee65648
+		summarizeBy: none
+		sourceColumn: gold_lost
+
+		annotation SummarizationSetBy = Automatic
+
+	column gold_spent
+		dataType: int64
+		lineageTag: 3eb67fc0-33a7-46f0-8ce5-bcf03da06da6
+		summarizeBy: none
+		sourceColumn: gold_spent
+
+		annotation SummarizationSetBy = Automatic
+
+	column gold_stolen
+		dataType: int64
+		lineageTag: 4d27b177-a77e-49a9-89b7-198432683626
+		summarizeBy: none
+		sourceColumn: gold_stolen
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_hp_gained
+		dataType: int64
+		lineageTag: 3897e2b1-6086-4891-a9eb-d7668bb04784
+		summarizeBy: none
+		sourceColumn: max_hp_gained
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_hp_lost
+		dataType: int64
+		lineageTag: 73cf1b19-145b-4204-a72c-a623be876ce3
+		summarizeBy: none
+		sourceColumn: max_hp_lost
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_floor_state = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
+				    fact_floor_state_Table = sts2_Schema{[Name="fact_floor_state",Kind="Table"]}[Data]
+				in
+				    fact_floor_state_Table
+
+	annotation PBI_ResultType = Table
+

@@ -74,23 +74,36 @@ gcloud functions deploy sts2-load-run \
   --entry-point=load_run \
   --trigger-bucket=YOUR_BUCKET_NAME \
   --set-env-vars=BQ_DATASET=sts2 \
-  --max-instances=10
+  --max-instances=1
 ```
 
-`--max-instances=10` matters more than it looks: BigQuery caps concurrent
-DML statements (the DELETE half of the delete-then-load pattern) against
-a single table at 20. A steady trickle of runs never gets close to that,
-but a bulk backfill — hundreds of files landing on GCS at once — lets
-Cloud Functions gen2 scale out past it by default, and every invocation
-past the limit fails outright (and does not retry, since the trigger's
-retry policy is do-not-retry). Capping instances makes Eventarc queue
-and drip-feed events instead.
-```
+The instance cap matters more than it looks, for two separate reasons:
+
+- **DML concurrency limit:** BigQuery caps concurrent DML statements (the
+  DELETE half of the delete-then-load pattern) against a single table at 20.
+  A bulk backfill — hundreds of files landing on GCS at once — lets Cloud
+  Functions gen2 scale out past that by default, and every invocation past
+  the limit fails outright (no retry: the trigger's retry policy is
+  do-not-retry). Capping instances makes Eventarc queue and drip-feed events.
+- **Dimension race (why it's 1, not 10):** see below.
 
 This grants the function's default service account access to the bucket
 automatically. If BigQuery writes fail with a permissions error, grant the
 function's service account the `roles/bigquery.dataEditor` and
 `roles/bigquery.jobUser` roles on the project.
+
+**Why `--max-instances=1`:** BigQuery has no row-level locking, so
+`_upsert_dimensions`'s `MERGE` (in `cloud_function/main.py`) isn't safe under
+concurrency — two instances processing different `.run` files at the same
+time can both read a new `card_id`/`relic_id` as "not yet in the table"
+before either commits, and both insert it, producing duplicate rows in
+`dim_card`/`dim_relic` (which then breaks Power BI's one-to-many
+relationships, since the "one" side must be unique). Capping the function to
+one instance serializes every invocation — a bulk upload of many `.run`
+files processes sequentially instead of in parallel, but at this project's
+volume (a personal run history, a handful of files per upload) that costs
+seconds, not minutes, and it's the simplest way to make the dimension
+upserts actually safe.
 
 ## 8. Point the local uploader at your resources
 

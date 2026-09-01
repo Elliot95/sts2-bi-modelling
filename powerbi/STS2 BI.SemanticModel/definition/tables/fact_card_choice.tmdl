@@ -1,0 +1,81 @@
+table fact_card_choice
+	lineageTag: 7ba9a0b4-9e27-4b9c-b1b3-34c9c9fe8561
+
+	measure 'Card Pick Rate' = DIVIDE(CALCULATE(COUNTROWS(fact_card_choice), fact_card_choice[was_picked] = TRUE), COUNTROWS(fact_card_choice))
+		lineageTag: 16161f53-eb7b-4f3f-bdd7-3edd6ac55277
+
+	measure 'Win Rate When Picked' = CALCULATE([Win Rate], TREATAS(CALCULATETABLE(VALUES(fact_card_choice[run_id]), fact_card_choice[was_picked] = TRUE), fact_run[run_id]))
+		lineageTag: 49bfa295-db65-47ce-b394-68a86293475c
+
+	column run_id
+		dataType: int64
+		lineageTag: daeedec8-9df3-422f-88a3-1be123d8fd1f
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 68acd053-5839-47ba-aa80-18fd9e620a1b
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column floor_number
+		dataType: int64
+		lineageTag: dafe454f-8b84-40fb-9917-59a0abacd48d
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column player_id
+		dataType: int64
+		lineageTag: 2d864791-8768-4d00-ae7a-7a0663822c9c
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_id
+		dataType: string
+		lineageTag: 246713fe-6f84-4e07-8884-a64e8f7eb6ad
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column floor_added_to_deck
+		dataType: int64
+		lineageTag: a5a23e28-2f90-44fb-a8b5-120eea648e2a
+		summarizeBy: none
+		sourceColumn: floor_added_to_deck
+
+		annotation SummarizationSetBy = Automatic
+
+	column was_picked
+		dataType: boolean
+		lineageTag: 8997a308-4eb7-49cc-ad27-51eb3b57eea0
+		summarizeBy: none
+		sourceColumn: was_picked
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_card_choice = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
+				    fact_card_choice_Table = sts2_Schema{[Name="fact_card_choice",Kind="Table"]}[Data]
+				in
+				    fact_card_choice_Table
+
+	annotation PBI_ResultType = Table
+

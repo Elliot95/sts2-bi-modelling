@@ -1,0 +1,43 @@
+table dim_relic
+	lineageTag: 18464174-6755-4d32-b79b-fc28424d7bda
+
+	column relic_id
+		dataType: string
+		lineageTag: eaf7f95e-2b78-4ecc-b765-708dd21610ee
+		summarizeBy: none
+		sourceColumn: relic_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_seen_run_id
+		dataType: int64
+		lineageTag: b0e98f4e-a3e7-4e87-be0f-1e1c6b2e0815
+		summarizeBy: none
+		sourceColumn: first_seen_run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_seen_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 49888dff-ed48-4dfb-a74f-fcf72903aa11
+		summarizeBy: none
+		sourceColumn: first_seen_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_relic = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
+				    dim_relic_Table = sts2_Schema{[Name="dim_relic",Kind="Table"]}[Data]
+				in
+				    dim_relic_Table
+
+	annotation PBI_ResultType = Table
+

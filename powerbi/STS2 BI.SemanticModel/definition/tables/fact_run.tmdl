@@ -1,0 +1,148 @@
+table fact_run
+	lineageTag: 794f3c83-1115-402b-aeb8-48e725efe6f3
+
+	measure 'Total Runs' = COUNTROWS(fact_run)
+		lineageTag: a3772e57-d4b0-4830-aae0-494012b2321a
+
+	measure 'Win Rate' = DIVIDE(CALCULATE(COUNTROWS(fact_run), fact_run[win] = TRUE), [Total Runs])
+		lineageTag: 85bfd250-4418-4325-98e3-ba34ae498c11
+
+	measure 'Avg Floors Reached' = AVERAGE(fact_run[acts_completed])
+		lineageTag: 19ed7312-1e91-4c64-a174-e67a63b558ad
+
+	column run_id
+		dataType: int64
+		lineageTag: c01209be-5283-4b0a-a5c2-65cdf1ebd9b1
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 6d263613-2c19-4f7b-b5d9-d9ab6e8d2f47
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column seed
+		dataType: string
+		lineageTag: 28f9e578-2966-4b43-b150-7b7de416952c
+		summarizeBy: none
+		sourceColumn: seed
+
+		annotation SummarizationSetBy = Automatic
+
+	column build_id
+		dataType: string
+		lineageTag: ff5019c3-648a-4270-af3c-8915653b571e
+		summarizeBy: none
+		sourceColumn: build_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column game_mode
+		dataType: string
+		lineageTag: 5e751ec3-317b-4f30-8e28-9ae41f2520da
+		summarizeBy: none
+		sourceColumn: game_mode
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform_type
+		dataType: string
+		lineageTag: e2984018-0c29-4b95-9d0e-a643397b8329
+		summarizeBy: none
+		sourceColumn: platform_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column ascension
+		dataType: int64
+		lineageTag: 4454c129-484b-4efe-a812-a05dc27338e2
+		summarizeBy: none
+		sourceColumn: ascension
+
+		annotation SummarizationSetBy = Automatic
+
+	column character
+		dataType: string
+		lineageTag: fb020688-0562-4ee6-b49a-ccf7c9a0763a
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = Automatic
+
+	column acts_completed
+		dataType: int64
+		lineageTag: 4064bc5e-7445-47cb-89f4-619376934e59
+		summarizeBy: none
+		sourceColumn: acts_completed
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_time_seconds
+		dataType: int64
+		lineageTag: 5faca20b-5e01-435c-abc5-b6a85e787e22
+		summarizeBy: none
+		sourceColumn: run_time_seconds
+
+		annotation SummarizationSetBy = Automatic
+
+	column killed_by_encounter
+		dataType: string
+		lineageTag: 11b2fdce-8080-40cc-9291-7325c5f9c6de
+		summarizeBy: none
+		sourceColumn: killed_by_encounter
+
+		annotation SummarizationSetBy = Automatic
+
+	column killed_by_event
+		dataType: string
+		lineageTag: 2ef0f9f7-735e-4ddd-a858-535ca49ed595
+		summarizeBy: none
+		sourceColumn: killed_by_event
+
+		annotation SummarizationSetBy = Automatic
+
+	column was_abandoned
+		dataType: boolean
+		lineageTag: 813a2f4a-1c6d-4161-91a4-b9439309787b
+		summarizeBy: none
+		sourceColumn: was_abandoned
+
+		annotation SummarizationSetBy = Automatic
+
+	column win
+		dataType: boolean
+		lineageTag: 9c9f3542-9e17-4918-abaf-0fc74ee1348f
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = Automatic
+
+	column schema_version
+		dataType: int64
+		lineageTag: 7831d136-fe9d-42c6-ad90-d8e5e056456c
+		summarizeBy: none
+		sourceColumn: schema_version
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_run = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
+				    fact_run_Table = sts2_Schema{[Name="fact_run",Kind="Table"]}[Data]
+				in
+				    fact_run_Table
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,59 @@
+table fact_cards_gained
+	lineageTag: 122d563b-b323-483f-b8e2-c3b7a1a3006b
+
+	column run_id
+		dataType: int64
+		lineageTag: 716442bc-db81-4ce4-9ec7-e084d6d2b2b8
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 950710bf-a4be-4874-bdc1-9632511cd3ac
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column floor_number
+		dataType: int64
+		lineageTag: 255acfee-f0a4-485b-b0c2-672f3e41b761
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column player_id
+		dataType: int64
+		lineageTag: 5b9bde94-8a00-4127-984c-c65cb0dadce5
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column card_id
+		dataType: string
+		lineageTag: 40027dff-aef6-4f1c-b517-c484724c72da
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_cards_gained = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
+				    fact_cards_gained_Table = sts2_Schema{[Name="fact_cards_gained",Kind="Table"]}[Data]
+				in
+				    fact_cards_gained_Table
+
+	annotation PBI_ResultType = Table
+
