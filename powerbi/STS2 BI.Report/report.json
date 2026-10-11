@@ -1,5 +1,5 @@
 {
-  "config": "{\"version\":\"5.68\",\"themeCollection\":{\"customTheme\":{\"name\":\"STS2_Run_Analytics23347947627715482.json\",\"version\":{\"visual\":\"2.13.0\",\"report\":\"3.4.0\",\"page\":\"2.3.1\"},\"type\":1}},\"activeSectionIndex\":2,\"linguisticSchemaSyncVersion\":2}",
+  "config": "{\"version\":\"5.68\",\"themeCollection\":{\"customTheme\":{\"name\":\"STS2_Run_Analytics23347947627715482.json\",\"version\":{\"visual\":\"2.13.0\",\"report\":\"3.4.0\",\"page\":\"2.3.1\"},\"type\":1}},\"activeSectionIndex\":0,\"linguisticSchemaSyncVersion\":2}",
   "filters": "[]",
   "layoutOptimization": 0,
   "report": {},
@@ -22,49 +22,247 @@
   "sections": [
     {
       "config": "{}",
+      "displayName": "Where runs end",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1080.0,
+      "name": "e7aac8cb8caf9f13ccc8",
+      "ordinal": 0,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"33ed12d03b55726cd46a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":282,\"z\":1000,\"width\":928,\"height\":774,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_run.killed_by_encounter_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"dim_run.Losses\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"killed_by_encounter_name\"},\"Name\":\"dim_run.killed_by_encounter_name\",\"NativeReferenceName\":\"killed_by_encounter_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"},\"Name\":\"dim_run.Losses\",\"NativeReferenceName\":\"Losses\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"}}}]},\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Losses by the encounter that ended the run'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 774,
+          "width": 928,
+          "x": 24,
+          "y": 282,
+          "z": 1000.0
+        },
+        {
+          "config": "{\"name\":\"7f2fb0b51487fab00416\",\"layouts\":[{\"id\":0,\"position\":{\"x\":968,\"y\":282,\"width\":928,\"height\":774,\"z\":2000,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"fct_floor_state.floor_number\",\"active\":true}],\"Y\":[{\"queryRef\":\"fct_floor_state.Avg HP\"}],\"Series\":[{\"queryRef\":\"dim_run.outcome\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_floor_state\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"floor_number\"},\"Name\":\"fct_floor_state.floor_number\",\"NativeReferenceName\":\"floor_number\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"},\"Name\":\"fct_floor_state.Avg HP\",\"NativeReferenceName\":\"Avg HP\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"outcome\"},\"Name\":\"dim_run.outcome\",\"NativeReferenceName\":\"outcome\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"}}}]},\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Average HP by floor: won vs lost vs abandoned'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 774,
+          "width": 928,
+          "x": 968,
+          "y": 282,
+          "z": 2000.0
+        },
+        {
+          "config": "{\"name\":\"f1366cf510af737446d9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":116,\"z\":0,\"width\":1872,\"height\":150,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"dim_run.Total Runs\"},{\"queryRef\":\"dim_run.Win Rate\"},{\"queryRef\":\"dim_run.Win Rate (Completed)\"},{\"queryRef\":\"dim_run.Avg Floors Reached\"},{\"queryRef\":\"dim_run.Avg Death Floor\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"},\"Name\":\"dim_run.Total Runs\",\"NativeReferenceName\":\"Total Runs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate\"},\"Name\":\"dim_run.Win Rate\",\"NativeReferenceName\":\"Win Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Floors Reached\"},\"Name\":\"dim_run.Avg Floors Reached\",\"NativeReferenceName\":\"Avg Floors Reached\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Death Floor\"},\"Name\":\"dim_run.Avg Death Floor\",\"NativeReferenceName\":\"Avg Death Floor\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"}}}]},\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 150,
+          "width": 1872,
+          "x": 24,
+          "y": 116,
+          "z": 0.0
+        },
+        {
+          "config": "{\"name\":\"ee89ae8916aaab263bcb\",\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Where runs end\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"20pt\",\"color\":\"#111827\"}}]},{\"textRuns\":[{\"value\":\"Which encounters end runs, and how HP tracks floor by floor for won, lost and abandoned runs.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#6b7280\"}}]}]}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":1240,\"height\":76,\"tabOrder\":0}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 1240,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"4441353c6e3f0e76c584\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.play_mode\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Mode'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1280,\"y\":24,\"z\":2000,\"width\":300,\"height\":76,\"tabOrder\":2000}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1280,
+          "y": 24,
+          "z": 2000
+        },
+        {
+          "config": "{\"name\":\"3de596f52087871a9e7d\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Character'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1596,\"y\":24,\"z\":2001,\"width\":300,\"height\":76,\"tabOrder\":2001}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1596,
+          "y": 24,
+          "z": 2001
+        }
+      ],
+      "width": 1920.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Solo vs Multiplayer",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1080.0,
+      "name": "a547fd23de14e40362ab",
+      "ordinal": 1,
+      "width": 1920.0,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"bcf8980834ad74fedea2\",\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Solo vs Multiplayer\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"20pt\",\"color\":\"#111827\"}}]},{\"textRuns\":[{\"value\":\"Does playing with others change how far runs get? Multiplayer = 2-4 players.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#6b7280\"}}]}]}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":1556,\"height\":76,\"tabOrder\":0}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 1556,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"db49dbc4391ba67b1281\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Character'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1596,\"y\":24,\"z\":2000,\"width\":300,\"height\":76,\"tabOrder\":2000}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1596,
+          "y": 24,
+          "z": 2000
+        },
+        {
+          "config": "{\"name\":\"4be06fa5460168dcab78\",\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.play_mode\"},{\"queryRef\":\"dim_run.Total Runs\"},{\"queryRef\":\"dim_run.Win Rate\"},{\"queryRef\":\"dim_run.Win Rate (Completed)\"},{\"queryRef\":\"dim_run.Avg Floors Reached\"},{\"queryRef\":\"dim_run.Avg Death Floor\"},{\"queryRef\":\"dim_run.Abandoned Runs\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Total Runs\"},\"Name\":\"dim_run.Total Runs\",\"NativeReferenceName\":\"Total Runs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Win Rate\"},\"Name\":\"dim_run.Win Rate\",\"NativeReferenceName\":\"Win Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Avg Floors Reached\"},\"Name\":\"dim_run.Avg Floors Reached\",\"NativeReferenceName\":\"Avg Floors Reached\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Avg Death Floor\"},\"Name\":\"dim_run.Avg Death Floor\",\"NativeReferenceName\":\"Avg Death Floor\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Abandoned Runs\"},\"Name\":\"dim_run.Abandoned Runs\",\"NativeReferenceName\":\"Abandoned Runs\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"values\":[{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_run\"}},\"Property\":\"Win Rate Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"dim_run.Win Rate (Completed)\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_run\"}},\"Property\":\"Win Rate Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"dim_run.Win Rate\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_run\"}},\"Property\":\"Floors Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"dim_run.Avg Floors Reached\"}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Solo vs multiplayer at a glance (green = better than all runs, red = worse)'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":116,\"z\":1000,\"width\":1872,\"height\":170,\"tabOrder\":1000}}]}",
+          "filters": "[]",
+          "height": 170,
+          "width": 1872,
+          "x": 24,
+          "y": 116,
+          "z": 1000
+        },
+        {
+          "config": "{\"name\":\"fab18686072650330da4\",\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_run.party_size\"}],\"Y\":[{\"queryRef\":\"dim_run.Win Rate (Completed)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"party_size\"},\"Name\":\"dim_run.party_size\",\"NativeReferenceName\":\"party_size\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Win rate (completed runs) by party size'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":302,\"z\":1001,\"width\":928,\"height\":360,\"tabOrder\":1001}}]}",
+          "filters": "[]",
+          "height": 360,
+          "width": 928,
+          "x": 24,
+          "y": 302,
+          "z": 1001
+        },
+        {
+          "config": "{\"name\":\"f72976f9231c2b41aeaa\",\"singleVisual\":{\"visualType\":\"clusteredColumnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_run.character_name\"}],\"Series\":[{\"queryRef\":\"dim_run.play_mode\"}],\"Y\":[{\"queryRef\":\"dim_run.Win Rate (Completed)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Win rate (completed runs) by character: solo vs multiplayer'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":968,\"y\":302,\"z\":1002,\"width\":928,\"height\":360,\"tabOrder\":1002}}]}",
+          "filters": "[]",
+          "height": 360,
+          "width": 928,
+          "x": 968,
+          "y": 302,
+          "z": 1002
+        },
+        {
+          "config": "{\"name\":\"08ed88de1695be01fc30\",\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"fct_floor_state.floor_number\"}],\"Series\":[{\"queryRef\":\"dim_run.play_mode\"}],\"Y\":[{\"queryRef\":\"fct_floor_state.Avg HP\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"fct_floor_state\",\"Type\":0},{\"Name\":\"t1\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"floor_number\"},\"Name\":\"fct_floor_state.floor_number\",\"NativeReferenceName\":\"floor_number\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t1\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"Avg HP\"},\"Name\":\"fct_floor_state.Avg HP\",\"NativeReferenceName\":\"Avg HP\"}]},\"drillFilterOtherVisuals\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Average HP by floor: solo vs multiplayer'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":678,\"z\":1003,\"width\":1872,\"height\":378,\"tabOrder\":1003}}]}",
+          "filters": "[]",
+          "height": 378,
+          "width": 1872,
+          "x": 24,
+          "y": 678,
+          "z": 1003
+        }
+      ]
+    },
+    {
+      "config": "{}",
       "displayName": "Cards",
       "displayOption": 1,
       "filters": "[]",
-      "height": 1080.00,
+      "height": 1080.0,
       "name": "0c2691c713d3944540a6",
       "ordinal": 2,
       "visualContainers": [
         {
-          "config": "{\"name\":\"301272e2448dfe4b4cff\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1490.0613496932515,\"y\":19.631901840490798,\"z\":1000,\"width\":429.93865030674846,\"height\":168.83435582822085,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.is_multiplayer\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"is_multiplayer\"},\"Name\":\"dim_run.is_multiplayer\",\"NativeReferenceName\":\"is_multiplayer\"}]},\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}]}}}",
-          "filters": "[]",
-          "height": 168.83,
-          "width": 429.94,
-          "x": 1490.06,
-          "y": 19.63,
-          "z": 1000.00
-        },
-        {
-          "config": "{\"name\":\"606ab9681c8f11ddb7b4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":801.963190184049,\"y\":28.466257668711656,\"z\":0,\"width\":661.5950920245399,\"height\":1039.5092024539877,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_card.card_name\"},{\"queryRef\":\"fct_card_run.Pick Win Delta\"},{\"queryRef\":\"fct_card_run.Runs Offered\"},{\"queryRef\":\"fct_card_run.Runs Picked\"},{\"queryRef\":\"fct_card_run.Runs Skipped\"},{\"queryRef\":\"fct_card_run.Win Rate Picked\"},{\"queryRef\":\"fct_card_run.Win Rate Skipped\"},{\"queryRef\":\"fct_card_run.Run Pick Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_card\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"fct_card_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"card_name\"},\"Name\":\"dim_card.card_name\",\"NativeReferenceName\":\"card_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Pick Win Delta\"},\"Name\":\"fct_card_run.Pick Win Delta\",\"NativeReferenceName\":\"Pick Win Delta\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Offered\"},\"Name\":\"fct_card_run.Runs Offered\",\"NativeReferenceName\":\"Runs Offered\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Picked\"},\"Name\":\"fct_card_run.Runs Picked\",\"NativeReferenceName\":\"Runs Picked\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Skipped\"},\"Name\":\"fct_card_run.Runs Skipped\",\"NativeReferenceName\":\"Runs Skipped\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate Picked\"},\"Name\":\"fct_card_run.Win Rate Picked\",\"NativeReferenceName\":\"Win Rate Picked\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate Skipped\"},\"Name\":\"fct_card_run.Win Rate Skipped\",\"NativeReferenceName\":\"Win Rate Skipped\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Run Pick Rate\"},\"Name\":\"fct_card_run.Run Pick Rate\",\"NativeReferenceName\":\"Run Pick Rate\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Picked\"}}}]},\"objects\":{\"values\":[{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"dim_card.card_name\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Pick Win Delta\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Offered\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Picked\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Skipped\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Picked\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Skipped\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Run Pick Rate\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Delta Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Pick Win Delta\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Picked Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Picked\"}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Card picks: win rate when picked vs skipped (min. 15 runs each) - rows tinted by card''s character'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "config": "{\"name\":\"606ab9681c8f11ddb7b4\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":116,\"z\":0,\"width\":1300,\"height\":940,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_card.card_name\"},{\"queryRef\":\"fct_card_run.Pick Win Delta\"},{\"queryRef\":\"fct_card_run.Runs Offered\"},{\"queryRef\":\"fct_card_run.Runs Picked\"},{\"queryRef\":\"fct_card_run.Runs Skipped\"},{\"queryRef\":\"fct_card_run.Win Rate Picked\"},{\"queryRef\":\"fct_card_run.Win Rate Skipped\"},{\"queryRef\":\"fct_card_run.Run Pick Rate\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_card\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"fct_card_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"card_name\"},\"Name\":\"dim_card.card_name\",\"NativeReferenceName\":\"card_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Pick Win Delta\"},\"Name\":\"fct_card_run.Pick Win Delta\",\"NativeReferenceName\":\"Pick Win Delta\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Offered\"},\"Name\":\"fct_card_run.Runs Offered\",\"NativeReferenceName\":\"Runs Offered\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Picked\"},\"Name\":\"fct_card_run.Runs Picked\",\"NativeReferenceName\":\"Runs Picked\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Skipped\"},\"Name\":\"fct_card_run.Runs Skipped\",\"NativeReferenceName\":\"Runs Skipped\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate Picked\"},\"Name\":\"fct_card_run.Win Rate Picked\",\"NativeReferenceName\":\"Win Rate Picked\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate Skipped\"},\"Name\":\"fct_card_run.Win Rate Skipped\",\"NativeReferenceName\":\"Win Rate Skipped\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Run Pick Rate\"},\"Name\":\"fct_card_run.Run Pick Rate\",\"NativeReferenceName\":\"Run Pick Rate\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Picked\"}}}]},\"objects\":{\"values\":[{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"dim_card.card_name\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Pick Win Delta\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Offered\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Picked\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Runs Skipped\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Picked\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Skipped\"}},{\"properties\":{\"backColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_card\"}},\"Property\":\"Card Row Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Run Pick Rate\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Delta Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Pick Win Delta\"}},{\"properties\":{\"fontColor\":{\"solid\":{\"color\":{\"expr\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Picked Font Color\"}}}}}},\"selector\":{\"data\":[{\"dataViewWildcard\":{\"matchingOption\":1}}],\"metadata\":\"fct_card_run.Win Rate Picked\"}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Card picks: win rate when picked vs skipped (min. 15 runs each) - rows tinted by card''s character'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
           "filters": "[{\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Runs Picked\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_card_run\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Picked\"}},\"Right\":{\"Literal\":{\"Value\":\"15L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":false},{\"expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"fct_card_run\"}},\"Property\":\"Runs Skipped\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_card_run\",\"Type\":0}],\"Where\":[{\"Condition\":{\"Comparison\":{\"ComparisonKind\":2,\"Left\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Runs Skipped\"}},\"Right\":{\"Literal\":{\"Value\":\"15L\"}}}}}]},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":false}]",
-          "height": 1039.51,
-          "width": 661.60,
-          "x": 801.96,
-          "y": 28.47,
-          "z": 0.00
+          "height": 940,
+          "width": 1300,
+          "x": 24,
+          "y": 116,
+          "z": 0.0
         },
         {
-          "config": "{\"name\":\"7c57039d00c48d801381\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1490.0613496932515,\"y\":189.4478527607362,\"z\":2000,\"width\":429.93865030674846,\"height\":155.0920245398773,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"character_name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Necrobinder'\"}}]]}}}]}}}}]}}}",
+          "config": "{\"name\":\"40a31f41e72a2c5ff751\",\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Card picks\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"20pt\",\"color\":\"#111827\"}}]},{\"textRuns\":[{\"value\":\"Do runs where you picked a card go better than runs where it was offered and skipped?\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#6b7280\"}}]}]}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":1240,\"height\":76,\"tabOrder\":0}}]}",
           "filters": "[]",
-          "height": 155.09,
-          "width": 429.94,
-          "x": 1490.06,
-          "y": 189.45,
-          "z": 2000.00
+          "height": 76,
+          "width": 1240,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"03b6e945f394d8ef606d\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.play_mode\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Mode'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1280,\"y\":24,\"z\":2000,\"width\":300,\"height\":76,\"tabOrder\":2000}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1280,
+          "y": 24,
+          "z": 2000
+        },
+        {
+          "config": "{\"name\":\"c8c6599b3319b1472797\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Character'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1596,\"y\":24,\"z\":2001,\"width\":300,\"height\":76,\"tabOrder\":2001}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1596,
+          "y": 24,
+          "z": 2001
+        },
+        {
+          "config": "{\"name\":\"48e46f7d87332193bb05\",\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"How to read this\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#111827\",\"fontWeight\":\"bold\"}}]},{\"textRuns\":[{\"value\":\"Each row is a card. 'Picked' runs took the card when it was offered; 'skipped' runs saw it and passed. Both groups reached the offer, so the comparison avoids the survivorship bias of comparing against the overall win rate.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#374151\"}}]},{\"textRuns\":[{\"value\":\"Pick Win Delta = win rate picked - win rate skipped. \",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#111827\",\"fontWeight\":\"bold\"}},{\"value\":\"Green means runs did better when you took it; red means worse.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#374151\"}}]},{\"textRuns\":[{\"value\":\"Rows are tinted by the card's character (Ironclad red, Silent green, Defect blue, Necrobinder purple, Regent gold, colorless grey).\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#374151\"}}]},{\"textRuns\":[{\"value\":\"Only cards picked AND skipped in at least 15 runs are shown. Correlation, not causation: you pick cards when your deck already suits them.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#6b7280\"}}]}]}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1340,\"y\":116,\"z\":3000,\"width\":556,\"height\":420,\"tabOrder\":3000}}]}",
+          "filters": "[]",
+          "height": 420,
+          "width": 556,
+          "x": 1340,
+          "y": 116,
+          "z": 3000
         }
       ],
-      "width": 1920.00
+      "width": 1920.0
+    },
+    {
+      "config": "{}",
+      "displayName": "Explore",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1080.0,
+      "name": "50ea5c92886562467edf",
+      "ordinal": 3,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"2b0b29caf8d3582cb8f2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":116,\"z\":0,\"width\":1872,\"height\":940,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.run_date\"},{\"queryRef\":\"dim_run.character_name\"},{\"queryRef\":\"dim_run.ascension\"},{\"queryRef\":\"dim_run.game_mode\"},{\"queryRef\":\"dim_run.acts_completed\"},{\"queryRef\":\"dim_run.win\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"run_date\"},\"Name\":\"dim_run.run_date\",\"NativeReferenceName\":\"run_date\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"ascension\"},\"Name\":\"dim_run.ascension\",\"NativeReferenceName\":\"ascension\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"game_mode\"},\"Name\":\"dim_run.game_mode\",\"NativeReferenceName\":\"game_mode\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"acts_completed\"},\"Name\":\"dim_run.acts_completed\",\"NativeReferenceName\":\"acts_completed\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"win\"},\"Name\":\"dim_run.win\",\"NativeReferenceName\":\"win\"}]}}}",
+          "filters": "[]",
+          "height": 940,
+          "width": 1872,
+          "x": 24,
+          "y": 116,
+          "z": 0.0
+        },
+        {
+          "config": "{\"name\":\"9a1bb288865f6832ef28\",\"singleVisual\":{\"visualType\":\"textbox\",\"drillFilterOtherVisuals\":true,\"objects\":{\"general\":[{\"properties\":{\"paragraphs\":[{\"textRuns\":[{\"value\":\"Explore\",\"textStyle\":{\"fontWeight\":\"bold\",\"fontSize\":\"20pt\",\"color\":\"#111827\"}}]},{\"textRuns\":[{\"value\":\"Every run, one row each. Sort or filter any column.\",\"textStyle\":{\"fontSize\":\"11pt\",\"color\":\"#6b7280\"}}]}]}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":24,\"y\":24,\"z\":0,\"width\":1240,\"height\":76,\"tabOrder\":0}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 1240,
+          "x": 24,
+          "y": 24,
+          "z": 0
+        },
+        {
+          "config": "{\"name\":\"957efd0fd2cff7f360e0\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.play_mode\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"play_mode\"},\"Name\":\"dim_run.play_mode\",\"NativeReferenceName\":\"play_mode\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Mode'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1280,\"y\":24,\"z\":2000,\"width\":300,\"height\":76,\"tabOrder\":2000}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1280,
+          "y": 24,
+          "z": 2000
+        },
+        {
+          "config": "{\"name\":\"d6a1f27072c9ebf63c66\",\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"t0\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"t0\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Dropdown'\"}}}}}],\"header\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]},\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Character'\"}}}}}]}},\"layouts\":[{\"id\":0,\"position\":{\"x\":1596,\"y\":24,\"z\":2001,\"width\":300,\"height\":76,\"tabOrder\":2001}}]}",
+          "filters": "[]",
+          "height": 76,
+          "width": 300,
+          "x": 1596,
+          "y": 24,
+          "z": 2001
+        }
+      ],
+      "width": 1920.0
     },
     {
       "config": "{}",
       "displayName": "Duplicate of Where runs end",
       "displayOption": 1,
       "filters": "[]",
-      "height": 1080.00,
+      "height": 1080.0,
       "name": "179d45bf5cb07d66e945",
       "ordinal": 4,
       "visualContainers": [
@@ -75,16 +273,16 @@
           "width": 231.72,
           "x": 141.72,
           "y": 55.86,
-          "z": 3000.00
+          "z": 3000.0
         },
         {
           "config": "{\"name\":\"a7d15f36ed0bdd77a781\",\"layouts\":[{\"id\":0,\"position\":{\"x\":946.551724137931,\"y\":268.9655172413793,\"z\":2000,\"width\":956.8965517241379,\"height\":797.5862068965517,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"fct_floor_state.floor_number\",\"active\":true}],\"Y\":[{\"queryRef\":\"fct_floor_state.Avg HP\"}],\"Series\":[{\"queryRef\":\"dim_run.outcome\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_floor_state\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"floor_number\"},\"Name\":\"fct_floor_state.floor_number\",\"NativeReferenceName\":\"floor_number\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"},\"Name\":\"fct_floor_state.Avg HP\",\"NativeReferenceName\":\"Avg HP\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"outcome\"},\"Name\":\"dim_run.outcome\",\"NativeReferenceName\":\"outcome\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"}}}]},\"hasDefaultSort\":true}}",
           "filters": "[]",
           "height": 797.59,
-          "width": 956.90,
+          "width": 956.9,
           "x": 946.55,
           "y": 268.97,
-          "z": 2000.00
+          "z": 2000.0
         },
         {
           "config": "{\"name\":\"c8de6fb62eefea45e5bc\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.815950920245399,\"y\":268.95705521472394,\"z\":1000,\"width\":937.4233128834355,\"height\":798.0368098159508,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_run.killed_by_encounter_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"dim_run.Losses\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"killed_by_encounter_name\"},\"Name\":\"dim_run.killed_by_encounter_name\",\"NativeReferenceName\":\"killed_by_encounter_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"},\"Name\":\"dim_run.Losses\",\"NativeReferenceName\":\"Losses\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"}}}]},\"hasDefaultSort\":true}}",
@@ -93,26 +291,26 @@
           "width": 937.42,
           "x": 9.82,
           "y": 268.96,
-          "z": 1000.00
+          "z": 1000.0
         },
         {
           "config": "{\"name\":\"ef1c6dfa65a54fd2e7a6\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.815950920245399,\"y\":19.631901840490798,\"z\":0,\"width\":1893.4969325153374,\"height\":176.68711656441718,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"dim_run.Total Runs\"},{\"queryRef\":\"dim_run.Win Rate\"},{\"queryRef\":\"dim_run.Win Rate (Completed)\"},{\"queryRef\":\"dim_run.Avg Floors Reached\"},{\"queryRef\":\"dim_run.Avg Death Floor\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"},\"Name\":\"dim_run.Total Runs\",\"NativeReferenceName\":\"Total Runs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate\"},\"Name\":\"dim_run.Win Rate\",\"NativeReferenceName\":\"Win Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Floors Reached\"},\"Name\":\"dim_run.Avg Floors Reached\",\"NativeReferenceName\":\"Avg Floors Reached\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Death Floor\"},\"Name\":\"dim_run.Avg Death Floor\",\"NativeReferenceName\":\"Avg Death Floor\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"}}}]},\"hasDefaultSort\":true}}",
           "filters": "[]",
           "height": 176.69,
-          "width": 1893.50,
+          "width": 1893.5,
           "x": 9.82,
           "y": 19.63,
-          "z": 0.00
+          "z": 0.0
         }
       ],
-      "width": 1920.00
+      "width": 1920.0
     },
     {
       "config": "{\"objects\":{\"outspacePane\":[{\"properties\":{\"width\":{\"expr\":{\"Literal\":{\"Value\":\"191L\"}}}}}]}}",
       "displayName": "Totals",
       "displayOption": 1,
       "filters": "[]",
-      "height": 1080.00,
+      "height": 1080.0,
       "name": "4ad991eeae6013e4aac4",
       "visualContainers": [
         {
@@ -120,18 +318,18 @@
           "filters": "[]",
           "height": 361.66,
           "width": 69.14,
-          "x": 0.00,
+          "x": 0.0,
           "y": 293.58,
-          "z": 2000.00
+          "z": 2000.0
         },
         {
           "config": "{\"name\":\"193269558adb2d719f31\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":0,\"z\":4000,\"width\":161.6842105263158,\"height\":93.60664819944598,\"tabOrder\":4000}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"dim_run.Total Runs\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Total Runs\"},\"Name\":\"dim_run.Total Runs\",\"NativeReferenceName\":\"Total Runs\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Total Runs\"}}}]},\"hasDefaultSort\":true}}",
           "filters": "[]",
           "height": 93.61,
           "width": 161.68,
-          "x": 0.00,
-          "y": 0.00,
-          "z": 4000.00
+          "x": 0.0,
+          "y": 0.0,
+          "z": 4000.0
         },
         {
           "config": "{\"name\":\"1f3d93e4d04c22efb427\",\"layouts\":[{\"id\":0,\"position\":{\"x\":795.6565096952909,\"y\":604.1883656509696,\"z\":0,\"width\":1124.3434903047091,\"height\":475.47922437673134,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"fct_card_choice.Win Rate When Picked\"},{\"queryRef\":\"fct_card_choice.Card Pick Rate\"}],\"Rows\":[{\"queryRef\":\"dim_card.card_name\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_card_choice\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_card\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate When Picked\"},\"Name\":\"fct_card_choice.Win Rate When Picked\",\"NativeReferenceName\":\"Win Rate When Picked\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Card Pick Rate\"},\"Name\":\"fct_card_choice.Card Pick Rate\",\"NativeReferenceName\":\"Card Pick Rate\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"card_name\"},\"Name\":\"dim_card.card_name\",\"NativeReferenceName\":\"card_name\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Win Rate When Picked\"}}}]},\"hasDefaultSort\":true,\"objects\":{\"referenceLabelLayout\":[{\"properties\":{\"position\":{\"expr\":{\"Literal\":{\"Value\":\"'right'\"}}}},\"selector\":{\"id\":\"default\"}}]}}}",
@@ -140,7 +338,7 @@
           "width": 1124.34,
           "x": 795.66,
           "y": 604.19,
-          "z": 0.00
+          "z": 0.0
         },
         {
           "config": "{\"name\":\"2a99b10549d269a48d2c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1144.944320712695,\"y\":20.311804008908688,\"z\":1000,\"width\":775.0556792873051,\"height\":306.815144766147,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.character_name\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"}]},\"objects\":{\"general\":[{\"properties\":{}}]}}}",
@@ -149,79 +347,20 @@
           "width": 775.06,
           "x": 1144.94,
           "y": 20.31,
-          "z": 1000.00
+          "z": 1000.0
         },
         {
           "config": "{\"name\":\"629ba25dd774df7b2a28\",\"layouts\":[{\"id\":0,\"position\":{\"x\":428.67590027700834,\"y\":145.72853185595568,\"z\":3000,\"width\":106.9042316258352,\"height\":164.6325167037862,\"tabOrder\":3000}}],\"singleVisual\":{\"visualType\":\"listSlicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.game_mode\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"game_mode\"},\"Name\":\"dim_run.game_mode\",\"NativeReferenceName\":\"game_mode\"}]},\"objects\":{\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"game_mode\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'daily'\"}}]]}}}]}}}}]}}}",
           "filters": "[]",
           "height": 164.63,
-          "width": 106.90,
+          "width": 106.9,
           "x": 428.68,
           "y": 145.73,
-          "z": 3000.00
+          "z": 3000.0
         }
       ],
-      "width": 1920.00
-    },
-    {
-      "config": "{}",
-      "displayName": "Explore",
-      "displayOption": 1,
-      "filters": "[]",
-      "height": 1080.00,
-      "name": "50ea5c92886562467edf",
-      "ordinal": 1,
-      "visualContainers": [
-        {
-          "config": "{\"name\":\"2b0b29caf8d3582cb8f2\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.815950920245399,\"y\":19.631901840490798,\"z\":0,\"width\":1886.6257668711655,\"height\":1050.3067484662577,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_run.run_date\"},{\"queryRef\":\"dim_run.character_name\"},{\"queryRef\":\"dim_run.ascension\"},{\"queryRef\":\"dim_run.game_mode\"},{\"queryRef\":\"dim_run.acts_completed\"},{\"queryRef\":\"dim_run.win\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"run_date\"},\"Name\":\"dim_run.run_date\",\"NativeReferenceName\":\"run_date\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"character_name\"},\"Name\":\"dim_run.character_name\",\"NativeReferenceName\":\"character_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"ascension\"},\"Name\":\"dim_run.ascension\",\"NativeReferenceName\":\"ascension\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"game_mode\"},\"Name\":\"dim_run.game_mode\",\"NativeReferenceName\":\"game_mode\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"acts_completed\"},\"Name\":\"dim_run.acts_completed\",\"NativeReferenceName\":\"acts_completed\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"win\"},\"Name\":\"dim_run.win\",\"NativeReferenceName\":\"win\"}]}}}",
-          "filters": "[]",
-          "height": 1050.31,
-          "width": 1886.63,
-          "x": 9.82,
-          "y": 19.63,
-          "z": 0.00
-        }
-      ],
-      "width": 1920.00
-    },
-    {
-      "config": "{}",
-      "displayName": "Where runs end",
-      "displayOption": 1,
-      "filters": "[]",
-      "height": 1080.00,
-      "name": "e7aac8cb8caf9f13ccc8",
-      "ordinal": 3,
-      "visualContainers": [
-        {
-          "config": "{\"name\":\"33ed12d03b55726cd46a\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.815950920245399,\"y\":268.95705521472394,\"z\":1000,\"width\":937.4233128834355,\"height\":798.0368098159508,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"clusteredBarChart\",\"projections\":{\"Category\":[{\"queryRef\":\"dim_run.killed_by_encounter_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"dim_run.Losses\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"killed_by_encounter_name\"},\"Name\":\"dim_run.killed_by_encounter_name\",\"NativeReferenceName\":\"killed_by_encounter_name\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"},\"Name\":\"dim_run.Losses\",\"NativeReferenceName\":\"Losses\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Losses\"}}}]},\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Losses by the encounter that ended the run'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
-          "filters": "[]",
-          "height": 798.04,
-          "width": 937.42,
-          "x": 9.82,
-          "y": 268.96,
-          "z": 1000.00
-        },
-        {
-          "config": "{\"name\":\"7f2fb0b51487fab00416\",\"layouts\":[{\"id\":0,\"position\":{\"x\":947,\"y\":269,\"width\":956,\"height\":798,\"z\":2000,\"tabOrder\":2000}}],\"singleVisual\":{\"visualType\":\"lineChart\",\"projections\":{\"Category\":[{\"queryRef\":\"fct_floor_state.floor_number\",\"active\":true}],\"Y\":[{\"queryRef\":\"fct_floor_state.Avg HP\"}],\"Series\":[{\"queryRef\":\"dim_run.outcome\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"fct_floor_state\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"floor_number\"},\"Name\":\"fct_floor_state.floor_number\",\"NativeReferenceName\":\"floor_number\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"},\"Name\":\"fct_floor_state.Avg HP\",\"NativeReferenceName\":\"Avg HP\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"outcome\"},\"Name\":\"dim_run.outcome\",\"NativeReferenceName\":\"outcome\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"Avg HP\"}}}]},\"hasDefaultSort\":true,\"vcObjects\":{\"title\":[{\"properties\":{\"show\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}},\"text\":{\"expr\":{\"Literal\":{\"Value\":\"'Average HP by floor: won vs lost vs abandoned'\"}}},\"fontSize\":{\"expr\":{\"Literal\":{\"Value\":\"12D\"}}},\"bold\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
-          "filters": "[]",
-          "height": 798.00,
-          "width": 956.00,
-          "x": 947.00,
-          "y": 269.00,
-          "z": 2000.00
-        },
-        {
-          "config": "{\"name\":\"f1366cf510af737446d9\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.815950920245399,\"y\":19.631901840490798,\"z\":0,\"width\":1893.4969325153374,\"height\":176.68711656441718,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"cardVisual\",\"projections\":{\"Data\":[{\"queryRef\":\"dim_run.Total Runs\"},{\"queryRef\":\"dim_run.Win Rate\"},{\"queryRef\":\"dim_run.Win Rate (Completed)\"},{\"queryRef\":\"dim_run.Avg Floors Reached\"},{\"queryRef\":\"dim_run.Avg Death Floor\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_run\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"},\"Name\":\"dim_run.Total Runs\",\"NativeReferenceName\":\"Total Runs\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate\"},\"Name\":\"dim_run.Win Rate\",\"NativeReferenceName\":\"Win Rate\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Win Rate (Completed)\"},\"Name\":\"dim_run.Win Rate (Completed)\",\"NativeReferenceName\":\"Win Rate (Completed)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Floors Reached\"},\"Name\":\"dim_run.Avg Floors Reached\",\"NativeReferenceName\":\"Avg Floors Reached\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Avg Death Floor\"},\"Name\":\"dim_run.Avg Death Floor\",\"NativeReferenceName\":\"Avg Death Floor\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"Total Runs\"}}}]},\"hasDefaultSort\":true}}",
-          "filters": "[]",
-          "height": 176.69,
-          "width": 1893.50,
-          "x": 9.82,
-          "y": 19.63,
-          "z": 0.00
-        }
-      ],
-      "width": 1920.00
+      "width": 1920.0,
+      "ordinal": 5
     }
   ],
   "theme": "STS2_Run_Analytics23347947627715482.json"
