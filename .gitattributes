@@ -1,0 +1,6 @@
+# Binary artifacts: never apply line-ending conversion
+*.pdf binary
+*.jpg binary
+*.png binary
+*.abf binary
+*.pbix binary
