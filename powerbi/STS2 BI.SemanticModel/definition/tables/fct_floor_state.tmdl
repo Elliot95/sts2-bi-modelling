@@ -1,6 +1,14 @@
 table fct_floor_state
 	lineageTag: 403bc209-8653-4f73-841e-f2929796597e
 
+	measure 'Avg HP' = AVERAGE(fct_floor_state[current_hp])
+		formatString: 0.0
+		lineageTag: b1500493-4086-4365-90f5-960d0273681f
+
+	measure 'Avg Gold' = AVERAGE(fct_floor_state[current_gold])
+		formatString: 0.0
+		lineageTag: 55546672-60ce-4e3a-b417-aa25501ac067
+
 	column run_id
 		dataType: int64
 		isHidden
