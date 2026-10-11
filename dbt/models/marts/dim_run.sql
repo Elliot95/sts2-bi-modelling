@@ -86,6 +86,7 @@ select
     end                                         as ended_by_type,
     r.acts_completed,
     r.run_time_seconds,
+    round(r.run_time_seconds / 60, 1)           as run_time_minutes,
     s.player_count,
     coalesce(s.player_count, 1) > 1             as is_multiplayer,
     if(coalesce(s.player_count, 1) > 1, 'Multiplayer', 'Solo') as play_mode,

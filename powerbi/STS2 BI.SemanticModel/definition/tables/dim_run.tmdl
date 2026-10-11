@@ -45,6 +45,9 @@ table dim_run
 	measure 'Floors Font Color' = VAR f = [Avg Floors Reached] VAR overall = CALCULATE([Avg Floors Reached], ALL(dim_run)) RETURN IF(ISBLANK(f), BLANK(), IF(f >= overall, "#15803d", "#b91c1c"))
 		lineageTag: 295bea7a-f891-4456-b601-0090cfd1ce4f
 
+	measure 'Outcome Font Color' = SWITCH(SELECTEDVALUE(dim_run[outcome]), "Won", "#15803d", "Lost", "#b91c1c", "Abandoned", "#6b7280")
+		lineageTag: f093957a-9b56-4ed0-b19b-fd828640767f
+
 	column run_id
 		dataType: int64
 		lineageTag: c3c88a5a-807e-4e94-aabd-bd1908970332
@@ -306,6 +309,14 @@ table dim_run
 		lineageTag: 9c558be7-e05d-4064-a5d6-6b3d8b96a903
 		summarizeBy: none
 		sourceColumn: ended_by_type
+
+		annotation SummarizationSetBy = User
+
+	column run_time_minutes
+		dataType: double
+		lineageTag: 6ccfe188-0d79-441c-b815-e5586ce4ec8a
+		summarizeBy: none
+		sourceColumn: run_time_minutes
 
 		annotation SummarizationSetBy = User
 
