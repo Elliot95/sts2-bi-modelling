@@ -7,3 +7,10 @@ powerbi/**/.pbi/
 powerbi/**/*.abf
 powerbi/**/diagramLayout.json
 *.pbix
+
+# dbt local artifacts
+dbt/.venv/
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml

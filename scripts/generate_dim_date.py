@@ -1,4 +1,7 @@
 """
+DEPRECATED: the date dimension is now built by dbt (dbt/models/marts/dim_date.sql
+-> sts2_marts.dim_date), which is what Power BI reads. Kept for reference only.
+
 Seeds sts2.dim_date with a static calendar range.
 
 Reference/dimension data like a date table is generated once and loaded

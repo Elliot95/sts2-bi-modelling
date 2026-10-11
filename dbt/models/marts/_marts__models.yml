@@ -1,0 +1,238 @@
+version: 2
+
+# Marts: the star schema Power BI reads (dataset sts2_marts). Contracts are
+# enforced so a column/type change fails the build loudly instead of silently
+# breaking the report. Every fct_* relates to dim_run (the run hub), never to
+# another fact.
+
+models:
+  - name: dim_run
+    description: >
+      One row per run. Hub dimension: run attributes plus run-level metrics
+      derived from floor states. All fct_* tables relate here on run_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        description: Run start time in epoch seconds; primary key.
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: run_date
+        data_type: date
+        description: UTC date the run started.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date_key}
+      - name: character
+        data_type: string
+        description: Primary player's character (CHARACTER.*).
+      - name: ascension
+        data_type: int64
+      - name: game_mode
+        data_type: string
+      - name: build_id
+        data_type: string
+      - name: platform_type
+        data_type: string
+      - name: seed
+        data_type: string
+      - name: win
+        data_type: bool
+      - name: was_abandoned
+        data_type: bool
+      - name: killed_by_encounter
+        data_type: string
+      - name: killed_by_event
+        data_type: string
+      - name: acts_completed
+        data_type: int64
+        description: >
+          Raw len(acts) from the .run file: the number of acts on the run's
+          map (always 3 in current data), NOT progress. Use acts_reached.
+      - name: run_time_seconds
+        data_type: int64
+      - name: acts_reached
+        data_type: int64
+        description: Acts actually entered by the primary player (max act_index + 1).
+      - name: floors_reached
+        data_type: int64
+        description: Highest floor_number reached by the primary player.
+      - name: death_floor
+        data_type: int64
+        description: floors_reached for runs that were lost (not won, not abandoned); null otherwise.
+      - name: final_hp
+        data_type: int64
+        description: Primary player's HP at their last recorded floor.
+      - name: total_damage_taken
+        data_type: int64
+        description: Sum of damage_taken across the primary player's floors.
+
+  - name: dim_card
+    description: One row per card. card_name is derived from card_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: card_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: card_name
+        data_type: string
+      - name: first_seen_run_id
+        data_type: int64
+      - name: first_seen_date
+        data_type: date
+
+  - name: dim_relic
+    description: One row per relic. relic_name is derived from relic_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: relic_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: relic_name
+        data_type: string
+      - name: first_seen_run_id
+        data_type: int64
+      - name: first_seen_date
+        data_type: date
+
+  - name: dim_date
+    description: One row per calendar day (2024-01-01 to Dec 31 three years ahead).
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: date_key
+        data_type: date
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: year
+        data_type: int64
+      - name: quarter
+        data_type: int64
+      - name: month
+        data_type: int64
+      - name: month_name
+        data_type: string
+      - name: day
+        data_type: int64
+      - name: day_of_week
+        data_type: int64
+        description: 1 = Sunday .. 7 = Saturday.
+      - name: day_name
+        data_type: string
+      - name: week_of_year
+        data_type: int64
+        description: ISO week number.
+      - name: is_weekend
+        data_type: bool
+
+  - name: fct_floor_state
+    description: One row per run / floor / player. HP and gold after each map point.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - {name: act_index, data_type: int64}
+      - {name: map_point_index, data_type: int64}
+      - {name: map_point_type, data_type: string}
+      - {name: current_hp, data_type: int64}
+      - {name: max_hp, data_type: int64}
+      - {name: current_gold, data_type: int64}
+      - {name: damage_taken, data_type: int64}
+      - {name: hp_healed, data_type: int64}
+      - {name: gold_gained, data_type: int64}
+      - {name: gold_lost, data_type: int64}
+      - {name: gold_spent, data_type: int64}
+      - {name: gold_stolen, data_type: int64}
+      - {name: max_hp_gained, data_type: int64}
+      - {name: max_hp_lost, data_type: int64}
+
+  - name: fct_card_choice
+    description: One row per card offered at a card-choice screen.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: was_picked, data_type: bool}
+      - {name: floor_added_to_deck, data_type: int64}
+
+  - name: fct_card_gained
+    description: One row per card added outside a choice screen.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+
+  - name: fct_run_relic
+    description: One row per relic held at end of run.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: relic_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_relic'), field: relic_id}
+      - {name: floor_added_to_deck, data_type: int64}
+
+  - name: fct_run_deck_card
+    description: One row per card copy in the final deck (repeat card_ids are legitimate).
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: floor_added_to_deck, data_type: int64}

@@ -1,0 +1,24 @@
+name: sts2
+version: "1.0.0"
+config-version: 2
+
+profile: sts2
+
+model-paths: ["models"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+clean-targets: ["target", "dbt_packages"]
+
+# Layering:
+#   sts2          raw landing tables, written by the Cloud Function (dbt sources)
+#   sts2_staging  1:1 cleaned views over each source
+#   sts2_marts    star schema consumed by Power BI (the only layer BI reads)
+models:
+  sts2:
+    staging:
+      +schema: sts2_staging
+      +materialized: view
+    marts:
+      +schema: sts2_marts
+      +materialized: table
