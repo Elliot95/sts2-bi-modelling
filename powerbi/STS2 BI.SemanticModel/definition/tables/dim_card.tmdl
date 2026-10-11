@@ -1,6 +1,9 @@
 table dim_card
 	lineageTag: ee24af1e-94b4-4eff-9c97-0357243aa7ce
 
+	measure 'Card Row Color' = SELECTEDVALUE(dim_card[card_color_tint], "#ffffff")
+		lineageTag: 8a41ee17-a25a-407a-979d-93b6e891169d
+
 	column card_id
 		dataType: string
 		lineageTag: 03358976-c4c1-4b55-a080-f34690752dc4
@@ -35,6 +38,64 @@ table dim_card
 		annotation SummarizationSetBy = User
 
 		annotation UnderlyingDateTimeDataType = Date
+
+	column card_character
+		dataType: string
+		lineageTag: e259028e-7ab2-4d94-a4d3-e6168ba64499
+		summarizeBy: none
+		sourceColumn: card_character
+
+		annotation SummarizationSetBy = User
+
+	column rarity
+		dataType: string
+		lineageTag: 9f616c61-1e32-4eb2-a282-42a572ee6279
+		summarizeBy: none
+		sourceColumn: rarity
+
+		annotation SummarizationSetBy = User
+
+	column card_type
+		dataType: string
+		lineageTag: 8e222337-3155-40e1-b124-faf890d1323a
+		summarizeBy: none
+		sourceColumn: card_type
+
+		annotation SummarizationSetBy = User
+
+	column energy_cost
+		dataType: string
+		lineageTag: af05dd0f-f893-4cd1-8b72-30d76d162144
+		summarizeBy: none
+		sourceColumn: energy_cost
+
+		annotation SummarizationSetBy = User
+
+	column card_color
+		dataType: string
+		isHidden
+		lineageTag: 7aad183e-89e5-4cde-a5b7-3b4fd85b818c
+		summarizeBy: none
+		sourceColumn: card_color
+
+		annotation SummarizationSetBy = User
+
+	column card_color_tint
+		dataType: string
+		isHidden
+		lineageTag: 2c2805c5-52a2-4c79-a93d-464ee1041903
+		summarizeBy: none
+		sourceColumn: card_color_tint
+
+		annotation SummarizationSetBy = User
+
+	column in_catalog
+		dataType: boolean
+		lineageTag: a68b915b-fba3-48c5-aa45-2d1033610b9c
+		summarizeBy: none
+		sourceColumn: in_catalog
+
+		annotation SummarizationSetBy = User
 
 	partition dim_card = m
 		mode: import

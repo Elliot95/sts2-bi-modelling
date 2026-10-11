@@ -33,6 +33,18 @@ table dim_run
 		formatString: 0.0%
 		lineageTag: 58e71373-3243-45a9-8efc-1ceac0b99a89
 
+	measure 'Character Color' = SELECTEDVALUE(dim_run[character_color], "#64748b")
+		lineageTag: 23a09d6c-7509-4a39-94c5-d247ba7ff894
+
+	measure 'Character Row Color' = SELECTEDVALUE(dim_run[character_color_tint], "#ffffff")
+		lineageTag: ffb3b050-ef32-4802-b8b9-8a25c9d7d403
+
+	measure 'Win Rate Font Color' = VAR r = [Win Rate (Completed)] VAR overall = CALCULATE([Win Rate (Completed)], ALL(dim_run)) RETURN IF(ISBLANK(r), BLANK(), IF(r >= overall, "#15803d", "#b91c1c"))
+		lineageTag: 8f10db5f-1669-496b-8d03-394681bada1f
+
+	measure 'Floors Font Color' = VAR f = [Avg Floors Reached] VAR overall = CALCULATE([Avg Floors Reached], ALL(dim_run)) RETURN IF(ISBLANK(f), BLANK(), IF(f >= overall, "#15803d", "#b91c1c"))
+		lineageTag: 295bea7a-f891-4456-b601-0090cfd1ce4f
+
 	column run_id
 		dataType: int64
 		lineageTag: c3c88a5a-807e-4e94-aabd-bd1908970332
@@ -244,6 +256,40 @@ table dim_run
 		lineageTag: fa81e7bb-81a4-42fd-bea9-6653309a9146
 		summarizeBy: none
 		sourceColumn: outcome
+
+		annotation SummarizationSetBy = User
+
+	column character_color
+		dataType: string
+		isHidden
+		lineageTag: 96c89702-9a0c-42f6-bf94-936874371d13
+		summarizeBy: none
+		sourceColumn: character_color
+
+		annotation SummarizationSetBy = User
+
+	column character_color_tint
+		dataType: string
+		isHidden
+		lineageTag: a09d72bd-8e89-47ad-8d30-346c265c1040
+		summarizeBy: none
+		sourceColumn: character_color_tint
+
+		annotation SummarizationSetBy = User
+
+	column play_mode
+		dataType: string
+		lineageTag: 90ff7a88-5fc7-48e5-bcc3-fe88b1f98976
+		summarizeBy: none
+		sourceColumn: play_mode
+
+		annotation SummarizationSetBy = User
+
+	column party_size
+		dataType: string
+		lineageTag: fb7f2679-9876-4c25-973a-dca71c22995c
+		summarizeBy: none
+		sourceColumn: party_size
 
 		annotation SummarizationSetBy = User
 
