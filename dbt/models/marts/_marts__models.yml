@@ -74,6 +74,15 @@ models:
       - name: killed_by_event_name
         data_type: string
         description: Event display label; null if not killed by an event.
+      - name: ended_by
+        data_type: string
+        description: For lost runs, the encounter or event that ended the run; null for wins and abandoned runs.
+      - name: ended_by_type
+        data_type: string
+        description: Boss / Elite / Normal / Event / Unknown for lost runs; null otherwise.
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Boss', 'Elite', 'Normal', 'Event', 'Unknown']}
       - name: acts_completed
         data_type: int64
         description: >

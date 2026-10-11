@@ -69,6 +69,21 @@ select
     end                                         as killed_by_encounter_type,
     r.killed_by_event,
     {{ readable_id('r.killed_by_event') }}      as killed_by_event_name,
+    -- What ended a lost run, whether a fight or an event (a few runs die in
+    -- events, which left a blank "encounter").
+    case when not r.win and not coalesce(r.was_abandoned, false) then
+        coalesce({{ readable_id('r.killed_by_encounter', ['ELITE', 'BOSS', 'NORMAL', 'WEAK']) }},
+                 {{ readable_id('r.killed_by_event') }}, 'Unknown')
+    end                                         as ended_by,
+    case when not r.win and not coalesce(r.was_abandoned, false) then
+        case
+            when ends_with(r.killed_by_encounter, '_BOSS') then 'Boss'
+            when ends_with(r.killed_by_encounter, '_ELITE') then 'Elite'
+            when r.killed_by_encounter is not null and r.killed_by_encounter != 'NONE.NONE' then 'Normal'
+            when r.killed_by_event is not null and r.killed_by_event != 'NONE.NONE' then 'Event'
+            else 'Unknown'
+        end
+    end                                         as ended_by_type,
     r.acts_completed,
     r.run_time_seconds,
     s.player_count,
