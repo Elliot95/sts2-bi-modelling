@@ -42,6 +42,7 @@ table dim_run
 
 	column character
 		dataType: string
+		isHidden
 		lineageTag: 6bc07707-10a4-407a-a4c6-4139b80cc7ff
 		summarizeBy: none
 		sourceColumn: character
@@ -106,6 +107,7 @@ table dim_run
 
 	column killed_by_encounter
 		dataType: string
+		isHidden
 		lineageTag: 75a33dee-fa50-4290-9422-b6d8d0777428
 		summarizeBy: none
 		sourceColumn: killed_by_encounter
@@ -114,6 +116,7 @@ table dim_run
 
 	column killed_by_event
 		dataType: string
+		isHidden
 		lineageTag: 8582837f-e17d-4804-b58b-6eaea0ac9daa
 		summarizeBy: none
 		sourceColumn: killed_by_event
@@ -189,6 +192,38 @@ table dim_run
 		lineageTag: 23874f82-4345-490d-aef9-03f9742d646d
 		summarizeBy: sum
 		sourceColumn: total_damage_taken
+
+		annotation SummarizationSetBy = User
+
+	column character_name
+		dataType: string
+		lineageTag: 58c991fb-39ca-4116-880c-da244ca27fbd
+		summarizeBy: none
+		sourceColumn: character_name
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter_name
+		dataType: string
+		lineageTag: eddb8dcd-c51c-49dc-a78d-9f8fc4f3ddf6
+		summarizeBy: none
+		sourceColumn: killed_by_encounter_name
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter_type
+		dataType: string
+		lineageTag: c18e7f84-ff89-45b8-9cfd-77dead85d640
+		summarizeBy: none
+		sourceColumn: killed_by_encounter_type
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_event_name
+		dataType: string
+		lineageTag: 1af9083f-9112-48f8-942c-67fe289cbdb2
+		summarizeBy: none
+		sourceColumn: killed_by_event_name
 
 		annotation SummarizationSetBy = User
 
