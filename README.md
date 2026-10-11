@@ -172,6 +172,18 @@ Findings the modelling surfaced:
 
 ---
 
+## 📑 Report & audit
+
+* [`docs/report.pdf`](docs/report.pdf): static export of the Power BI report
+  (Where runs end, Solo vs Multiplayer, Card picks, Explore), viewable
+  without Power BI.
+* [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based
+  end-to-end audit from local save files to the report. Covers the
+  reconciliation chain (946 runs at every stage), status by stage, and a
+  prioritised findings register.
+
+---
+
 ## 🚀 Next Steps
 
 See [`docs/roadmap.md`](docs/roadmap.md): each unmodelled raw field mapped
