@@ -2,9 +2,16 @@
 
 ## Connecting
 
+The model is checked in as a PBIP project: open `powerbi/STS2 BI.pbip`,
+sign in to Google when prompted, and Refresh. The steps below are how it
+was set up, if you're rebuilding it from scratch.
+
 1. Power BI Desktop → Get Data → More → Database → **Google BigQuery**.
 2. Sign in with the Google account tied to your GCP project.
-3. Select your project → dataset `sts2` → select all tables.
+3. Select your project → dataset **`sts2_marts`** → select all tables.
+   Read only the marts, never the raw `sts2` landing tables: the marts are
+   the layer dbt tests and enforces contracts on, so that's the layer the
+   report can trust.
 4. Choose **Import**, not DirectQuery.
 
 **Why Import, not DirectQuery:** DirectQuery sends a live query to
@@ -21,21 +28,29 @@ instead of re-querying on every click.
 Relationships to create (all single-direction, one-to-many, from the "one"
 dimension side to the "many" fact side):
 
-- `dim_date[date_key]` → `fact_run[run_date]`
-- `fact_run[run_id]` → each of `fact_floor_state`, `fact_card_choice`,
-  `fact_cards_gained`, `fact_relic`, `fact_deck_card` on `run_id`
-- `dim_card[card_id]` → `fact_card_choice`, `fact_cards_gained`,
-  `fact_deck_card` on `card_id`
-- `dim_relic[relic_id]` → `fact_relic[relic_id]`
+- `dim_run[run_id]` → each of `fct_floor_state`, `fct_card_choice`,
+  `fct_card_gained`, `fct_run_relic`, `fct_run_deck_card` on `run_id`
+- `dim_card[card_id]` → `fct_card_choice`, `fct_card_gained`,
+  `fct_run_deck_card` on `card_id`
+- `dim_relic[relic_id]` → `fct_run_relic[relic_id]`
+- `dim_date[date_key]` → `dim_run[run_date]`
 
 Mark `dim_date` as a **Date table** (Table tools → Mark as date table) so
 time-intelligence DAX functions (`SAMEPERIODLASTYEAR`, rolling averages,
 etc.) work correctly.
 
-This is a textbook star schema — every fact table sits one hop from a
-dimension, no fact-to-fact relationships, no snowflaking. That shape is
-what makes Power BI's query engine fast: it can resolve filters through
-single-column joins instead of chasing multi-table chains.
+`dim_run` is the hub: one row per run, carrying both the run's attributes
+and its run-level metrics. An earlier version of this model related the
+other facts to `fact_run` directly. That's a fact-to-fact relationship,
+which makes filter paths ambiguous and couples two fact grains together.
+Promoting the run to a dimension gives a clean star: every fact sits one
+hop from `dim_run`, and nothing relates fact to fact.
+
+The one deliberate exception to a pure star is `dim_date` → `dim_run`
+(a single snowflake hop): the run date is an attribute of the run, so
+date filters reach every fact through `dim_run` instead of each fact
+carrying its own date key. That avoids multiple filter paths from
+`dim_date` to the same fact.
 
 ## Modelling hygiene (the stuff that actually shows up in dashboard speed)
 
@@ -54,34 +69,38 @@ single-column joins instead of chasing multi-table chains.
   have a real `dim_date` — otherwise Power BI generates a hidden date
   table per date column, bloating the model.
 
-## Starter DAX measures
+## DAX measures
+
+Row-level metrics (floors reached, death floor) are columns computed in
+dbt; DAX only aggregates them.
 
 ```dax
-Total Runs = COUNTROWS(fact_run)
+-- dim_run
+Total Runs         = COUNTROWS(dim_run)
+Wins               = CALCULATE([Total Runs], dim_run[win] = TRUE)
+Win Rate           = DIVIDE([Wins], [Total Runs])                -- 0.0%
+Avg Floors Reached = AVERAGE(dim_run[floors_reached])
+Avg Death Floor    = AVERAGE(dim_run[death_floor])               -- losses only (null otherwise)
 
-Win Rate =
-DIVIDE(
-    CALCULATE(COUNTROWS(fact_run), fact_run[win] = TRUE),
-    [Total Runs]
-)
-
-Avg Floors Reached = AVERAGE(fact_run[acts_completed])
-
-Card Pick Rate =
-DIVIDE(
-    CALCULATE(COUNTROWS(fact_card_choice), fact_card_choice[was_picked] = TRUE),
-    COUNTROWS(fact_card_choice)
-)
+-- fct_card_choice
+Times Offered  = COUNTROWS(fct_card_choice)
+Times Picked   = CALCULATE(COUNTROWS(fct_card_choice), fct_card_choice[was_picked] = TRUE)
+Card Pick Rate = DIVIDE([Times Picked], [Times Offered])          -- 0.0%
 
 Win Rate When Picked =
 CALCULATE(
     [Win Rate],
     TREATAS(
-        CALCULATETABLE(VALUES(fact_card_choice[run_id]), fact_card_choice[was_picked] = TRUE),
-        fact_run[run_id]
+        CALCULATETABLE(VALUES(fct_card_choice[run_id]), fct_card_choice[was_picked] = TRUE),
+        dim_run[run_id]
     )
 )
 ```
+
+An earlier `Avg Floors Reached` averaged the raw `acts_completed`
+column, which is always 3 (it counts acts on the map, not progress).
+That's the kind of bug that moving row-level logic into dbt, with
+documented columns, is meant to prevent.
 
 `Win Rate When Picked`, filtered by a specific card, is the kind of
 "decision impact" metric the project README calls out as the end goal —

@@ -33,8 +33,24 @@ reasoning, this file is just the entry point:
 - Ingestion is automated via Windows Task Scheduler
   (`scripts/upload_to_gcs.py`, monthly) — not daily, that was a
   deliberate choice given the concurrency limit is already handled.
-- Power BI: not yet connected — this is the current next step whenever
-  work resumes. `docs/powerbi_setup.md` has the exact steps.
+- dbt (`dbt/`) builds `sts2_staging` (views) and `sts2_marts` (tested,
+  contract-enforced star schema around `dim_run`) from the raw `sts2`
+  tables. It runs in GitHub Actions (`.github/workflows/dbt.yml`) via
+  keyless Workload Identity Federation. Run locally with
+  `dbt/.venv/Scripts/dbt build --profiles-dir .` from `dbt/`.
+- Power BI: PBIP project in `powerbi/`, reading **only** `sts2_marts`.
+  Report pages are the current next step (see `docs/progress.md`).
+
+## Conventions
+
+- Row-level logic goes in dbt marts; aggregations are DAX measures. Power
+  BI never reads the raw `sts2` dataset.
+- Power BI model files are TMDL: tab-indented, and properties must be
+  indented under their object. Edit them only with Desktop closed, then
+  reopen and Refresh to verify. Renaming a table also means updating
+  `"Entity"`/`queryRef` names in `powerbi/STS2 BI.Report/report.json`.
+- The `bq` CLI is unreliable in `cmd.exe` on this machine (Store Python
+  alias). Use PowerShell, or the BigQuery console.
 
 ## Things worth knowing before touching the pipeline
 

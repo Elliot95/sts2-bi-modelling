@@ -23,24 +23,33 @@ Local .run files (game saves)
         │  scripts/upload_to_gcs.py  (Task Scheduler, monthly)
         ▼
 GCS bucket (raw landing zone)
-        │  cloud_function/  (triggered on new object)
+        │  cloud_function/  (triggered on new object: flatten + load)
         ▼
-BigQuery: sts2 dataset (star schema — sql/schema.sql)
+BigQuery  sts2          raw landing tables (sql/schema.sql)
+        │  dbt build    (GitHub Actions, daily, keyless auth)
+        ▼
+BigQuery  sts2_staging  1:1 cleaned views
+        ▼
+BigQuery  sts2_marts    tested, contract-enforced star schema
         │  Import mode
         ▼
-Power BI (dashboards)
+Power BI  (powerbi/ PBIP project, reads sts2_marts only)
 ```
 
 * **Ingestion**: a local script uploads new `.run` files to a GCS bucket,
   tracked via a local manifest so re-runs only pick up new files.
-* **Transform + load**: a GCS-triggered Cloud Function flattens each run's
-  nested JSON into the star schema and loads it into BigQuery, replacing
-  any existing rows for that run_id (idempotent — safe to re-trigger).
-* **Warehouse**: BigQuery, partitioned by run date and clustered for the
-  query patterns the dashboards actually use. See `sql/schema.sql` for the
-  full schema and the reasoning behind each modelling decision.
-* **BI layer**: Power BI in Import mode, connected via BigQuery's native
-  connector. See `docs/powerbi_setup.md`.
+* **Flatten + load**: a GCS-triggered Cloud Function flattens each run's
+  nested JSON into relational landing tables in BigQuery (`sts2`),
+  replacing any existing rows for that run_id (idempotent, safe to
+  re-trigger). Partitioned by run date and clustered for common filters;
+  see `sql/schema.sql` for the reasoning.
+* **Transform + test**: dbt (`dbt/`) builds staging views and the marts
+  star schema, and runs every data-quality test. It runs daily in GitHub
+  Actions, authenticating to GCP via Workload Identity Federation (no
+  service-account key exists anywhere). A failed test fails the run.
+* **BI layer**: Power BI in Import mode, reading only `sts2_marts`. The
+  semantic model is checked in as a PBIP project (`powerbi/`). See
+  `docs/powerbi_setup.md`.
 
 Setup guides: [`docs/gcp_setup.md`](docs/gcp_setup.md) for provisioning
 GCP, [`docs/powerbi_setup.md`](docs/powerbi_setup.md) for connecting and
@@ -56,16 +65,24 @@ sts2-bi-modelling/
 ├── README.md
 ├── docs/
 │   ├── gcp_setup.md
-│   └── powerbi_setup.md
+│   ├── powerbi_setup.md
+│   ├── progress.md             # build status + issues hit and fixed
+│   └── roadmap.md              # unmodelled raw data -> questions it unlocks
 ├── sql/
-│   └── schema.sql              # BigQuery star schema DDL
+│   └── schema.sql              # raw landing tables DDL
 ├── scripts/
 │   ├── upload_to_gcs.py        # local uploader, run via Task Scheduler
-│   ├── generate_dim_date.py    # one-off date dimension seed
+│   ├── generate_dim_date.py    # deprecated: dim_date now built in dbt
 │   └── exploration/            # early ad-hoc schema-discovery scripts
 ├── cloud_function/
 │   ├── main.py                 # flatten + load .run JSON into BigQuery
 │   └── requirements.txt
+├── dbt/
+│   ├── models/staging/         # stg_sts2__* views over the raw tables
+│   ├── models/marts/           # dim_* / fct_* star schema (contracts)
+│   └── tests/                  # singular data-quality tests
+├── powerbi/                    # Power BI PBIP project (TMDL semantic model)
+├── .github/workflows/dbt.yml   # scheduled dbt build
 └── data/
     └── exploration/            # structure-discovery CSV outputs
 ```
@@ -82,23 +99,61 @@ outcomes. Raw data is not included in this repository.
 
 ## 🧱 Data Model
 
-Star schema in BigQuery (`sts2` dataset):
-
-**Facts**
-* `fact_run` — one row per run (outcome, ascension, character, timings)
-* `fact_floor_state` — one row per run/floor/player: HP and gold over time
-* `fact_card_choice` — one row per card offered at a choice screen, with
-  `was_picked` — drives pick-rate and decision-impact analysis
-* `fact_cards_gained` — cards added outside a choice screen
-* `fact_relic` / `fact_deck_card` — end-of-run relic and deck snapshots
+The star schema Power BI reads lives in `sts2_marts`, built by dbt:
 
 **Dimensions**
-* `dim_date` — standard calendar dimension for time intelligence
-* `dim_card` / `dim_relic` — catalogs discovered incrementally from the
-  data itself as new card/relic IDs are seen
+* `dim_run`: one row per run, and the hub every fact relates to.
+  Run attributes (character, ascension, mode, outcome, killed by) plus
+  derived run metrics: `floors_reached`, `acts_reached`, `death_floor`,
+  `player_count`, and single-player `final_hp` / `total_damage_taken`
+* `dim_card` / `dim_relic`: catalogs discovered from the data, with a
+  readable name derived from the ID (`CARD.BATTLE_TRANCE` → Battle Trance)
+* `dim_date`: calendar for time intelligence, generated in dbt
 
-Full column-level detail and the rationale for partitioning/clustering
-choices live in `sql/schema.sql`.
+**Facts** (each relates to `dim_run` on `run_id`, never to another fact)
+* `fct_floor_state`: one row per run/floor/player, HP and gold over time
+* `fct_card_choice`: one row per card offered at a choice screen, with
+  `was_picked`; drives pick-rate and decision-impact analysis
+* `fct_card_gained`: cards added outside a choice screen
+* `fct_run_relic` / `fct_run_deck_card`: end-of-run relic and deck snapshots
+
+Grain, column descriptions and contracts are in
+`dbt/models/marts/_marts__models.yml`. The raw landing tables and their
+partitioning/clustering rationale are in `sql/schema.sql`.
+
+**Where logic lives:** row-level derivations (floors reached, death floor,
+names) are computed in dbt, where they're tested and reusable by any tool.
+Aggregations (Win Rate, Card Pick Rate) are DAX measures in the Power BI
+semantic model.
+
+---
+
+## ✅ Data Quality
+
+`dbt build` runs 63 checks on every build:
+
+* **Source tests on the raw tables** (strict): unique/not-null keys. These
+  exist because of a real incident: concurrent Cloud Function invocations
+  raced the `dim_card` MERGE and inserted 38 duplicate card IDs, which
+  only surfaced when Power BI refused to load the relationship. A `unique`
+  test catches that the same day. (Root cause fixed with
+  `--max-instances=1`; see `docs/gcp_setup.md`.)
+* **Referential integrity**: every fact's `run_id` exists in `dim_run`,
+  every `card_id`/`relic_id` exists in its catalog, and every run date
+  exists in `dim_date`.
+* **Contracts** on all marts, so a column or type change fails the build
+  instead of silently breaking the report.
+* **Singular tests** (`dbt/tests/`): floor-state grain is unique, HP stays
+  within `[0, max_hp]`, `run_date` matches the `run_id` timestamp, and every
+  run has floor data (except runs abandoned within a minute).
+
+Findings the modelling surfaced:
+* The raw `acts_completed` is always 3. It's the number of acts on the
+  map, not progress, so a "floors reached" metric built on it was wrong.
+  `dim_run` derives real `floors_reached` / `acts_reached` from floor states.
+* 25% of runs (234/946) are multiplayer, where the host player isn't
+  identifiable, so per-player HP metrics are only filled for
+  single-player runs instead of guessing.
 
 ---
 
@@ -110,21 +165,19 @@ choices live in `sql/schema.sql`.
   teammates' decks/relics/floor state can be compared directly
 * `fact_run.character` only extracts `players[0]` — non-host players'
   character choices aren't captured anywhere yet
-* `dim_card` / `dim_relic` hold IDs only; enriching with real card names,
-  rarity, and character affiliation is future work
-* Modifiers/challenge-run data isn't modelled yet
-* Potions (`players[].potions` in the source JSON) aren't flattened into
-  any table yet
+* `dim_card` / `dim_relic` names are derived from IDs; real metadata
+  (rarity, cost, character) needs an external catalog
+* Modifiers, potions and per-room combat detail are in the raw JSON but
+  not modelled yet
 
 ---
 
 ## 🚀 Next Steps
 
-* Enrich `dim_card` / `dim_relic` with real game metadata
-* Build out Power BI report pages (run trends, card pick-rate/win-rate,
-  HP/gold survival curves)
-* Add data quality checks on the Cloud Function (e.g. alert on parse
-  failures rather than silently dropping a run)
+See [`docs/roadmap.md`](docs/roadmap.md): each unmodelled raw field mapped
+to the table it would become and the question it would answer. Next on
+the report side: finish the report pages around the guiding question,
+"where do my runs end, and what does the run look like on the way there?"
 
 ---
 
