@@ -53,21 +53,29 @@ models:
           map (always 3 in current data), NOT progress. Use acts_reached.
       - name: run_time_seconds
         data_type: int64
+      - name: player_count
+        data_type: int64
+        description: Distinct players with floor-state rows (null if the run has none).
+      - name: is_multiplayer
+        data_type: bool
+        description: True when player_count > 1.
       - name: acts_reached
         data_type: int64
-        description: Acts actually entered by the primary player (max act_index + 1).
+        description: Acts actually entered (max act_index + 1).
       - name: floors_reached
         data_type: int64
-        description: Highest floor_number reached by the primary player.
+        description: Highest floor_number reached in the run.
       - name: death_floor
         data_type: int64
         description: floors_reached for runs that were lost (not won, not abandoned); null otherwise.
       - name: final_hp
         data_type: int64
-        description: Primary player's HP at their last recorded floor.
+        description: >
+          HP at the last recorded floor. Single-player runs only (null for
+          multiplayer: the host player isn't identifiable in the raw data).
       - name: total_damage_taken
         data_type: int64
-        description: Sum of damage_taken across the primary player's floors.
+        description: Sum of damage_taken across all floors. Single-player runs only.
 
   - name: dim_card
     description: One row per card. card_name is derived from card_id.

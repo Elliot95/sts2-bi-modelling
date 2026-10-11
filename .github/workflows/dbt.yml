@@ -4,8 +4,8 @@ name: dbt build
 # A failing test fails the run (red X on the Actions tab + email to the owner).
 on:
   schedule:
-    # 14:30 UTC daily: after the local Task Scheduler upload (~14:32 UK time)
-    # has landed new runs via the Cloud Function.
+    # 14:30 UTC daily. Uploads land monthly (Task Scheduler, day 1 ~14:32 UK
+    # time) but a daily rebuild is free and also catches manual uploads.
     - cron: "30 14 * * *"
   workflow_dispatch:
   push:

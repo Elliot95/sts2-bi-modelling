@@ -10,27 +10,24 @@ floor_states as (
     select * from {{ ref('stg_sts2__floor_states') }}
 ),
 
--- Single-player focus: the primary player is the lowest player_id per run.
-primary_player as (
-    select run_id, min(player_id) as player_id
-    from floor_states
-    group by run_id
-),
-
-player_floors as (
-    select fs.*
-    from floor_states fs
-    join primary_player pp using (run_id, player_id)
-),
-
+-- Floors/acts are shared by every player in a run, so they come from all rows.
+-- Per-player metrics (HP, damage) are only filled for single-player runs:
+-- in multiplayer runs player_id is a Steam64 ID and the loader doesn't record
+-- which player is the host (players[0], whose character is on the run), so
+-- attributing one player's HP to the run would be a guess.
 run_floor_stats as (
     select
         run_id,
-        max(floor_number)   as floors_reached,
-        max(act_index) + 1  as acts_reached,
-        sum(damage_taken)   as total_damage_taken,
-        array_agg(current_hp order by floor_number desc limit 1)[offset(0)] as final_hp
-    from player_floors
+        count(distinct player_id)   as player_count,
+        max(floor_number)           as floors_reached,
+        max(act_index) + 1          as acts_reached,
+        if(count(distinct player_id) = 1, sum(damage_taken), null) as total_damage_taken,
+        if(
+            count(distinct player_id) = 1,
+            array_agg(current_hp order by floor_number desc limit 1)[offset(0)],
+            null
+        )                           as final_hp
+    from floor_states
     group by run_id
 )
 
@@ -49,6 +46,8 @@ select
     r.killed_by_event,
     r.acts_completed,
     r.run_time_seconds,
+    s.player_count,
+    coalesce(s.player_count, 1) > 1             as is_multiplayer,
     s.acts_reached,
     s.floors_reached,
     case
