@@ -75,3 +75,15 @@ seeds:
         data_tests:
           - relationships:
               arguments: {to: ref('event_catalog'), field: event_id}
+
+  - name: relic_catalog
+    description: Every relic's display name and description, from the game's relics.json localization.
+    config:
+      schema: sts2_staging
+      column_types:
+        relic_id: string
+        relic_name: string
+        description: string
+    columns:
+      - name: relic_id
+        data_tests: [unique, not_null]

@@ -47,6 +47,14 @@ sources:
           - name: run_id
             data_tests: [not_null]
 
+      - name: fact_event_choice
+        description: One row per choice made in an event or Ancient room.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: event_id
+            data_tests: [not_null]
+
       - name: dim_card
         description: Card catalog, discovered incrementally by the loader.
         columns:

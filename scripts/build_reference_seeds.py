@@ -4,6 +4,7 @@ Builds the dbt reference seeds from the player's OWN Slay the Spire 2 install:
     dbt/seeds/card_catalog.csv          card -> character pool, rarity, type, cost, colour
     dbt/seeds/event_catalog.csv         event -> name, opening description
     dbt/seeds/event_option_catalog.csv  event option -> title, description
+    dbt/seeds/relic_catalog.csv         relic -> name, description
 
 Sources (read-only, nothing in the game folder is modified):
   * sts2.dll  - card pools and each card's rarity / type / cost, read as
@@ -114,6 +115,14 @@ def event_catalogs(pck: Pck) -> None:
     write_csv(SEEDS / "event_option_catalog.csv", sorted(options, key=lambda r: r["option_key"]))
 
 
+def relic_catalog(pck: Pck) -> None:
+    loc = json.loads(pck.read("localization/eng/relics.json"))
+    rows = [{"relic_id": f"RELIC.{k[:-len('.title')]}", "relic_name": clean(v),
+             "description": clean(loc.get(k[:-len(".title")] + ".description", ""))}
+            for k, v in loc.items() if k.endswith(".title") and k.count(".") == 1]
+    write_csv(SEEDS / "relic_catalog.csv", sorted(rows, key=lambda r: r["relic_id"]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--game-dir", default=r"N:\SteamLibrary\steamapps\common\Slay the Spire 2")
@@ -121,6 +130,7 @@ def main():
     pck = Pck(str(game_dir / "SlayTheSpire2.pck"))
     card_catalog(game_dir, pck)
     event_catalogs(pck)
+    relic_catalog(pck)
 
 
 if __name__ == "__main__":

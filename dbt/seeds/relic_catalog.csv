@@ -1,0 +1,307 @@
+relic_id,relic_name,description
+RELIC.AKABEKO,Akabeko,"At the start of each combat, gain {VigorPower} Vigor."
+RELIC.ALCHEMICAL_COFFER,Alchemical Coffer,"Upon pickup, gain {PotionSlots} potion slots filled with random Potions."
+RELIC.AMETHYST_AUBERGINE,Amethyst Aubergine,Enemies drop {Gold} additional Gold.
+RELIC.ANCHOR,Anchor,Start each combat with {Block} Block.
+RELIC.ARCANE_SCROLL,Arcane Scroll,"Upon pickup, obtain a random Rare Card to add to your Deck."
+RELIC.ARCHAIC_TOOTH,Archaic Tooth,"Upon pickup, Transform {StarterCard.StringValue:cond:{StarterCard} into {AncientCard}|a starter card into an ancient version}."
+RELIC.ART_OF_WAR,Art of War,"If you do not play any Attacks during your turn, gain an additional {Energy:energyIcons()} next turn."
+RELIC.ASTROLABE,Astrolabe,"Upon pickup, Transform {Cards} {Cards:plural:card|cards}, then Upgrade them."
+RELIC.BAG_OF_MARBLES,Bag of Marbles,"At the start of each combat, apply {VulnerablePower} Vulnerable to ALL enemies."
+RELIC.BAG_OF_PREPARATION,Bag of Preparation,"At the start of each combat, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.BEATING_REMNANT,Beating Remnant,You cannot lose more than 20 HP in a single turn.
+RELIC.BEAUTIFUL_BRACELET,Beautiful Bracelet,"Upon pickup, Enchant {Cards} random {Cards:plural:card|cards} in your Deck with Swift 2."
+RELIC.BELLOWS,Bellows,The first Hand you draw each combat is Upgraded.
+RELIC.BELT_BUCKLE,Belt Buckle,"While you have no Potions, you have {DexterityPower} additional Dexterity."
+RELIC.BIG_HAT,Big Hat,"At the start of each combat, add {Cards} random Ethereal {Cards:plural:card|cards} into your Hand."
+RELIC.BIG_MUSHROOM,Big Mushroom,"Upon pickup, raise your Max HP by {MaxHp}. At the start of each combat, draw {Cards} fewer {Cards:plural:card|cards}."
+RELIC.BIIIG_HUG,Biiig Hug,"Upon pickup, remove {Cards} cards from your Deck. Whenever you shuffle your Draw Pile, add a Soot into your Draw Pile."
+RELIC.BING_BONG,Bing Bong,"Whenever you add a card to your Deck, add one additional copy."
+RELIC.BLACK_BLOOD,Black Blood,"At the end of combat, heal {Heal} HP."
+RELIC.BLACK_STAR,Black Star,Elites drop an additional Relic when defeated.
+RELIC.BLESSED_ANTLER,Blessed Antler,"Gain {Energy:energyIcons()} at the start of each turn. At the start of each combat, shuffle {Cards} Dazed into your Draw Pile."
+RELIC.BLOOD_SOAKED_ROSE,Blood-Soaked Rose,"Upon pickup, add 1 Enthralled to your Deck. Gain {Energy:energyIcons()} at the start of each turn."
+RELIC.BLOOD_VIAL,Blood Vial,"At the start of each combat, heal {Heal} HP."
+RELIC.BONE_FLUTE,Bone Flute,"Whenever Osty attacks, gain {Block} Block."
+RELIC.BONE_TEA,Bone Tea,"At the start of the next {Combats:plural:combat|{} combats}, Upgrade your starting hand."
+RELIC.BOOKMARK,Bookmark,"At the end of each turn, lower the cost of a random Retained card by 1 until played."
+RELIC.BOOK_OF_FIVE_RINGS,Book of Five Rings,"Every {Cards} {Cards:plural:card|cards} you add to your Deck, heal {Heal} HP."
+RELIC.BOOK_REPAIR_KNIFE,Book Repair Knife,"Whenever a non-Minion enemy dies to Doom, heal {Heal} HP."
+RELIC.BOOMING_CONCH,Booming Conch,"At the start of Elite combats, draw {Cards} additional {Cards:plural:card|cards} and gain {Energy:energyIcons()}."
+RELIC.BOUND_PHYLACTERY,Bound Phylactery,"At the start of your turn, Summon {Summon}."
+RELIC.BOWLER_HAT,Bowler Hat,Gain {GoldIncrease:percentMore()}% additional Gold.
+RELIC.BREAD,Bread,"At the start of your first turn, lose {LoseEnergy:energyIcons()}. At the start of all other turns, gain {GainEnergy:energyIcons()}."
+RELIC.BRILLIANT_SCARF,Brilliant Scarf,The 5th card you play from your hand each turn is free.
+RELIC.BRIMSTONE,Brimstone,"At the start of your turn, gain {SelfStrength} Strength and ALL enemies gain {EnemyStrength} Strength."
+RELIC.BRONZE_SCALES,Bronze Scales,Start each combat with {ThornsPower} Thorns.
+RELIC.BURNING_BLOOD,Burning Blood,"At the end of combat, heal {Heal} HP."
+RELIC.BURNING_STICKS,Burning Sticks,"The first time each combat you Exhaust a Skill, add a copy of it into your Hand."
+RELIC.BYRDPIP,Byrdpip,"Upon pickup, gain the card Byrd Swoop. A Byrdpip will accompany you in battles."
+RELIC.CALLING_BELL,Calling Bell,"Upon pickup, obtain a unique Curse and {Relics} Relics."
+RELIC.CANDELABRA,Candelabra,"At the start of your 2nd turn, gain {Energy:energyIcons()}."
+RELIC.CAPTAINS_WHEEL,Captain's Wheel,"At the start of your 3rd turn, gain {Block} Block."
+RELIC.CAULDRON,Cauldron,"Upon pickup, brews {Potions} random {Potions:plural:Potion|Potions}."
+RELIC.CENTENNIAL_PUZZLE,Centennial Puzzle,"The first time you lose HP each combat, draw {Cards} {Cards:plural:card|cards}."
+RELIC.CHANDELIER,Chandelier,"At the start of your 3rd turn, gain {Energy:energyIcons()}."
+RELIC.CHARONS_ASHES,Charon's Ashes,"Whenever you Exhaust a card, deal {Damage} damage to ALL enemies."
+RELIC.CHEMICAL_X,Chemical X,The effects of your cost X cards are increased by {Increase}.
+RELIC.CHOICES_PARADOX,Choices Paradox,"At the start of each combat, add 1 of {Cards} random cards into your Hand. Add Retain to the chosen card."
+RELIC.CHOSEN_CHEESE,The Chosen Cheese,"At the end of combat, gain {MaxHp} Max HP."
+RELIC.CIRCLET,Circlet,It's a circlet.
+RELIC.CLAWS,Claws,"Upon pickup, Transform up to {Cards} {Cards:plural:card|cards} into Maul."
+RELIC.CLOAK_CLASP,Cloak Clasp,"At the end of your turn, gain {Block} Block for each card in your Hand."
+RELIC.CRACKED_CORE,Cracked Core,"At the start of each combat, Channel {Lightning} Lightning."
+RELIC.CROSSBOW,Crossbow,"At the start of your turn, add a random Attack into your Hand. It's free to play this turn."
+RELIC.CURSED_KETTLE,Cursed Kettle,"Whenever you defeat an Elite, the other Elites in the act will gain {StrengthPower} Strength at the start of combat."
+RELIC.CURSED_PEARL,Cursed Pearl,"Upon pickup, receive Greed. Gain {Gold} Gold."
+RELIC.DARKSTONE_PERIAPT,Darkstone Periapt,"Whenever you obtain a Curse, raise your Max HP by {MaxHp}."
+RELIC.DATA_DISK,Data Disk,Start each combat with {FocusPower} Focus.
+RELIC.DAUGHTER_OF_THE_WIND,Daughter of the Wind,"Whenever you play an Attack, gain {Block} Block."
+RELIC.DELICATE_FROND,Delicate Frond,"At the start of each combat, fill all empty potion slots with random Potions."
+RELIC.DEMON_TONGUE,Demon Tongue,"The first time you lose HP on your turn, heal HP equal to the amount lost."
+RELIC.DEPRECATED_RELIC,Deprecated Relic,This relic is no longer in the game. It's just here for legacy purposes.
+RELIC.DIAMOND_DIADEM,Diamond Diadem,Start combat with {Block} Block. Your Block is not removed at the start of your 2nd turn.
+RELIC.DINGY_RUG,Dingy Rug,Card rewards can now contain Colorless cards.
+RELIC.DISTINGUISHED_CAPE,Distinguished Cape,"Upon pickup, add {Curses} random Curses and {Cards} {Cards:plural:Apparition|Apparitions} to your Deck."
+RELIC.DIVINE_DESTINY,Divine Destiny,"At the start of each combat, gain {Stars:starIcons()}."
+RELIC.DIVINE_RIGHT,Divine Right,"At the start of each combat, gain {Stars:starIcons()}."
+RELIC.DOLLYS_MIRROR,Dolly's Mirror,"Upon pickup, obtain an additional copy of a card in your Deck."
+RELIC.DOWSING_ROD,Dowsing Rod,"Upon pickup, add 1 Dowsing to your Deck."
+RELIC.DRAGON_FRUIT,Dragon Fruit,"Whenever you gain Gold, raise your Max HP by {MaxHp}."
+RELIC.DREAM_CATCHER,Dream Catcher,"Whenever you Rest, you may add a card to your Deck."
+RELIC.DRIFTWOOD,Driftwood,You may reroll each card reward once.
+RELIC.DUSTY_TOME,Dusty Tome,"Upon pickup, obtain {AncientCard.StringValue:cond:{}|an Ancient Card}."
+RELIC.ECTOPLASM,Ectoplasm,You can no longer gain Gold. Gain {Energy:energyIcons()} at the start of each turn.
+RELIC.ELECTRIC_SHRYMP,Electric Shrymp,"Upon pickup, Enchant a Skill with Imbued."
+RELIC.EMBER_TEA,Ember Tea,"At the start of the next {Combats:plural:combat|{} combats}, gain {StrengthPower} Strength."
+RELIC.EMOTION_CHIP,Emotion Chip,"If you lost HP during the previous turn, trigger the passive ability of all Orbs at the start of your turn."
+RELIC.EMPTY_CAGE,Empty Cage,"Upon pickup, remove {Cards} {Cards:plural:card|cards} from your Deck."
+RELIC.ENDLESS_APPETITE,Endless Appetite,"Whenever you Exhaust a card, gain {StrengthPower} Strength."
+RELIC.ETERNAL_FEATHER,Eternal Feather,"For every {Cards:plural:card|{} cards} in your Deck, heal {Heal} HP whenever you enter a Rest Site."
+RELIC.FAKE_ANCHOR,Anchor???,Start each combat with {Block} Block.
+RELIC.FAKE_BLOOD_VIAL,Blood Vial???,"At the start of each combat, heal {Heal} HP."
+RELIC.FAKE_HAPPY_FLOWER,Happy Flower???,"Every {Turns} {Turns:plural:turn|turns}, gain {Energy:energyIcons()}."
+RELIC.FAKE_LEES_WAFFLE,Lee's Waffle???,"Upon pickup, heal {Heal}% of your HP."
+RELIC.FAKE_MANGO,Mango???,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.FAKE_MERCHANTS_RUG,The Merchant's Rug???,Poor imitation. Does nothing.
+RELIC.FAKE_ORICHALCUM,Orichalcum???,"If you end your turn without Block, gain {Block} Block."
+RELIC.FAKE_SNECKO_EYE,Snecko Eye???,Start each combat Confused.
+RELIC.FAKE_STRIKE_DUMMY,Strike Dummy???,Cards containing “Strike” deal {ExtraDamage} additional damage.
+RELIC.FAKE_VENERABLE_TEA_SET,Venerable Tea Set???,"Whenever you enter a Rest Site, start the next combat with an additional {Energy:energyIcons()}."
+RELIC.FENCING_MANUAL,Fencing Manual,"At the start of each combat, Forge {Forge}."
+RELIC.FESTIVE_POPPER,Festive Popper,"At the start of each combat, deal {Damage} damage to ALL enemies."
+RELIC.FIDDLE,Fiddle,"At the start of each turn, draw {Cards} additional {Cards:plural:card|cards}. You may not draw cards during your turn."
+RELIC.FISHING_ROD,Fishing Rod,"Every {Combats:plural:normal combat|{} normal combats}, Upgrade a random card in your Deck."
+RELIC.FORGOTTEN_SOUL,Forgotten Soul,"Whenever you Exhaust a card, deal {Damage} damage to a random enemy."
+RELIC.FRAGRANT_MUSHROOM,Fragrant Mushroom,"Upon pickup, lose {HpLoss} HP and Upgrade {Cards} random {Cards:plural:card|cards}."
+RELIC.FRESNEL_LENS,Fresnel Lens,"Whenever you add a card that gains Block to your Deck, Enchant it with Nimble {NimbleAmount}."
+RELIC.FROZEN_EGG,Frozen Egg,"Whenever you add a Power into your Deck, Upgrade it."
+RELIC.FUNERARY_MASK,Funerary Mask,"At the start of each combat, add {Cards} {Cards:plural:Soul|Souls} into your Draw Pile."
+RELIC.FUR_COAT,Fur Coat,"Upon pickup, mark {Combats} random combats. Enemies in those rooms have 1 HP."
+RELIC.GALACTIC_DUST,Galactic Dust,"For every {Stars} {singleStarIcon} spent, gain {Block} Block."
+RELIC.GAMBLING_CHIP,Gambling Chip,"At the start of each combat, discard any number of cards then draw that many."
+RELIC.GAME_PIECE,Game Piece,"Whenever you play a Power, draw {Cards} {Cards:plural:card|cards}."
+RELIC.GHOST_SEED,Ghost Seed,Strikes and Defends gain Ethereal.
+RELIC.GIRYA,Girya,You can now gain Strength at Rest Sites. (3 times max)
+RELIC.GLASS_EYE,Glass Eye,"Upon pickup, obtain 2 Common cards, 2 Uncommon cards, and 1 Rare card."
+RELIC.GLITTER,Glitter,Enchant all card rewards with Glam.
+RELIC.GLOWING_ORB,Glowing Orb,Start Elite combats with an additional {Energy:energyIcons()}.
+RELIC.GNARLED_HAMMER,Gnarled Hammer,"Upon pickup, Enchant up to {Cards} {Cards:plural:Attack|Attacks} with Sharp {SharpAmount:diff()}."
+RELIC.GOLDEN_COMPASS,Golden Compass,"Upon pickup, replace the Act 2 Map with a single special path."
+RELIC.GOLDEN_PEARL,Golden Pearl,"Upon pickup, gain {Gold} Gold."
+RELIC.GOLD_PLATED_CABLES,Gold-Plated Cables,Your rightmost Orb triggers its passive an additional time.
+RELIC.GORGET,Gorget,"At the start of each combat, gain {PlatingPower} Plating."
+RELIC.GREMLIN_HORN,Gremlin Horn,"Whenever an enemy dies, gain {Energy:energyIcons()} and draw {Cards} {Cards:plural:card|cards}."
+RELIC.HAND_DRILL,Hand Drill,"Whenever you break an enemy's Block, apply {VulnerablePower} Vulnerable."
+RELIC.HAPPY_FLOWER,Happy Flower,"Every {Turns} {Turns:plural:turn|turns}, gain {Energy:energyIcons()}."
+RELIC.HEFTY_TABLET,Hefty Tablet,"Upon pickup, choose 1 of {Cards} Rare cards to add to your Deck, and add 1 Injury to your Deck."
+RELIC.HELICAL_DART,Helical Dart,"Whenever you play a Shiv, gain {DexterityPower} Dexterity this turn."
+RELIC.HISTORY_COURSE,History Course,"At the start of your turn, play a copy of your last played Attack."
+RELIC.HORN_CLEAT,Horn Cleat,"At the start of your 2nd turn, gain {Block} Block."
+RELIC.ICE_CREAM,Ice Cream,Energy is now conserved between turns.
+RELIC.INFUSED_CORE,Infused Core,"At the start of each combat, Channel {Lightning} Lightning. Lightning deals {ExtraDamage} additional damage."
+RELIC.INK_BOTTLE,Ink Bottle,"Every time you play {CardThreshold} {CardThreshold:plural:card|cards}, draw {Cards} {Cards:plural:card|cards}."
+RELIC.INTIMIDATING_HELMET,Intimidating Helmet,"Whenever you play a card that costs {Energy:energyIcons()} or more, gain {Block} Block."
+RELIC.IRON_CLUB,Iron Club,"Every {Cards} {Cards:plural:card|cards} you play, draw 1 card."
+RELIC.IVORY_TILE,Ivory Tile,"Whenever you play a card that costs {EnergyThreshold:energyIcons()} or more, gain {Energy:energyIcons()}."
+RELIC.JEWELED_MASK,Jeweled Mask,"At the start of each combat, put a random Power from your Draw Pile into your Hand. It's free to play this combat."
+RELIC.JEWELRY_BOX,Jewelry Box,"Upon pickup, add 1 Apotheosis to your Deck."
+RELIC.JOSS_PAPER,Joss Paper,"Every {ExhaustAmount} times you Exhaust a card, draw {Cards} {Cards:plural:card|cards}."
+RELIC.JUZU_BRACELET,Juzu Bracelet,Regular enemy combats are no longer encountered in ? rooms.
+RELIC.KALEIDOSCOPE,Kaleidoscope,"Upon pickup, obtain {Cards} {Cards:plural:card reward|card rewards} from other characters."
+RELIC.KIFUDA,Kifuda,"Upon pickup, Enchant up to {Cards} {Cards:plural:card|cards} with Adroit."
+RELIC.KUNAI,Kunai,"Every time you play {Cards} Attacks in a single turn, gain {DexterityPower} Dexterity."
+RELIC.KUSARIGAMA,Kusarigama,"Every time you play {Cards} {Cards:plural:Attack|Attacks} in a single turn, deal {Damage} damage to a random enemy."
+RELIC.LANTERN,Lantern,Start each combat with an additional {Energy:energyIcons()}.
+RELIC.LARGE_CAPSULE,Large Capsule,"Upon pickup, obtain {Relics} random {Relics:plural:Relic|Relics}. Add an additional Strike and Defend to your Deck."
+RELIC.LASTING_CANDY,Lasting Candy,"Every other combat, your card rewards gain an additional Power."
+RELIC.LAVA_LAMP,Lava Lamp,"At the end of combat, Upgrade all card rewards if you took no damage."
+RELIC.LAVA_ROCK,Lava Rock,The Act 1 Boss drops {Relics} Relics.
+RELIC.LEAD_PAPERWEIGHT,Lead Paperweight,"Upon pickup, choose 1 of 2 Colorless cards to add to your Deck."
+RELIC.LEAFY_POULTICE,Leafy Poultice,"Upon pickup, Transform 1 of your Strikes and 1 of your Defends and lose {MaxHp} Max HP."
+RELIC.LEES_WAFFLE,Lee's Waffle,"Upon pickup, raise your Max HP by {MaxHp} and heal all of your HP."
+RELIC.LETTER_OPENER,Letter Opener,"Every time you play {Cards} {Cards:plural:Skill|Skills} in a single turn, deal {Damage} damage to ALL enemies."
+RELIC.LIZARD_TAIL,Lizard Tail,"When your HP would be reduced to 0, heal to {Heal}% of your Max HP instead (works once)."
+RELIC.LOOMING_FRUIT,Looming Fruit,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.LORDS_PARASOL,Lord's Parasol,"When you encounter the Merchant, immediately obtain EVERYTHING he sells."
+RELIC.LOST_COFFER,Lost Coffer,"Upon pickup, gain 1 card reward and procure 1 random potion."
+RELIC.LOST_WISP,Lost Wisp,"Whenever you play a Power, deal {Damage} damage to ALL enemies."
+RELIC.LUCKY_FYSH,Lucky Fysh,"Whenever you add a card to your Deck, gain {Gold} Gold."
+RELIC.LUNAR_PASTRY,Lunar Pastry,"At the end of your turn, gain {Stars:starIcons()}."
+RELIC.MANGO,Mango,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.MASSIVE_SCROLL,Massive Scroll,"Upon pickup, choose 1 of 3 Multiplayer Cards to add to your Deck."
+RELIC.MAW_BANK,Maw Bank,"Whenever you climb a floor, gain {Gold} Gold. No longer works when you spend any Gold at the shop."
+RELIC.MEAL_TICKET,Meal Ticket,"Whenever you enter a shop room, heal {Heal} HP."
+RELIC.MEAT_CLEAVER,Meat Cleaver,You may Cook at Rest Sites.
+RELIC.MEAT_ON_THE_BONE,Meat on the Bone,"If your HP is at or below {HpThreshold}% at the end of combat, heal {Heal} HP."
+RELIC.MEMBERSHIP_CARD,Membership Card,{Discount}% discount on all products!
+RELIC.MERCURY_HOURGLASS,Mercury Hourglass,"At the start of your turn, deal {Damage} damage to ALL enemies."
+RELIC.METRONOME,Metronome,"The first time you Channel {OrbCount} Orbs each combat, deal {Damage} damage to ALL enemies."
+RELIC.MINIATURE_CANNON,Miniature Cannon,Upgraded Attacks deal {ExtraDamage} additional damage.
+RELIC.MINIATURE_TENT,Miniature Tent,You may choose any number of options at Rest Sites.
+RELIC.MINI_REGENT,Mini Regent,"The first time you spend {singleStarIcon} each turn, gain {StrengthPower} Strength."
+RELIC.MOLTEN_EGG,Molten Egg,"Whenever you add an Attack card to your Deck, Upgrade it."
+RELIC.MR_STRUGGLES,Mr. Struggles,"At the start of your turn, deal damage equal to the turn number to ALL enemies."
+RELIC.MUMMIFIED_HAND,Mummified Hand,"Whenever you play a Power, a random card in your Hand is free to play that turn."
+RELIC.MUSIC_BOX,Music Box,Create an Ethereal copy of the first Attack you play each turn.
+RELIC.MYSTERIOUS_COCOON,Mysterious Cocoon,"Upon gaining {Experience} experience, transform Training Strike into Impale."
+RELIC.MYSTIC_LIGHTER,Mystic Lighter,Enchanted Attacks deal {Damage} additional damage.
+RELIC.NEOWS_BONES,Neow's Bones,"Upon pickup, gain {Relics} random Neow {Relics:plural:Relic|Relics}. Add {Curses} random {Curses:plural:Curse|Curses} to your Deck."
+RELIC.NEOWS_SACRIFICE,Neow's Sacrifice,"Upon pickup, procure 1 Ambergris and add 1 Guilty to your Deck."
+RELIC.NEOWS_TALISMAN,Neow's Talisman,"Upon pickup, Upgrade 1 of your Strikes and 1 of your Defends."
+RELIC.NEOWS_TORMENT,Neow's Torment,"Upon pickup, add 1 Neow's Fury to your Deck."
+RELIC.NEW_LEAF,New Leaf,"Upon pickup, Transform {Cards} {Cards:plural:card|cards}."
+RELIC.NINJA_SCROLL,Ninja Scroll,"At the start of each combat, add {Shivs} {Shivs:plural:Shiv|Shivs} into your Hand."
+RELIC.NUNCHAKU,Nunchaku,"Every time you play {Cards} Attacks, gain {Energy:energyIcons()}."
+RELIC.NUTRITIOUS_OYSTER,Nutritious Oyster,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.NUTRITIOUS_SOUP,Nutritious Soup,"Upon pickup, Enchant all Strikes in your Deck with Tezcatara's Ember."
+RELIC.ODDLY_SMOOTH_STONE,Oddly Smooth Stone,Start each combat with {DexterityPower} Dexterity.
+RELIC.OLD_COIN,Old Coin,"Upon pickup, gain {Gold} Gold."
+RELIC.ORANGE_DOUGH,Orange Dough,"At the start of each combat, add {Cards} random Colorless {Cards:plural:card|cards} into your Hand."
+RELIC.ORICHALCUM,Orichalcum,"If you end your turn without Block, gain {Block} Block."
+RELIC.ORNAMENTAL_FAN,Ornamental Fan,"Every time you play {Cards} Attacks in a single turn, gain {Block} Block."
+RELIC.ORRERY,Orrery,"Upon pickup, gain {Cards} card {Cards:plural:reward|rewards}."
+RELIC.PAELS_BLOOD,Pael's Blood,"At the start of your turn, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.PAELS_CLAW,Pael's Claw,"Upon pickup, Enchant all Defends with {EnchantmentName}."
+RELIC.PAELS_EYE,Pael's Eye,"The first time each combat you end your turn without playing cards, Exhaust your Hand, and take an extra turn."
+RELIC.PAELS_FLESH,Pael's Flesh,"Gain an additional {Energy:energyIcons()} at the start of your 3rd turn, and every turn after that."
+RELIC.PAELS_GROWTH,Pael's Growth,"Upon pickup, Enchant a card with {EnchantmentName}."
+RELIC.PAELS_HORN,Pael's Horn,"Upon pickup, add 2 Relax to your Deck."
+RELIC.PAELS_LEGION,Pael's Legion,"Doubles Block gained from a card, then goes to sleep for {Turns} {Turns:plural:turn|turns}."
+RELIC.PAELS_TEARS,Pael's Tears,"If you end your turn with unspent {energyPrefix:energyIcons(1)}, gain an additional {Energy:energyIcons()} next turn."
+RELIC.PAELS_TOOTH,Pael's Tooth,"Upon pickup, remove {Cards} {Cards:plural:card|cards} from your Deck. After each combat, randomly add 1 back Upgraded.{CardTitles.StringValue:cond: Cards devoured: {}|}"
+RELIC.PAELS_WING,Pael's Wing,"You may sacrifice card rewards to Pael. Every {Sacrifices:plural:sacrifice|{} sacrifices}, obtain a Relic."
+RELIC.PANDORAS_BOX,Pandora's Box,Transform ALL Strikes and Defends.
+RELIC.PANTOGRAPH,Pantograph,"At the start of each Boss combat, heal {Heal} HP."
+RELIC.PAPER_KRANE,Paper Krane,Enemies with Weak deal 40% less damage to you rather than 25%.
+RELIC.PAPER_PHROG,Paper Phrog,Enemies with Vulnerable take 75% more damage rather than 50%.
+RELIC.PARRYING_SHIELD,Parrying Shield,"If you end a turn with at least {Block} Block, deal {Damage} damage to a random enemy."
+RELIC.PEAR,Pear,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.PENDULUM,Pendulum,"Every {Turns} {Turns:plural:turn|turns}, draw {Cards} {Cards:plural:card|cards}."
+RELIC.PEN_NIB,Pen Nib,Every 10th Attack you play deals double damage.
+RELIC.PERMAFROST,Permafrost,"The first time you play a Power each combat, gain {Block} Block."
+RELIC.PETRIFIED_TOAD,Petrified Toad,"At the start of each combat, procure a Potion-Shaped Rock."
+RELIC.PHIAL_HOLSTER,Phial Holster,"Upon pickup, gain {PotionSlots} potion {PotionSlots:plural:slot|slots} and procure {Potions} random {Potions:plural:Potion|Potions}."
+RELIC.PHILOSOPHERS_STONE,Philosopher's Stone,Gain {Energy:energyIcons()} at the start of each turn. ALL enemies start combat with {StrengthPower} Strength.
+RELIC.PHYLACTERY_UNBOUND,Phylactery Unbound,"At the start of each combat, Summon {StartOfCombat}. At the start of your turn, Summon {StartOfTurn}."
+RELIC.PLANISPHERE,Planisphere,"Whenever you enter a ? room, heal {Heal} HP."
+RELIC.POCKETWATCH,Pocketwatch,"Whenever you play {CardThreshold} or fewer {CardThreshold:plural:card|cards} during your turn, draw {Cards} additional {Cards:plural:card|cards} at the start of your next turn."
+RELIC.POLLINOUS_CORE,Pollinous Core,"Every {Turns} {Turns:plural:turn|turns}, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.POMANDER,Pomander,"Upon pickup, Upgrade a card."
+RELIC.POTION_BELT,Potion Belt,"Upon pickup, gain {PotionSlots} potion {PotionSlots:plural:slot|slots}."
+RELIC.POWER_CELL,Power Cell,"At the start of each combat, add {Cards} zero-cost cards from your Draw Pile into your Hand."
+RELIC.PRAYER_WHEEL,Prayer Wheel,Normal enemies drop an additional card reward.
+RELIC.PRECARIOUS_SHEARS,Precarious Shears,"Upon pickup, remove {Cards} {Cards:plural:card|cards} from your Deck and lose {Damage} HP."
+RELIC.PRECISE_SCISSORS,Precise Scissors,"Upon pickup, remove {Cards} {Cards:plural:card|cards} from your Deck."
+RELIC.PRESERVED_FOG,Preserved Fog,"Upon pickup, remove {Cards} {Cards:plural:card|cards} from your Deck. Add Folly to your Deck."
+RELIC.PRISMATIC_GEM,Prismatic Gem,Gain {Energy:energyIcons()} at the start of each turn. Card rewards now contain cards from other colors.
+RELIC.PUMPKIN_CANDLE,Pumpkin Candle,Gain {Energy:energyIcons()} at the start of each turn. Extinguishes after {CombatCount} combats. Can be Kindled at Rest Sites.
+RELIC.PUNCH_DAGGER,Punch Dagger,"Upon pickup, Enchant an Attack with Momentum {Momentum}."
+RELIC.RADIANT_PEARL,Radiant Pearl,"At the start of each combat, add {Cards} {Cards:plural:Luminesce|Luminesces} into your Hand."
+RELIC.RAINBOW_RING,Rainbow Ring,"The first time you play an Attack, Skill, and Power each turn, gain {StrengthPower} Strength and {DexterityPower} Dexterity."
+RELIC.RAZOR_TOOTH,Razor Tooth,"Every time you play an Attack or Skill, Upgrade it for the remainder of combat."
+RELIC.RED_MASK,Red Mask,"At the start of each combat, apply {WeakPower} Weak to ALL enemies."
+RELIC.RED_SKULL,Red Skull,"While your HP is at or below {HpThreshold}%, you have {StrengthPower} additional Strength."
+RELIC.RED_VINE_TEA,Red Vine Tea,"At the start of the next {Combats:plural:combat|{} combats}, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.REGALITE,Regalite,"The first time you create a card each turn, gain {Block} Block."
+RELIC.REGAL_PILLOW,Regal Pillow,"Whenever you Rest, heal an additional {Heal} HP."
+RELIC.REPTILE_TRINKET,Reptile Trinket,"Whenever you use a potion, gain {StrengthPower} Strength this turn."
+RELIC.RINGING_TRIANGLE,Ringing Triangle,Retain your Hand on the first turn of combat.
+RELIC.RING_OF_THE_DRAKE,Ring of the Drake,"At the start of your first {Turns:plural:turn|{} turns}, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.RING_OF_THE_SNAKE,Ring of the Snake,"At the start of each combat, draw {Cards} additional {Cards:plural:card|cards}."
+RELIC.RIPPLE_BASIN,Ripple Basin,"If you did not play any Attacks during your turn, gain {Block} Block."
+RELIC.ROYAL_POISON,Royal Poison,"At the start of each combat, lose {Damage} HP."
+RELIC.ROYAL_STAMP,Royal Stamp,"Upon pickup, choose an Attack or Skill in your Deck to Enchant with {Enchantment}."
+RELIC.RUINED_HELMET,Ruined Helmet,"The first time you gain Strength each combat, double the amount gained."
+RELIC.RUNIC_CAPACITOR,Runic Capacitor,Start each combat with {Repeat} additional Orb Slots.
+RELIC.RUNIC_PYRAMID,Runic Pyramid,"At the end of your turn, you no longer discard your Hand."
+RELIC.SAI,Sai,"At the start of your turn, gain {Block} Block."
+RELIC.SAND_CASTLE,Sand Castle,"Upon pickup, Upgrade {Cards} random {Cards:plural:card|cards}."
+RELIC.SCREAMING_FLAGON,Screaming Flagon,"If you end your turn with no cards in your Hand, deal {Damage} damage to ALL enemies."
+RELIC.SCROLL_BOXES,Scroll Boxes,"Upon pickup, choose 1 of 2 packs of cards to add to your Deck."
+RELIC.SEAL_OF_GOLD,Seal of Gold,"At the start of your turn, spend {Gold} Gold to gain {Energy:energyIcons()}."
+RELIC.SEA_GLASS,Sea Glass,See {Cards} cards from {Character.StringValue:cond:{}|another character}. Choose any number of them to add to your Deck.
+RELIC.SELF_FORMING_CLAY,Self-Forming Clay,"Whenever you lose HP in combat, gain {BlockNextTurn} Block next turn."
+RELIC.SERE_TALON,Sere Talon,"Upon pickup, lose 9 Max HP. Add {Wishes} Wishes to your Deck."
+RELIC.SHOVEL,Shovel,You can now dig at Rest Sites to obtain a random Relic.
+RELIC.SHURIKEN,Shuriken,"Every time you play {Cards} Attacks in a single turn, gain {StrengthPower} Strength."
+RELIC.SIGNET_RING,Signet Ring,"Upon pickup, gain {Gold} Gold."
+RELIC.SILKEN_TRESS,Silken Tress,"Upon pickup, lose all Gold. Enchant all cards in your first card reward with Glam."
+RELIC.SILVER_CRUCIBLE,Silver Crucible,The first {Cards} card rewards you see are Upgraded. The first Treasure Chest you open is empty.
+RELIC.SLING_OF_COURAGE,Sling of Courage,Start each Elite combat with {StrengthPower} Strength.
+RELIC.SMALL_CAPSULE,Small Capsule,"Upon pickup, obtain a random Relic."
+RELIC.SNECKO_EYE,Snecko Eye,"At the start of your turn, draw {Cards} additional {Cards:plural:card|cards}. Start each combat Confused."
+RELIC.SNECKO_SKULL,Snecko Skull,"Whenever you apply Poison, apply an additional {PoisonPower} Poison."
+RELIC.SOZU,Sozu,Gain {Energy:energyIcons()} at the start of each turn. You can no longer obtain Potions.
+RELIC.SPARKLING_ROUGE,Sparkling Rouge,"At the start of your 3rd turn, gain {StrengthPower} Strength and {DexterityPower} Dexterity."
+RELIC.SPIKED_GAUNTLETS,Spiked Gauntlets,Gain {Energy:energyIcons()} at the start of each turn. Powers cost 1 more {energyPrefix:energyIcons(1)}.
+RELIC.STONE_CALENDAR,Stone Calendar,"At the end of turn {DamageTurn}, deal {Damage} damage to ALL enemies."
+RELIC.STONE_CRACKER,Stone Cracker,"At the start of each combat, Upgrade {Cards} random {Cards:plural:card|cards} in your Draw Pile for the rest of combat."
+RELIC.STONE_HUMIDIFIER,Stone Humidifier,"Whenever you Rest at a Rest Site, raise your Max HP by {MaxHp}."
+RELIC.STORYBOOK,Storybook,"Upon pickup, add 1 Brightest Flame to your Deck."
+RELIC.STRAWBERRY,Strawberry,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.STRIKE_DUMMY,Strike Dummy,Cards containing “Strike” deal {ExtraDamage} additional damage.
+RELIC.STURDY_CLAMP,Sturdy Clamp,Up to {Block} Block persists across turns.
+RELIC.SWORD_OF_JADE,Sword of Jade,Start each combat with {StrengthPower} Strength.
+RELIC.SWORD_OF_STONE,Sword of Stone,Transforms into a powerful Relic after defeating {Elites} {Elites:plural:Elite|Elites}.
+RELIC.SYMBIOTIC_VIRUS,Symbiotic Virus,"At the start of each combat, Channel {Dark} Dark."
+RELIC.TANXS_WHISTLE,Tanx's Whistle,"Upon pickup, add 1 Whistle to your Deck."
+RELIC.TEA_OF_DISCOURTESY,Tea of Discourtesy,"At the start of the next combat, shuffle {DazedCount} Dazed into your Draw Pile."
+RELIC.THE_ABACUS,The Abacus,"Whenever you shuffle your Draw Pile, gain {Block} Block."
+RELIC.THE_BOOT,The Boot,"Whenever you would deal {DamageThreshold} or less unblocked attack damage, increase it to {DamageMinimum}."
+RELIC.THE_COURIER,The Courier,"The merchant no longer runs out of cards, relics, or potions and his prices are reduced by {Discount}%."
+RELIC.THROWING_AXE,Throwing Axe,The first card you play each combat is played an extra time.
+RELIC.TINGSHA,Tingsha,"Whenever you discard a card during your turn, deal {Damage} damage to a random enemy for each card discarded."
+RELIC.TINY_MAILBOX,Tiny Mailbox,"Whenever you Rest, procure 2 random Potions."
+RELIC.TOASTY_MITTENS,Toasty Mittens,"At the start of your turn, Exhaust 1 card from your Hand and gain {StrengthPower} Strength."
+RELIC.TOOLBOX,Toolbox,"At the start of each combat, choose 1 of {Cards} random Colorless cards and add the chosen card into your Hand."
+RELIC.TOUCH_OF_OROBAS,Touch of Orobas,"Upon pickup, replace {StarterRelic.StringValue:cond:{StarterRelic} with {UpgradedRelic}|your starter Relic with an Ancient version}."
+RELIC.TOUGH_BANDAGES,Tough Bandages,"Whenever you discard a card during your turn, gain {Block} Block."
+RELIC.TOXIC_EGG,Toxic Egg,"Whenever you add a Skill into your Deck, Upgrade it."
+RELIC.TOY_BOX,Toy Box,"Upon pickup, obtain {Relics} Wax {Relics:plural:Relic|Relics}. Every {Combats} {Combats:plural:combat|combats}, your left-most Wax Relic will melt away."
+RELIC.TRI_BOOMERANG,Tri-Boomerang,Choose {Cards} {Cards:plural:Attack|Attacks} in your Deck. Enchant them with Instinct.
+RELIC.TUNGSTEN_ROD,Tungsten Rod,"Whenever you would lose HP, lose {HpLossReduction} less."
+RELIC.TUNING_FORK,Tuning Fork,"Every time you play {Cards} Skills, gain {Block} Block."
+RELIC.TWISTED_FUNNEL,Twisted Funnel,"At the start of each combat, apply {PoisonPower} Poison to ALL enemies."
+RELIC.UNCEASING_TOP,Unceasing Top,"Whenever you have no cards in Hand during your turn, draw a card."
+RELIC.UNDYING_SIGIL,Undying Sigil,Enemies with at least as much Doom as HP deal 50% less damage.
+RELIC.UNSETTLING_LAMP,Unsettling Lamp,"Each combat, the first time you play a card that Debuffs an enemy, double its effect."
+RELIC.VAJRA,Vajra,Start each combat with {StrengthPower} Strength.
+RELIC.VAMBRACE,Vambrace,"The first time you gain Block from a card each combat, double the amount gained."
+RELIC.VELVET_CHOKER,Velvet Choker,Gain {Energy:energyIcons()} at the start of each turn. You cannot play more than {Cards} {Cards:plural:card|cards} per turn.
+RELIC.VENERABLE_TEA_SET,Venerable Tea Set,"Whenever you enter a Rest Site, start the next combat with an additional {Energy:energyIcons()}."
+RELIC.VERY_HOT_COCOA,Very Hot Cocoa,Start each combat with an additional {Energy:energyIcons()}.
+RELIC.VEXING_PUZZLEBOX,Vexing Puzzlebox,"At the start of each combat, add a random card into your Hand. It's free to play this turn."
+RELIC.VINE_BRACELET,Vine Bracelet,"Upon pickup, raise your Max HP by {MaxHp}."
+RELIC.VITRUVIAN_MINION,Vitruvian Minion,Cards containing “Minion” deal double damage and gain double Block.
+RELIC.WAR_HAMMER,War Hammer,"Whenever you kill an Elite, Upgrade {Cards} random {Cards:plural:card|cards}."
+RELIC.WAR_PAINT,War Paint,"Upon pickup, Upgrade {Cards} random {Cards:plural:Skill|Skills}."
+RELIC.WHETSTONE,Whetstone,"Upon pickup, Upgrade {Cards} random {Cards:plural:Attack|Attacks}."
+RELIC.WHISPERING_EARRING,Whispering Earring,Gain {Energy:energyIcons()} at the start of each turn. Vakuu plays your first turn for you.
+RELIC.WHITE_BEAST_STATUE,White Beast Statue,Potions always appear in combat rewards.
+RELIC.WHITE_STAR,White Star,Elites drop an additional Rare card reward.
+RELIC.WINGED_BOOTS,Winged Boots,You may ignore paths when choosing the next rooms to travel to {Rooms} times.
+RELIC.WING_CHARM,Wing Charm,A random card in each card reward is Enchanted with Swift {SwiftAmount}.
+RELIC.WONGOS_MYSTERY_TICKET,Wongo's Mystery Ticket,Receive {Repeat} random {Repeat:plural:Relic|Relics} after {RemainingCombats} {RemainingCombats:plural:combat|combats}.
+RELIC.WONGO_CUSTOMER_APPRECIATION_BADGE,Wongo Customer Appreciation Badge,Does nothing.
+RELIC.YUMMY_COOKIE,Yummy Cookie,"Upon pickup, Upgrade {Cards} {Cards:plural:card|cards}."
