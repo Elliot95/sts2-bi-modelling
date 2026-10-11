@@ -1,0 +1,202 @@
+event_id,page,option,option_key,option_title,option_description
+EVENT.ABYSSAL_BATHS,ALL,EXIT_BATHS,ABYSSAL_BATHS.pages.ALL.options.EXIT_BATHS,Exit Baths,
+EVENT.ABYSSAL_BATHS,ALL,LINGER,ABYSSAL_BATHS.pages.ALL.options.LINGER,Linger,Gain {MaxHp} Max HP. Take {Damage} damage.
+EVENT.ABYSSAL_BATHS,INITIAL,ABSTAIN,ABYSSAL_BATHS.pages.INITIAL.options.ABSTAIN,Abstain,Heal {Heal} HP.
+EVENT.ABYSSAL_BATHS,INITIAL,IMMERSE,ABYSSAL_BATHS.pages.INITIAL.options.IMMERSE,Immerse,Gain {MaxHp} Max HP. Take {Damage} damage.
+EVENT.AMALGAMATOR,INITIAL,COMBINE_DEFENDS,AMALGAMATOR.pages.INITIAL.options.COMBINE_DEFENDS,Combine Defends,Remove 2 Defends. Add {Card2} to your Deck.
+EVENT.AMALGAMATOR,INITIAL,COMBINE_STRIKES,AMALGAMATOR.pages.INITIAL.options.COMBINE_STRIKES,Combine Strikes,Remove 2 Strikes. Add {Card1} to your Deck.
+EVENT.AROMA_OF_CHAOS,INITIAL,LET_GO,AROMA_OF_CHAOS.pages.INITIAL.options.LET_GO,Let Go,Transform a card in your Deck.
+EVENT.AROMA_OF_CHAOS,INITIAL,MAINTAIN_CONTROL,AROMA_OF_CHAOS.pages.INITIAL.options.MAINTAIN_CONTROL,Maintain Control,Upgrade a card in your Deck.
+EVENT.BATTLEWORN_DUMMY,INITIAL,SETTING_1,BATTLEWORN_DUMMY.pages.INITIAL.options.SETTING_1,Setting 1,Fight a {Setting1Hp} HP dummy. Procure 1 random Potion.
+EVENT.BATTLEWORN_DUMMY,INITIAL,SETTING_2,BATTLEWORN_DUMMY.pages.INITIAL.options.SETTING_2,Setting 2,Fight a {Setting2Hp} HP dummy. Upgrade 2 random cards.
+EVENT.BATTLEWORN_DUMMY,INITIAL,SETTING_3,BATTLEWORN_DUMMY.pages.INITIAL.options.SETTING_3,Setting 3,Fight a {Setting3Hp} HP dummy. Obtain a random Relic.
+EVENT.BRAIN_LEECH,INITIAL,RIP,BRAIN_LEECH.pages.INITIAL.options.RIP,Rip the Leech Off,Lose {RipHpLoss} HP. Gain a Colorless card reward.
+EVENT.BRAIN_LEECH,INITIAL,SHARE_KNOWLEDGE,BRAIN_LEECH.pages.INITIAL.options.SHARE_KNOWLEDGE,Share Knowledge,Choose {CardChoiceCount} of {FromCardChoiceCount} random cards to add to your Deck.
+EVENT.BUGSLAYER,INITIAL,EXTERMINATION,BUGSLAYER.pages.INITIAL.options.EXTERMINATION,Learn Extermination Technique,Add {Card1} to your Deck.
+EVENT.BUGSLAYER,INITIAL,SQUASH,BUGSLAYER.pages.INITIAL.options.SQUASH,Learn Squash Technique,Add {Card2} to your Deck.
+EVENT.BYRDONIS_NEST,INITIAL,EAT,BYRDONIS_NEST.pages.INITIAL.options.EAT,Eat the Egg,Gain {MaxHp} Max HP.
+EVENT.BYRDONIS_NEST,INITIAL,TAKE,BYRDONIS_NEST.pages.INITIAL.options.TAKE,Take the Egg,Add {Card} to your Deck.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,DEFECT,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.DEFECT,Blue,Obtain {Cards} Defect {Cards:plural:card|cards}.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,EQUALITY,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.EQUALITY,Equality,Obtain Prismatic Shard.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,IRONCLAD,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.IRONCLAD,Red,Obtain {Cards} Ironclad {Cards:plural:card|cards}.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,NECROBINDER,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.NECROBINDER,Pink,Obtain {Cards} Necrobinder {Cards:plural:card|cards}.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,REGENT,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.REGENT,Orange,Obtain {Cards} Regent {Cards:plural:card|cards}.
+EVENT.COLORFUL_PHILOSOPHERS,INITIAL,SILENT,COLORFUL_PHILOSOPHERS.pages.INITIAL.options.SILENT,Green,Obtain {Cards} Silent {Cards:plural:card|cards}.
+EVENT.COLOSSAL_FLOWER,INITIAL,EXTRACT_CURRENT_PRIZE_1,COLOSSAL_FLOWER.pages.INITIAL.options.EXTRACT_CURRENT_PRIZE_1,Extract Nectar,Gain {Prize1} Gold.
+EVENT.COLOSSAL_FLOWER,INITIAL,REACH_DEEPER_1,COLOSSAL_FLOWER.pages.INITIAL.options.REACH_DEEPER_1,Reach Deeper,Enter deeper. Lose 5 HP.
+EVENT.COLOSSAL_FLOWER,REACH_DEEPER_1,EXTRACT_CURRENT_PRIZE_2,COLOSSAL_FLOWER.pages.REACH_DEEPER_1.options.EXTRACT_CURRENT_PRIZE_2,Extract Nectar,Gain {Prize2} Gold.
+EVENT.COLOSSAL_FLOWER,REACH_DEEPER_1,REACH_DEEPER_2,COLOSSAL_FLOWER.pages.REACH_DEEPER_1.options.REACH_DEEPER_2,Reach Deeper,Enter even deeper. Lose 6 HP.
+EVENT.COLOSSAL_FLOWER,REACH_DEEPER_2,EXTRACT_INSTEAD,COLOSSAL_FLOWER.pages.REACH_DEEPER_2.options.EXTRACT_INSTEAD,Extract Nectar,Gain {Prize3} Gold.
+EVENT.COLOSSAL_FLOWER,REACH_DEEPER_2,POLLINOUS_CORE,COLOSSAL_FLOWER.pages.REACH_DEEPER_2.options.POLLINOUS_CORE,Enter the Center,Lose 7 HP. Obtain Pollinous Core.
+EVENT.CRYSTAL_SPHERE,INITIAL,PAYMENT_PLAN,CRYSTAL_SPHERE.pages.INITIAL.options.PAYMENT_PLAN,Payment Plan,Gain a {CurseTitle}. Divine {PaymentPlanCount} times.
+EVENT.CRYSTAL_SPHERE,INITIAL,UNCOVER_FUTURE,CRYSTAL_SPHERE.pages.INITIAL.options.UNCOVER_FUTURE,Uncover Future,Pay {UncoverFutureCost} Gold. Divine {UncoverFutureProphesizeCount} times.
+EVENT.DENSE_VEGETATION,INITIAL,REST,DENSE_VEGETATION.pages.INITIAL.options.REST,Rest,Heal {Heal} HP. Fight some enemies.
+EVENT.DENSE_VEGETATION,INITIAL,TRUDGE_ON,DENSE_VEGETATION.pages.INITIAL.options.TRUDGE_ON,Trudge On,Gain {Gold} Gold. Lose {HpLoss} HP.
+EVENT.DENSE_VEGETATION,REST,FIGHT,DENSE_VEGETATION.pages.REST.options.FIGHT,Fight!,
+EVENT.DOLL_ROOM,INITIAL,EXAMINE,DOLL_ROOM.pages.INITIAL.options.EXAMINE,Examine Each and Make the Best Choice,Lose {ExamineHpLoss} HP. Choose 1 of 3 Doll Relics.
+EVENT.DOLL_ROOM,INITIAL,RANDOM,DOLL_ROOM.pages.INITIAL.options.RANDOM,Pick at Random,Obtain a random Doll Relic.
+EVENT.DOLL_ROOM,INITIAL,TAKE_SOME_TIME,DOLL_ROOM.pages.INITIAL.options.TAKE_SOME_TIME,Take Some Time,Lose {TakeTimeHpLoss} HP. Choose 1 of 2 Doll Relics.
+EVENT.DOORS_OF_LIGHT_AND_DARK,INITIAL,DARK,DOORS_OF_LIGHT_AND_DARK.pages.INITIAL.options.DARK,Dark Door,Remove 1 card from your Deck.
+EVENT.DOORS_OF_LIGHT_AND_DARK,INITIAL,LIGHT,DOORS_OF_LIGHT_AND_DARK.pages.INITIAL.options.LIGHT,Light Door,Upgrade {Cards} random cards.
+EVENT.DROWNING_BEACON,INITIAL,BOTTLE,DROWNING_BEACON.pages.INITIAL.options.BOTTLE,Bottle,Procure {Potion}.
+EVENT.DROWNING_BEACON,INITIAL,CLIMB,DROWNING_BEACON.pages.INITIAL.options.CLIMB,Climb,Obtain {Relic}. Lose {HpLoss} Max HP.
+EVENT.ENDLESS_CONVEYOR,ALL,CAVIAR,ENDLESS_CONVEYOR.pages.ALL.options.CAVIAR,Grab Caviar off the Belt,Pay {Gold} Gold. Gain {CaviarMaxHp} Max HP. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,CLAM_ROLL,ENDLESS_CONVEYOR.pages.ALL.options.CLAM_ROLL,Grab Clam Roll off the Belt,Pay {Gold} Gold. Heal {ClamRollHeal} HP. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,FRIED_EEL,ENDLESS_CONVEYOR.pages.ALL.options.FRIED_EEL,Grab Fried Eel off the Belt,Pay {Gold} Gold. Add a random Colorless Card to your Deck. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,GOLDEN_FYSH,ENDLESS_CONVEYOR.pages.ALL.options.GOLDEN_FYSH,Grab Golden Fysh off the Belt,LUCKY WINNER! Gain {GoldenFyshGold} Gold.
+EVENT.ENDLESS_CONVEYOR,ALL,JELLY_LIVER,ENDLESS_CONVEYOR.pages.ALL.options.JELLY_LIVER,Grab Jelly Liver off the Belt,Pay {Gold} Gold. Transform a card. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,LOCKED,ENDLESS_CONVEYOR.pages.ALL.options.LOCKED,Broke,You could eat more but you are out of Gold.
+EVENT.ENDLESS_CONVEYOR,ALL,SEAPUNK_SALAD,ENDLESS_CONVEYOR.pages.ALL.options.SEAPUNK_SALAD,Grab Seapunk Salad off the Belt,Pay {Gold} Gold. Add Feeding Frenzy to your Deck. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,SPICY_SNAPPY,ENDLESS_CONVEYOR.pages.ALL.options.SPICY_SNAPPY,Grab Spicy Snappy off the Belt,Pay {Gold} Gold. Upgrade a random card. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,ALL,SUSPICIOUS_CONDIMENT,ENDLESS_CONVEYOR.pages.ALL.options.SUSPICIOUS_CONDIMENT,Grab Suspicious Condiment off the Belt,Pay {Gold} Gold. Procure a random Potion. Continue feasting!
+EVENT.ENDLESS_CONVEYOR,GRAB_SOMETHING_OFF_THE_BELT,LEAVE,ENDLESS_CONVEYOR.pages.GRAB_SOMETHING_OFF_THE_BELT.options.LEAVE,Leave,
+EVENT.ENDLESS_CONVEYOR,INITIAL,OBSERVE_CHEF,ENDLESS_CONVEYOR.pages.INITIAL.options.OBSERVE_CHEF,Observe the Chef,Upgrade a random card in your Deck.
+EVENT.FIELD_OF_MAN_SIZED_HOLES,INITIAL,ENTER_YOUR_HOLE,FIELD_OF_MAN_SIZED_HOLES.pages.INITIAL.options.ENTER_YOUR_HOLE,Enter Your Hole,Enchant a card with {Enchantment}.
+EVENT.FIELD_OF_MAN_SIZED_HOLES,INITIAL,RESIST,FIELD_OF_MAN_SIZED_HOLES.pages.INITIAL.options.RESIST,Resist,Remove {Cards} cards from your Deck. Add {ResistCurse} to your Deck.
+EVENT.GRAVE_OF_THE_FORGOTTEN,INITIAL,ACCEPT,GRAVE_OF_THE_FORGOTTEN.pages.INITIAL.options.ACCEPT,Accept the {Relic},Obtain {Relic}.
+EVENT.GRAVE_OF_THE_FORGOTTEN,INITIAL,CONFRONT,GRAVE_OF_THE_FORGOTTEN.pages.INITIAL.options.CONFRONT,Confront with Truth,Add {Curse} to your Deck. Enchant a card that Exhausts with {Enchantment}.
+EVENT.GRAVE_OF_THE_FORGOTTEN,INITIAL,CONFRONT_LOCKED,GRAVE_OF_THE_FORGOTTEN.pages.INITIAL.options.CONFRONT_LOCKED,Locked,You have no cards with Exhaust that can be Enchanted.
+EVENT.HUNGRY_FOR_MUSHROOMS,INITIAL,BIG_MUSHROOM,HUNGRY_FOR_MUSHROOMS.pages.INITIAL.options.BIG_MUSHROOM,Big Mushroom,
+EVENT.HUNGRY_FOR_MUSHROOMS,INITIAL,FRAGRANT_MUSHROOM,HUNGRY_FOR_MUSHROOMS.pages.INITIAL.options.FRAGRANT_MUSHROOM,Fragrant Mushroom,
+EVENT.INFESTED_AUTOMATON,INITIAL,STUDY,INFESTED_AUTOMATON.pages.INITIAL.options.STUDY,Study,Obtain a random Power.
+EVENT.INFESTED_AUTOMATON,INITIAL,TOUCH_CORE,INFESTED_AUTOMATON.pages.INITIAL.options.TOUCH_CORE,Touch the Core,Obtain a random 0 cost card.
+EVENT.JUNGLE_MAZE_ADVENTURE,INITIAL,JOIN_FORCES,JUNGLE_MAZE_ADVENTURE.pages.INITIAL.options.JOIN_FORCES,Join Forces,Gain {JoinForcesGold} Gold.
+EVENT.JUNGLE_MAZE_ADVENTURE,INITIAL,SOLO_QUEST,JUNGLE_MAZE_ADVENTURE.pages.INITIAL.options.SOLO_QUEST,Solo Quest,Gain {SoloGold} Gold. Lose {SoloHp} HP.
+EVENT.LOST_WISP,INITIAL,CLAIM,LOST_WISP.pages.INITIAL.options.CLAIM,Capture the Wisp,Add {Curse} to your Deck. Obtain the {Relic}.
+EVENT.LOST_WISP,INITIAL,CLAIM_LOCKED,LOST_WISP.pages.INITIAL.options.CLAIM_LOCKED,Locked,Your Max HP is too low.
+EVENT.LOST_WISP,INITIAL,SEARCH,LOST_WISP.pages.INITIAL.options.SEARCH,Search the Nearby Area,Gain {Gold} Gold.
+EVENT.LUMINOUS_CHOIR,INITIAL,OFFER_TRIBUTE,LUMINOUS_CHOIR.pages.INITIAL.options.OFFER_TRIBUTE,Offer Tribute,Pay {Gold} Gold. Obtain a random Relic.
+EVENT.LUMINOUS_CHOIR,INITIAL,OFFER_TRIBUTE_LOCKED,LUMINOUS_CHOIR.pages.INITIAL.options.OFFER_TRIBUTE_LOCKED,Locked,Requires {Gold} Gold.
+EVENT.LUMINOUS_CHOIR,INITIAL,REACH_INTO_THE_FLESH,LUMINOUS_CHOIR.pages.INITIAL.options.REACH_INTO_THE_FLESH,Reach into the Flesh,Remove 2 cards from your Deck. Add Spore Mind to your Deck.
+EVENT.MOCK_EVENT_MODEL,INITIAL,TEST,MOCK_EVENT_MODEL.pages.INITIAL.options.TEST,Mock Option,This is a mock option.
+EVENT.MORPHIC_GROVE,INITIAL,GROUP,MORPHIC_GROVE.pages.INITIAL.options.GROUP,Group,{IsMultiplayer:Everyone loses|Lose} ALL of {IsMultiplayer:their|your} Gold. Transform 2 cards.
+EVENT.MORPHIC_GROVE,INITIAL,LONER,MORPHIC_GROVE.pages.INITIAL.options.LONER,Loner,Gain {MaxHp} Max HP.
+EVENT.OROBAS,INITIAL,OPTION_POOL_3_LOCKED,OROBAS.pages.INITIAL.options.OPTION_POOL_3_LOCKED,Locked,You have no starter relics or cards.
+EVENT.POTION_COURIER,INITIAL,GRAB_POTIONS,POTION_COURIER.pages.INITIAL.options.GRAB_POTIONS,Grab Potions,Procure {FoulPotions} Foul {FoulPotions:plural:Potion|Potions}.
+EVENT.POTION_COURIER,INITIAL,RANSACK,POTION_COURIER.pages.INITIAL.options.RANSACK,Ransack,Procure 1 random Uncommon Potion.
+EVENT.PUNCH_OFF,INITIAL,I_CAN_TAKE_THEM,PUNCH_OFF.pages.INITIAL.options.I_CAN_TAKE_THEM,I Can Take Them,Fight them for Greater Rewards.
+EVENT.PUNCH_OFF,INITIAL,NAB,PUNCH_OFF.pages.INITIAL.options.NAB,Nab,Add Injury to your Deck. Obtain a random Relic.
+EVENT.PUNCH_OFF,I_CAN_TAKE_THEM,FIGHT,PUNCH_OFF.pages.I_CAN_TAKE_THEM.options.FIGHT,Fight,
+EVENT.RANWID_THE_ELDER,INITIAL,GOLD,RANWID_THE_ELDER.pages.INITIAL.options.GOLD,Give {Gold} Gold,Obtain a random Relic.
+EVENT.RANWID_THE_ELDER,INITIAL,POTION,RANWID_THE_ELDER.pages.INITIAL.options.POTION,Give {Potion},Obtain a random Relic.
+EVENT.RANWID_THE_ELDER,INITIAL,POTION_LOCKED,RANWID_THE_ELDER.pages.INITIAL.options.POTION_LOCKED,Locked,You don't have any Potions that can be given.
+EVENT.RANWID_THE_ELDER,INITIAL,RELIC,RANWID_THE_ELDER.pages.INITIAL.options.RELIC,Give {Relic},Obtain 2 random Relics.
+EVENT.RANWID_THE_ELDER,INITIAL,RELIC_LOCKED,RANWID_THE_ELDER.pages.INITIAL.options.RELIC_LOCKED,Locked,You don't have any Relics that can be given.
+EVENT.REFLECTIONS,INITIAL,SHATTER,REFLECTIONS.pages.INITIAL.options.SHATTER,Shatter,Duplicate your Deck. Receive Bad Luck.
+EVENT.REFLECTIONS,INITIAL,TOUCH_A_MIRROR,REFLECTIONS.pages.INITIAL.options.TOUCH_A_MIRROR,Touch a Mirror,Downgrade 2 random cards. Upgrade 4 random cards.
+EVENT.RELIC_TRADER,INITIAL,BOTTOM,RELIC_TRADER.pages.INITIAL.options.BOTTOM,Take the Bottom One,Trade {BottomRelicOwned} for {BottomRelicNew}.
+EVENT.RELIC_TRADER,INITIAL,MIDDLE,RELIC_TRADER.pages.INITIAL.options.MIDDLE,Take the Middle One,Trade {MiddleRelicOwned} for {MiddleRelicNew}.
+EVENT.RELIC_TRADER,INITIAL,TOP,RELIC_TRADER.pages.INITIAL.options.TOP,Take the Top One,Trade {TopRelicOwned} for {TopRelicNew}.
+EVENT.ROOM_FULL_OF_CHEESE,INITIAL,GORGE,ROOM_FULL_OF_CHEESE.pages.INITIAL.options.GORGE,Gorge,Choose 2 of 8 random Common cards to add to your Deck.
+EVENT.ROOM_FULL_OF_CHEESE,INITIAL,SEARCH,ROOM_FULL_OF_CHEESE.pages.INITIAL.options.SEARCH,Search,Lose {Damage} HP. Obtain the Chosen Cheese.
+EVENT.ROUND_TEA_PARTY,INITIAL,ENJOY_TEA,ROUND_TEA_PARTY.pages.INITIAL.options.ENJOY_TEA,Enjoy Your Tea,Obtain {Relic}. Heal to full HP.
+EVENT.ROUND_TEA_PARTY,INITIAL,PICK_FIGHT,ROUND_TEA_PARTY.pages.INITIAL.options.PICK_FIGHT,Pick a Fight,Lose {Damage} HP. Obtain a random Relic.
+EVENT.ROUND_TEA_PARTY,PICK_FIGHT,CONTINUE_FIGHT,ROUND_TEA_PARTY.pages.PICK_FIGHT.options.CONTINUE_FIGHT,Continue,
+EVENT.SAPPHIRE_SEED,INITIAL,EAT,SAPPHIRE_SEED.pages.INITIAL.options.EAT,Consume,Heal {Heal} HP. Upgrade a card in your Deck.
+EVENT.SAPPHIRE_SEED,INITIAL,PLANT,SAPPHIRE_SEED.pages.INITIAL.options.PLANT,Plant and Nourish,Enchant a card with {Enchantment}.
+EVENT.SELF_HELP_BOOK,INITIAL,NO_OPTIONS,SELF_HELP_BOOK.pages.INITIAL.options.NO_OPTIONS,Move On,You don't have any cards that can be Enchanted.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_ENTIRE_BOOK,SELF_HELP_BOOK.pages.INITIAL.options.READ_ENTIRE_BOOK,Read the Entire Book,Choose a Power to Enchant with {Enchantment3} {Enchantment3Amount}.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_ENTIRE_BOOK_LOCKED,SELF_HELP_BOOK.pages.INITIAL.options.READ_ENTIRE_BOOK_LOCKED,Locked,You don't have any Powers that can be Enchanted.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_PASSAGE,SELF_HELP_BOOK.pages.INITIAL.options.READ_PASSAGE,Read a Random Passage,Choose a Skill to Enchant with {Enchantment2} {Enchantment2Amount}.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_PASSAGE_LOCKED,SELF_HELP_BOOK.pages.INITIAL.options.READ_PASSAGE_LOCKED,Locked,You don't have any Skills that can be Enchanted.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_THE_BACK,SELF_HELP_BOOK.pages.INITIAL.options.READ_THE_BACK,Read the Back,Choose an Attack to Enchant with {Enchantment1} {Enchantment1Amount}.
+EVENT.SELF_HELP_BOOK,INITIAL,READ_THE_BACK_LOCKED,SELF_HELP_BOOK.pages.INITIAL.options.READ_THE_BACK_LOCKED,Locked,You don't have any Attacks that can be Enchanted.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_0,HOLD_ON_1,SLIPPERY_BRIDGE.pages.HOLD_ON_0.options.HOLD_ON_1,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_1,HOLD_ON_2,SLIPPERY_BRIDGE.pages.HOLD_ON_1.options.HOLD_ON_2,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_2,HOLD_ON_3,SLIPPERY_BRIDGE.pages.HOLD_ON_2.options.HOLD_ON_3,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_3,HOLD_ON_4,SLIPPERY_BRIDGE.pages.HOLD_ON_3.options.HOLD_ON_4,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_4,HOLD_ON_5,SLIPPERY_BRIDGE.pages.HOLD_ON_4.options.HOLD_ON_5,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_5,HOLD_ON_6,SLIPPERY_BRIDGE.pages.HOLD_ON_5.options.HOLD_ON_6,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_6,HOLD_ON_LOOP,SLIPPERY_BRIDGE.pages.HOLD_ON_6.options.HOLD_ON_LOOP,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,HOLD_ON_LOOP,HOLD_ON_LOOP,SLIPPERY_BRIDGE.pages.HOLD_ON_LOOP.options.HOLD_ON_LOOP,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,INITIAL,HOLD_ON_0,SLIPPERY_BRIDGE.pages.INITIAL.options.HOLD_ON_0,Hold On,Lose {HpLoss} HP. The card in the above option is randomized.
+EVENT.SLIPPERY_BRIDGE,INITIAL,OVERCOME,SLIPPERY_BRIDGE.pages.INITIAL.options.OVERCOME,Overcome,{RandomCard} is removed from your Deck.
+EVENT.SPIRALING_WHIRLPOOL,INITIAL,DRINK,SPIRALING_WHIRLPOOL.pages.INITIAL.options.DRINK,Drink,Heal {Heal} HP.
+EVENT.SPIRALING_WHIRLPOOL,INITIAL,OBSERVE,SPIRALING_WHIRLPOOL.pages.INITIAL.options.OBSERVE,Observe,Enchant a Basic Strike or Defend with Spiral.
+EVENT.SPIRALING_WHIRLPOOL,INITIAL,REACH_IN,SPIRALING_WHIRLPOOL.pages.INITIAL.options.REACH_IN,Reach In,Obtain a random Relic. Add Writhe to your Deck.
+EVENT.SPIRIT_GRAFTER,INITIAL,LET_IT_IN,SPIRIT_GRAFTER.pages.INITIAL.options.LET_IT_IN,Let It In,Heal {LetItInHealAmount} HP. Add Metamorphosis to your Deck.
+EVENT.SPIRIT_GRAFTER,INITIAL,REJECTION,SPIRIT_GRAFTER.pages.INITIAL.options.REJECTION,Rejection,Lose {RejectionHpLoss} HP. Upgrade a card.
+EVENT.STONE_OF_ALL_TIME,INITIAL,LIFT,STONE_OF_ALL_TIME.pages.INITIAL.options.LIFT,Drink and Lift,Lose {DrinkRandomPotion}. Gain {DrinkMaxHpGain} Max HP.
+EVENT.STONE_OF_ALL_TIME,INITIAL,LIFT_LOCKED,STONE_OF_ALL_TIME.pages.INITIAL.options.LIFT_LOCKED,Locked,Requires a Potion.
+EVENT.STONE_OF_ALL_TIME,INITIAL,PUSH,STONE_OF_ALL_TIME.pages.INITIAL.options.PUSH,Push,Lose {PushHpLoss} HP. Enchant an Attack with Vigorous {PushVigorousAmount}.
+EVENT.STONE_OF_ALL_TIME,INITIAL,PUSH_LOCKED,STONE_OF_ALL_TIME.pages.INITIAL.options.PUSH_LOCKED,Locked,Requires an Attack.
+EVENT.SUNKEN_STATUE,INITIAL,DIVE_INTO_WATER,SUNKEN_STATUE.pages.INITIAL.options.DIVE_INTO_WATER,Dive into the Water,Gain {Gold} Gold. Lose {HpLoss} HP.
+EVENT.SUNKEN_STATUE,INITIAL,GRAB_SWORD,SUNKEN_STATUE.pages.INITIAL.options.GRAB_SWORD,Grab the Sword,Obtain the {Relic}.
+EVENT.SUNKEN_TREASURY,INITIAL,FIRST_CHEST,SUNKEN_TREASURY.pages.INITIAL.options.FIRST_CHEST,First Chest,Gain {SmallChestGold} Gold.
+EVENT.SUNKEN_TREASURY,INITIAL,SECOND_CHEST,SUNKEN_TREASURY.pages.INITIAL.options.SECOND_CHEST,Second Chest,Gain {LargeChestGold} Gold. Receive Greed.
+EVENT.SYMBIOTE,INITIAL,APPROACH,SYMBIOTE.pages.INITIAL.options.APPROACH,Approach,Enchant an Attack with {Enchantment}.
+EVENT.SYMBIOTE,INITIAL,APPROACH_LOCKED,SYMBIOTE.pages.INITIAL.options.APPROACH_LOCKED,Locked,None of your Attacks can be Enchanted.
+EVENT.SYMBIOTE,INITIAL,KILL_WITH_FIRE,SYMBIOTE.pages.INITIAL.options.KILL_WITH_FIRE,Kill with Fire,Choose a card to Transform.
+EVENT.TABLET_OF_TRUTH,DECIPHER,GIVE_UP,TABLET_OF_TRUTH.pages.DECIPHER.options.GIVE_UP,Give Up,Stop reading the text and leave.
+EVENT.TABLET_OF_TRUTH,DECIPHER_1,DECIPHER,TABLET_OF_TRUTH.pages.DECIPHER_1.options.DECIPHER,Continue Deciphering,Lose {DecipherMaxHpLoss} Max HP. Upgrade a random card.
+EVENT.TABLET_OF_TRUTH,DECIPHER_2,DECIPHER,TABLET_OF_TRUTH.pages.DECIPHER_2.options.DECIPHER,Keep Deciphering,Lose {DecipherMaxHpLoss} Max HP. Upgrade a random card.
+EVENT.TABLET_OF_TRUTH,DECIPHER_3,DECIPHER,TABLET_OF_TRUTH.pages.DECIPHER_3.options.DECIPHER,KEEP DECIPHERING,Lose {DecipherMaxHpLoss} Max HP. Upgrade a random card.
+EVENT.TABLET_OF_TRUTH,DECIPHER_4,DECIPHER,TABLET_OF_TRUTH.pages.DECIPHER_4.options.DECIPHER,Lose Everything,Lose {DecipherMaxHpLoss} Max HP. Upgrade ALL of your cards.
+EVENT.TABLET_OF_TRUTH,INITIAL,DECIPHER_1,TABLET_OF_TRUTH.pages.INITIAL.options.DECIPHER_1,Decipher,Lose {DecipherMaxHpLoss} Max HP. Upgrade a random card.
+EVENT.TABLET_OF_TRUTH,INITIAL,SMASH,TABLET_OF_TRUTH.pages.INITIAL.options.SMASH,Smash,Heal {SmashHPGain} HP.
+EVENT.TEA_MASTER,INITIAL,BONE_TEA,TEA_MASTER.pages.INITIAL.options.BONE_TEA,Bone Tea,Pay {BoneTeaCost} Gold. {BoneTeaDescription}
+EVENT.TEA_MASTER,INITIAL,BONE_TEA_LOCKED,TEA_MASTER.pages.INITIAL.options.BONE_TEA_LOCKED,Locked,Requires {BoneTeaCost} Gold.
+EVENT.TEA_MASTER,INITIAL,EMBER_TEA,TEA_MASTER.pages.INITIAL.options.EMBER_TEA,Ember Tea,Pay {EmberTeaCost} Gold. {EmberTeaDescription}
+EVENT.TEA_MASTER,INITIAL,EMBER_TEA_LOCKED,TEA_MASTER.pages.INITIAL.options.EMBER_TEA_LOCKED,Locked,Requires {EmberTeaCost} Gold.
+EVENT.TEA_MASTER,INITIAL,TEA_OF_DISCOURTESY,TEA_MASTER.pages.INITIAL.options.TEA_OF_DISCOURTESY,Tea of Discourtesy,{TeaOfDiscourtesyDescription}
+EVENT.THE_FUTURE_OF_POTIONS,INITIAL,POTION,THE_FUTURE_OF_POTIONS.pages.INITIAL.options.POTION,Insert {Rarity} Potion,Lose {Potion}. Obtain an Upgraded {Rarity} {Type}.
+EVENT.THE_LANTERN_KEY,INITIAL,KEEP_THE_KEY,THE_LANTERN_KEY.pages.INITIAL.options.KEEP_THE_KEY,Keep the Key,Fight to obtain the Key.
+EVENT.THE_LANTERN_KEY,INITIAL,RETURN_THE_KEY,THE_LANTERN_KEY.pages.INITIAL.options.RETURN_THE_KEY,Return the Key,Gain {Gold} Gold.
+EVENT.THE_LANTERN_KEY,KEEP_THE_KEY,FIGHT,THE_LANTERN_KEY.pages.KEEP_THE_KEY.options.FIGHT,Fight,
+EVENT.THE_LEGENDS_WERE_TRUE,INITIAL,NAB_THE_MAP,THE_LEGENDS_WERE_TRUE.pages.INITIAL.options.NAB_THE_MAP,Nab the Map,Receive the Spoils Map.
+EVENT.THE_LEGENDS_WERE_TRUE,INITIAL,SLOWLY_FIND_AN_EXIT,THE_LEGENDS_WERE_TRUE.pages.INITIAL.options.SLOWLY_FIND_AN_EXIT,Slowly Find an Exit,Lose {Damage} HP. Procure 1 random Potion.
+EVENT.THIS_OR_THAT,INITIAL,ORNATE,THIS_OR_THAT.pages.INITIAL.options.ORNATE,That,Add {Curse} to your Deck. Obtain a random Relic.
+EVENT.THIS_OR_THAT,INITIAL,PLAIN,THIS_OR_THAT.pages.INITIAL.options.PLAIN,This,Lose {HpLoss} HP. Gain {Gold} Gold.
+EVENT.TINKER_TIME,CHOOSE_CARD_TYPE,ATTACK,TINKER_TIME.pages.CHOOSE_CARD_TYPE.options.ATTACK,Weapon,Make an Attack.
+EVENT.TINKER_TIME,CHOOSE_CARD_TYPE,POWER,TINKER_TIME.pages.CHOOSE_CARD_TYPE.options.POWER,Gadget,Make a Power.
+EVENT.TINKER_TIME,CHOOSE_CARD_TYPE,SKILL,TINKER_TIME.pages.CHOOSE_CARD_TYPE.options.SKILL,Protector,Make a Skill.
+EVENT.TINKER_TIME,CHOOSE_RIDER,CHAOS,TINKER_TIME.pages.CHOOSE_RIDER.options.CHAOS,Chaos,Add a random card into your Hand. It's free to play this turn.
+EVENT.TINKER_TIME,CHOOSE_RIDER,CHOKING,TINKER_TIME.pages.CHOOSE_RIDER.options.CHOKING,Choking,"Whenever you play a card this turn, the enemy loses {ChokingDamage} HP."
+EVENT.TINKER_TIME,CHOOSE_RIDER,CURIOUS,TINKER_TIME.pages.CHOOSE_RIDER.options.CURIOUS,Curious,Powers cost {CuriousReduction} {energyPrefix:energyIcons(1)} less.
+EVENT.TINKER_TIME,CHOOSE_RIDER,ENERGIZED,TINKER_TIME.pages.CHOOSE_RIDER.options.ENERGIZED,Energized,Gain {EnergizedEnergy:energyIcons()}.
+EVENT.TINKER_TIME,CHOOSE_RIDER,EXPERTISE,TINKER_TIME.pages.CHOOSE_RIDER.options.EXPERTISE,Expertise,Gain {ExpertiseStrength} Strength. Gain {ExpertiseDexterity} Dexterity.
+EVENT.TINKER_TIME,CHOOSE_RIDER,IMPROVEMENT,TINKER_TIME.pages.CHOOSE_RIDER.options.IMPROVEMENT,Improvement,"At the end of combat, Upgrade a random card."
+EVENT.TINKER_TIME,CHOOSE_RIDER,SAPPING,TINKER_TIME.pages.CHOOSE_RIDER.options.SAPPING,Sapping,Apply {SappingWeak} Weak. Apply {SappingVulnerable} Vulnerable.
+EVENT.TINKER_TIME,CHOOSE_RIDER,VIOLENCE,TINKER_TIME.pages.CHOOSE_RIDER.options.VIOLENCE,Violence,Hits 2 additional times.
+EVENT.TINKER_TIME,CHOOSE_RIDER,WISDOM,TINKER_TIME.pages.CHOOSE_RIDER.options.WISDOM,Wisdom,Draw {WisdomCards} cards.
+EVENT.TINKER_TIME,INITIAL,CHOOSE_CARD_TYPE,TINKER_TIME.pages.INITIAL.options.CHOOSE_CARD_TYPE,Accept,Create a custom card to add to your Deck.
+EVENT.TRASH_HEAP,INITIAL,DIVE_IN,TRASH_HEAP.pages.INITIAL.options.DIVE_IN,Dive In,Lose {HpLoss} HP. Obtain a random forgotten Relic from the past.
+EVENT.TRASH_HEAP,INITIAL,GRAB,TRASH_HEAP.pages.INITIAL.options.GRAB,Grab Random Junk,Gain {Gold} Gold. Obtain a random forgotten card from the past.
+EVENT.TRIAL,INITIAL,ACCEPT,TRIAL.pages.INITIAL.options.ACCEPT,Accept,Serve as today's Decider.
+EVENT.TRIAL,INITIAL,REJECT,TRIAL.pages.INITIAL.options.REJECT,Reject,You are not allowed to Reject.
+EVENT.TRIAL,MERCHANT,GUILTY,TRIAL.pages.MERCHANT.options.GUILTY,DECIDE: Guilty,Add Regret to your Deck. Obtain 2 random Relics.
+EVENT.TRIAL,MERCHANT,INNOCENT,TRIAL.pages.MERCHANT.options.INNOCENT,DECIDE: Innocent,Add Shame to your Deck. Upgrade 2 cards.
+EVENT.TRIAL,NOBLE,GUILTY,TRIAL.pages.NOBLE.options.GUILTY,DECIDE: Guilty,Heal 10 HP.
+EVENT.TRIAL,NOBLE,INNOCENT,TRIAL.pages.NOBLE.options.INNOCENT,DECIDE: Innocent,Add Regret to your Deck. Obtain 300 Gold.
+EVENT.TRIAL,NONDESCRIPT,GUILTY,TRIAL.pages.NONDESCRIPT.options.GUILTY,DECIDE: Guilty,Add Doubt to your Deck. Gain 2 card rewards.
+EVENT.TRIAL,NONDESCRIPT,INNOCENT,TRIAL.pages.NONDESCRIPT.options.INNOCENT,DECIDE: Innocent,Add Doubt to your Deck. Transform 2 cards.
+EVENT.TRIAL,REJECT,ACCEPT,TRIAL.pages.REJECT.options.ACCEPT,Accept,Give in. Serve as today's Decider.
+EVENT.TRIAL,REJECT,DOUBLE_DOWN,TRIAL.pages.REJECT.options.DOUBLE_DOWN,Double Down,Face lethal repercussions.
+EVENT.UNREST_SITE,INITIAL,KILL,UNREST_SITE.pages.INITIAL.options.KILL,Kill the Trees,Lose {MaxHpLoss} Max HP. Obtain a random Relic.
+EVENT.UNREST_SITE,INITIAL,REST,UNREST_SITE.pages.INITIAL.options.REST,Rest Anyways,Heal to full HP. Receive Poor Sleep.
+EVENT.WAR_HISTORIAN_REPY,INITIAL,UNLOCK_CAGE,WAR_HISTORIAN_REPY.pages.INITIAL.options.UNLOCK_CAGE,Unlock the Cage,Lose Lantern Key. Obtain History Course.
+EVENT.WAR_HISTORIAN_REPY,INITIAL,UNLOCK_CHEST,WAR_HISTORIAN_REPY.pages.INITIAL.options.UNLOCK_CHEST,Unlock the Chest,Lose Lantern Key. Procure 2 random Potions. Obtain 2 random Relics.
+EVENT.WATERLOGGED_SCRIPTORIUM,INITIAL,BLOODY_INK,WATERLOGGED_SCRIPTORIUM.pages.INITIAL.options.BLOODY_INK,Bloody Ink,Gain 6 Max HP.
+EVENT.WATERLOGGED_SCRIPTORIUM,INITIAL,PRICKLY_SPONGE,WATERLOGGED_SCRIPTORIUM.pages.INITIAL.options.PRICKLY_SPONGE,Prickly Sponge,Pay {PricklySpongeGold} Gold. Enchant {Cards} {Cards:plural:card|cards} with Steady.
+EVENT.WATERLOGGED_SCRIPTORIUM,INITIAL,PRICKLY_SPONGE_LOCKED,WATERLOGGED_SCRIPTORIUM.pages.INITIAL.options.PRICKLY_SPONGE_LOCKED,Locked,Requires {PricklySpongeGold} Gold.
+EVENT.WATERLOGGED_SCRIPTORIUM,INITIAL,TENTACLE_QUILL,WATERLOGGED_SCRIPTORIUM.pages.INITIAL.options.TENTACLE_QUILL,Tentacle Quill,Pay {Gold} Gold. Enchant a card with Steady.
+EVENT.WATERLOGGED_SCRIPTORIUM,INITIAL,TENTACLE_QUILL_LOCKED,WATERLOGGED_SCRIPTORIUM.pages.INITIAL.options.TENTACLE_QUILL_LOCKED,Locked,Requires {Gold} Gold.
+EVENT.WELCOME_TO_WONGOS,INITIAL,BARGAIN_BIN,WELCOME_TO_WONGOS.pages.INITIAL.options.BARGAIN_BIN,Wongo's Bargain Bin,Pay {BargainBinCost} Gold. Obtain 1 random Common Relic.
+EVENT.WELCOME_TO_WONGOS,INITIAL,BARGAIN_BIN_LOCKED,WELCOME_TO_WONGOS.pages.INITIAL.options.BARGAIN_BIN_LOCKED,Locked,Requires {BargainBinCost} Gold.
+EVENT.WELCOME_TO_WONGOS,INITIAL,FEATURED_ITEM,WELCOME_TO_WONGOS.pages.INITIAL.options.FEATURED_ITEM,Wongo's Featured Item,Pay {FeaturedItemCost} Gold. Obtain {RandomRelic}.
+EVENT.WELCOME_TO_WONGOS,INITIAL,FEATURED_ITEM_LOCKED,WELCOME_TO_WONGOS.pages.INITIAL.options.FEATURED_ITEM_LOCKED,Locked,Requires {FeaturedItemCost} Gold.
+EVENT.WELCOME_TO_WONGOS,INITIAL,LEAVE,WELCOME_TO_WONGOS.pages.INITIAL.options.LEAVE,Leave,Downgrade a random card.
+EVENT.WELCOME_TO_WONGOS,INITIAL,MYSTERY_BOX,WELCOME_TO_WONGOS.pages.INITIAL.options.MYSTERY_BOX,Wongo's Mystery Box,Pay {MysteryBoxCost} Gold. Obtain {MysteryBoxRelicCount} random Relics after {MysteryBoxCombatCount} combats.
+EVENT.WELCOME_TO_WONGOS,INITIAL,MYSTERY_BOX_LOCKED,WELCOME_TO_WONGOS.pages.INITIAL.options.MYSTERY_BOX_LOCKED,Locked,Requires {MysteryBoxCost} Gold.
+EVENT.WELLSPRING,INITIAL,BATHE,WELLSPRING.pages.INITIAL.options.BATHE,Bathe,Remove 1 card from your Deck. Add {BatheCurses} Guilty to your Deck.
+EVENT.WELLSPRING,INITIAL,BOTTLE,WELLSPRING.pages.INITIAL.options.BOTTLE,Bottle,Procure 1 random Potion.
+EVENT.WHISPERING_HOLLOW,INITIAL,GOLD,WHISPERING_HOLLOW.pages.INITIAL.options.GOLD,Exchange Gold,Lose {Gold} Gold. Procure 2 random Potions.
+EVENT.WHISPERING_HOLLOW,INITIAL,HUG,WHISPERING_HOLLOW.pages.INITIAL.options.HUG,Hug the Tree,Lose {HpLoss} HP. Choose a card to Transform.
+EVENT.WOOD_CARVINGS,INITIAL,BIRD,WOOD_CARVINGS.pages.INITIAL.options.BIRD,Bird,Choose 1 starter card to Transform into {BirdCard}.
+EVENT.WOOD_CARVINGS,INITIAL,SNAKE,WOOD_CARVINGS.pages.INITIAL.options.SNAKE,Snake,Enchant 1 card with {SnakeEnchantment}.
+EVENT.WOOD_CARVINGS,INITIAL,SNAKE_LOCKED,WOOD_CARVINGS.pages.INITIAL.options.SNAKE_LOCKED,Locked,None of your cards can be Enchanted with Slither.
+EVENT.WOOD_CARVINGS,INITIAL,TORUS,WOOD_CARVINGS.pages.INITIAL.options.TORUS,Torus,Choose 1 starter card to Transform into {ToricCard}.
+EVENT.ZEN_WEAVER,INITIAL,ARACHNID_ACUPUNCTURE,ZEN_WEAVER.pages.INITIAL.options.ARACHNID_ACUPUNCTURE,Arachnid Acupuncture,Pay {ArachnidAcupunctureCost} Gold. Remove 2 cards from your Deck.
+EVENT.ZEN_WEAVER,INITIAL,BREATHING_TECHNIQUES,ZEN_WEAVER.pages.INITIAL.options.BREATHING_TECHNIQUES,Breathing Techniques,Pay {BreathingTechniquesCost} Gold. Add 2 Enlightenment to your Deck.
+EVENT.ZEN_WEAVER,INITIAL,EMOTIONAL_AWARENESS,ZEN_WEAVER.pages.INITIAL.options.EMOTIONAL_AWARENESS,Emotional Awareness,Pay {EmotionalAwarenessCost} Gold. Remove 1 card from your Deck.
+EVENT.ZEN_WEAVER,INITIAL,LOCKED,ZEN_WEAVER.pages.INITIAL.options.LOCKED,Locked,Not enough Gold.

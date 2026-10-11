@@ -1,5 +1,5 @@
 -- Grain: one row per card seen in the run data. Run-data IDs are enriched
--- with the card_catalog seed (second source: slaythespire2.gg). Cards in the
+-- with the card_catalog seed (second source: the installed game files). Cards in the
 -- runs but missing from the catalog (retired from the current game version)
 -- keep their derived name and get 'Unknown' attributes; the
 -- assert_cards_in_catalog test reports them.

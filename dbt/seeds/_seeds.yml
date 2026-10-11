@@ -1,16 +1,17 @@
 version: 2
 
+# Reference data, built from the player's OWN game install by
+# scripts/build_reference_seeds.py (card pools / rarity / type / cost read from
+# sts2.dll metadata; names and event text from the game's localization JSON in
+# SlayTheSpire2.pck). Re-run after game patches, then `dbt seed`.
+
 seeds:
   - name: card_catalog
     description: >
-      Reference data for every Slay the Spire 2 card: owning character, rarity,
-      type, energy cost and card colour. Second data source alongside the run
-      files, extracted from the community database at
-      https://slaythespire2.gg/cards (game version Beta v0.111, matching the
-      installed v0.111.0; retrieved 2026-10-11) by
-      scripts/fetch_card_catalog.py. card_id is built from the site's
-      localizationKey, which equals the game's own card ID, so the join to
-      run data is exact.
+      Every Slay the Spire 2 card: owning character pool, rarity, type, energy
+      cost (-1 = unplayable / X-cost) and our theme colour for that pool. Read
+      from the installed game (v0.111.0). card_id equals the game's own card
+      ID, so the join to run data is exact.
     config:
       schema: sts2_staging
       column_types:
@@ -19,19 +20,58 @@ seeds:
         card_character: string
         rarity: string
         card_type: string
-        energy_cost: string   # usually an integer, but X-cost cards exist
+        energy_cost: string
         card_color: string
     columns:
       - name: card_id
         data_tests: [unique, not_null]
       - name: card_character
-        description: Ironclad / Silent / Defect / Necrobinder / Regent, or Colorless / Status / Curse / Event / Token / Quest.
+        description: The card pool it belongs to (a character, or Colorless / Status / Curse / Event / Token / Quest / Deprecated).
         data_tests:
           - not_null
           - accepted_values:
               arguments:
                 values: [Ironclad, Silent, Defect, Necrobinder, Regent, Colorless,
-                         Status, Curse, Event, Token, Quest]
+                         Status, Curse, Event, Token, Quest, Deprecated]
       - name: card_color
-        description: The card's frame colour as a hex code (used for conditional formatting).
         data_tests: [not_null]
+
+  - name: event_catalog
+    description: >
+      Every event and Ancient (e.g. Neow): display name and opening text, from
+      the game's events.json / ancients.json localization.
+    config:
+      schema: sts2_staging
+      column_types:
+        event_id: string
+        event_name: string
+        event_kind: string
+        description: string
+    columns:
+      - name: event_id
+        data_tests: [unique, not_null]
+      - name: event_kind
+        data_tests:
+          - accepted_values:
+              arguments: {values: [Event, Ancient]}
+
+  - name: event_option_catalog
+    description: >
+      Every option on every event page: title and effect text (with the game's
+      {placeholders}). option_key matches the key recorded in run files.
+    config:
+      schema: sts2_staging
+      column_types:
+        event_id: string
+        page: string
+        option: string
+        option_key: string
+        option_title: string
+        option_description: string
+    columns:
+      - name: option_key
+        data_tests: [unique, not_null]
+      - name: event_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('event_catalog'), field: event_id}
