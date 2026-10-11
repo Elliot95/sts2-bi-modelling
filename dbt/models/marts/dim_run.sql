@@ -29,6 +29,15 @@ run_floor_stats as (
         )                           as final_hp
     from floor_states
     group by run_id
+),
+
+-- Each character's card-frame colour from the card catalog, so run-level
+-- visuals use the same palette as card-level ones.
+character_colors as (
+    select card_character, any_value(card_color) as character_color
+    from {{ ref('card_catalog') }}
+    where card_character in ('Ironclad', 'Silent', 'Defect', 'Necrobinder', 'Regent')
+    group by card_character
 )
 
 select
@@ -36,6 +45,7 @@ select
     r.run_date,
     r.character,
     {{ readable_id('r.character') }}            as character_name,
+    coalesce(cc.character_color, '#9ca3af')     as character_color,
     r.ascension,
     r.game_mode,
     r.build_id,
@@ -71,3 +81,5 @@ select
     s.total_damage_taken
 from runs r
 left join run_floor_stats s using (run_id)
+left join character_colors cc
+    on cc.card_character = {{ readable_id('r.character') }}

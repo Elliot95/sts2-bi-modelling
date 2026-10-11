@@ -1,0 +1,37 @@
+version: 2
+
+seeds:
+  - name: card_catalog
+    description: >
+      Reference data for every Slay the Spire 2 card: owning character, rarity,
+      type, energy cost and card colour. Second data source alongside the run
+      files, extracted from the community database at
+      https://slaythespire2.gg/cards (game version Beta v0.111, matching the
+      installed v0.111.0; retrieved 2026-10-11) by
+      scripts/fetch_card_catalog.py. card_id is built from the site's
+      localizationKey, which equals the game's own card ID, so the join to
+      run data is exact.
+    config:
+      schema: sts2_staging
+      column_types:
+        card_id: string
+        card_name: string
+        card_character: string
+        rarity: string
+        card_type: string
+        energy_cost: string   # usually an integer, but X-cost cards exist
+        card_color: string
+    columns:
+      - name: card_id
+        data_tests: [unique, not_null]
+      - name: card_character
+        description: Ironclad / Silent / Defect / Necrobinder / Regent, or Colorless / Status / Curse / Event / Token / Quest.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [Ironclad, Silent, Defect, Necrobinder, Regent, Colorless,
+                         Status, Curse, Event, Token, Quest]
+      - name: card_color
+        description: The card's frame colour as a hex code (used for conditional formatting).
+        data_tests: [not_null]
