@@ -188,6 +188,38 @@ models:
       - {name: was_picked, data_type: bool}
       - {name: floor_added_to_deck, data_type: int64}
 
+  - name: fct_card_run
+    description: >
+      One row per run / player / card offered at a choice screen (fct_card_choice
+      rolled up to run level). Powers the picked-vs-skipped win-rate comparison:
+      both groups reached the offer, so it avoids the survivorship bias of
+      comparing picked runs to the overall win rate. Still correlation, not
+      causation: picks depend on what the deck already needs.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: times_offered, data_type: int64, description: Offers of this card to this player in the run.}
+      - {name: times_picked, data_type: int64}
+      - {name: was_picked, data_type: bool, description: Picked at least once in the run.}
+      - {name: first_offered_floor, data_type: int64}
+      - {name: first_offered_act, data_type: int64, description: Act (1-based) of the first offer.}
+      - {name: first_picked_floor, data_type: int64}
+      - {name: in_final_deck, data_type: bool, description: Card is in this player's end-of-run deck.}
+      - {name: final_deck_copies, data_type: int64}
+
   - name: fct_card_gained
     description: One row per card added outside a choice screen.
     config:
