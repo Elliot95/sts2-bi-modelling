@@ -11,6 +11,7 @@ select
     coalesce(nullif(cat.card_type, ''), 'Unknown')              as card_type,
     nullif(cat.energy_cost, '')                                 as energy_cost,
     coalesce(cat.card_color, '#9ca3af')                         as card_color,
+    {{ tint_hex("coalesce(cat.card_color, '#9ca3af')") }}       as card_color_tint,
     cat.card_id is not null                                     as in_catalog,
     c.first_seen_run_id,
     c.first_seen_date

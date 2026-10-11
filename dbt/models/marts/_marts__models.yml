@@ -34,6 +34,9 @@ models:
       - name: character_color
         data_type: string
         description: The character's card-frame colour (hex) from card_catalog, for consistent visual colouring.
+      - name: character_color_tint
+        data_type: string
+        description: Pale tint of character_color (80% white) for readable backgrounds.
       - name: ascension
         data_type: int64
       - name: game_mode
@@ -84,6 +87,17 @@ models:
       - name: is_multiplayer
         data_type: bool
         description: True when player_count > 1.
+      - name: play_mode
+        data_type: string
+        description: Solo / Multiplayer label for slicers and comparisons.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: ['Solo', 'Multiplayer']}
+      - name: party_size
+        data_type: string
+        description: Solo / 2 players / 3 players / 4 players.
+        data_tests: [not_null]
       - name: acts_reached
         data_type: int64
         description: Acts actually entered (max act_index + 1).
@@ -126,6 +140,9 @@ models:
       - name: card_color
         data_type: string
         description: Card frame colour (hex) for conditional formatting; grey if not in the catalog.
+      - name: card_color_tint
+        data_type: string
+        description: Pale tint of card_color (80% white) for readable table backgrounds.
       - name: in_catalog
         data_type: bool
       - name: first_seen_run_id

@@ -46,6 +46,7 @@ select
     r.character,
     {{ readable_id('r.character') }}            as character_name,
     coalesce(cc.character_color, '#9ca3af')     as character_color,
+    {{ tint_hex("coalesce(cc.character_color, '#9ca3af')") }} as character_color_tint,
     r.ascension,
     r.game_mode,
     r.build_id,
@@ -72,6 +73,11 @@ select
     r.run_time_seconds,
     s.player_count,
     coalesce(s.player_count, 1) > 1             as is_multiplayer,
+    if(coalesce(s.player_count, 1) > 1, 'Multiplayer', 'Solo') as play_mode,
+    case
+        when coalesce(s.player_count, 1) <= 1 then 'Solo'
+        else concat(cast(s.player_count as string), ' players')
+    end                                         as party_size,
     s.acts_reached,
     s.floors_reached,
     case
