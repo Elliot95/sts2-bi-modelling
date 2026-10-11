@@ -143,3 +143,25 @@ CREATE TABLE IF NOT EXISTS sts2.fact_deck_card (
 )
 PARTITION BY run_date
 CLUSTER BY card_id;
+
+-- fact_event_choice: one row per choice made in an event or Ancient room
+-- (run / floor / player / choice_index; multi-step events make several
+-- choices on one floor, in order). event_id comes from the floor's room;
+-- choice_key is the game's localization key minus ".title" -- for regular
+-- events it encodes EVENT.pages.PAGE.options.OPTION, for Ancients it's the
+-- chosen relic (choice_table = 'relics'). variables_json holds the rewards
+-- (card offered, gold, enchantment...), which vary by event.
+CREATE TABLE IF NOT EXISTS sts2.fact_event_choice (
+  run_id          INT64 NOT NULL,
+  run_date        DATE NOT NULL,
+  floor_number    INT64,
+  act_index       INT64,
+  player_id       INT64,
+  choice_index    INT64,
+  event_id        STRING,
+  choice_table    STRING,
+  choice_key      STRING,
+  variables_json  STRING
+)
+PARTITION BY run_date
+CLUSTER BY event_id;
