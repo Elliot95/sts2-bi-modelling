@@ -1,30 +1,33 @@
 table dim_card
-	lineageTag: 8bd12af0-5b0b-4e56-898b-8bb0a2422fcb
 
 	column card_id
 		dataType: string
-		lineageTag: 46e3ecae-c26b-4b64-ba33-884c62f0b444
 		summarizeBy: none
 		sourceColumn: card_id
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
+
+	column card_name
+		dataType: string
+		summarizeBy: none
+		sourceColumn: card_name
+
+		annotation SummarizationSetBy = User
 
 	column first_seen_run_id
 		dataType: int64
-		lineageTag: 71eddb51-92cb-4218-b9dd-db38078d7644
 		summarizeBy: none
 		sourceColumn: first_seen_run_id
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column first_seen_date
 		dataType: dateTime
 		formatString: Short Date
-		lineageTag: 5d519245-c66c-4dee-99fa-5b55ceca7bc9
 		summarizeBy: none
 		sourceColumn: first_seen_date
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation UnderlyingDateTimeDataType = Date
 
@@ -34,8 +37,8 @@ table dim_card
 				let
 				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
 				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
-				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
-				    dim_card_Table = sts2_Schema{[Name="dim_card",Kind="Table"]}[Data]
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_card_Table = marts{[Name="dim_card",Kind="Table"]}[Data]
 				in
 				    dim_card_Table
 

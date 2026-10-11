@@ -1,0 +1,71 @@
+table fct_card_choice
+
+	measure 'Times Offered' = COUNTROWS(fct_card_choice)
+		formatString: #,0
+
+	measure 'Times Picked' = CALCULATE(COUNTROWS(fct_card_choice), fct_card_choice[was_picked] = TRUE)
+		formatString: #,0
+
+	measure 'Card Pick Rate' = DIVIDE([Times Picked], [Times Offered])
+		formatString: 0.0%
+
+	measure 'Win Rate When Picked' = CALCULATE([Win Rate], TREATAS(CALCULATETABLE(VALUES(fct_card_choice[run_id]), fct_card_choice[was_picked] = TRUE), dim_run[run_id]))
+		formatString: 0.0%
+
+	column run_id
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_number
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column card_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = User
+
+	column was_picked
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: was_picked
+
+		annotation SummarizationSetBy = User
+
+	column floor_added_to_deck
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: floor_added_to_deck
+
+		annotation SummarizationSetBy = User
+
+	partition fct_card_choice = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_card_choice_Table = marts{[Name="fct_card_choice",Kind="Table"]}[Data]
+				in
+				    fct_card_choice_Table
+
+	annotation PBI_ResultType = Table
+

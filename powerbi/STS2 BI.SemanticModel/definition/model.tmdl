@@ -6,19 +6,19 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["fact_run","fact_floor_state","fact_card_choice","fact_cards_gained","fact_relic","fact_deck_card","dim_date","dim_card","dim_relic"]
+annotation PBI_QueryOrder = ["dim_run","dim_card","dim_relic","dim_date","fct_floor_state","fct_card_choice","fct_card_gained","fct_run_relic","fct_run_deck_card"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table fact_run
-ref table fact_floor_state
-ref table fact_card_choice
-ref table fact_cards_gained
-ref table fact_relic
-ref table fact_deck_card
-ref table dim_date
+ref table dim_run
 ref table dim_card
 ref table dim_relic
+ref table dim_date
+ref table fct_floor_state
+ref table fct_card_choice
+ref table fct_card_gained
+ref table fct_run_relic
+ref table fct_run_deck_card
 

@@ -1,89 +1,79 @@
 table dim_date
-	lineageTag: 103ad784-38b0-404f-8f5f-ae94066875b5
 	dataCategory: Time
 
 	column date_key
 		dataType: dateTime
 		formatString: Short Date
-		lineageTag: b7504b54-a2f6-4f6b-9085-556b5496299b
+		isKey
 		summarizeBy: none
 		sourceColumn: date_key
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation UnderlyingDateTimeDataType = Date
 
 	column year
 		dataType: int64
-		lineageTag: 261b4e9a-ccaa-42cc-a9be-d1306e54f985
 		summarizeBy: none
 		sourceColumn: year
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column quarter
 		dataType: int64
-		lineageTag: 36e02b9f-d9d0-4acd-8e78-9b1819f6cfcf
 		summarizeBy: none
 		sourceColumn: quarter
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column month
 		dataType: int64
-		lineageTag: 3afdac6b-e1a0-4628-94a9-a7f05fe40dc7
 		summarizeBy: none
 		sourceColumn: month
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column month_name
 		dataType: string
-		lineageTag: 6c9dd646-76ec-4ecc-aa12-a4c06e5b2d53
 		summarizeBy: none
 		sourceColumn: month_name
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column day
 		dataType: int64
-		lineageTag: 9f89fd61-b1b4-4d39-b54a-8c201800f810
 		summarizeBy: none
 		sourceColumn: day
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column day_of_week
 		dataType: int64
-		lineageTag: 34ec6ba8-3fdc-431e-b4d5-14ed843a8de5
 		summarizeBy: none
 		sourceColumn: day_of_week
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column day_name
 		dataType: string
-		lineageTag: bdd01966-bb53-4e55-b66f-77b0e8bc4a7a
 		summarizeBy: none
 		sourceColumn: day_name
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column week_of_year
 		dataType: int64
-		lineageTag: 6402d618-bf35-4bae-8c94-9cb5e5e2048b
 		summarizeBy: none
 		sourceColumn: week_of_year
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column is_weekend
 		dataType: boolean
-		lineageTag: afef501a-ab5f-49bb-8f32-d143280ed412
 		summarizeBy: none
 		sourceColumn: is_weekend
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	partition dim_date = m
 		mode: import
@@ -91,8 +81,8 @@ table dim_date
 				let
 				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
 				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
-				    sts2_Schema = #"sts2-bi-1995ebj"{[Name="sts2",Kind="Schema"]}[Data],
-				    dim_date_Table = sts2_Schema{[Name="dim_date",Kind="Table"]}[Data]
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_date_Table = marts{[Name="dim_date",Kind="Table"]}[Data]
 				in
 				    dim_date_Table
 

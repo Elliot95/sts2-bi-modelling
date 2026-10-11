@@ -1,0 +1,180 @@
+table dim_run
+
+	measure 'Total Runs' = COUNTROWS(dim_run)
+		formatString: #,0
+
+	measure 'Wins' = CALCULATE([Total Runs], dim_run[win] = TRUE)
+		formatString: #,0
+
+	measure 'Win Rate' = DIVIDE([Wins], [Total Runs])
+		formatString: 0.0%
+
+	measure 'Avg Floors Reached' = AVERAGE(dim_run[floors_reached])
+		formatString: 0.0
+
+	measure 'Avg Death Floor' = AVERAGE(dim_run[death_floor])
+		formatString: 0.0
+
+	column run_id
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column character
+		dataType: string
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = User
+
+	column ascension
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: ascension
+
+		annotation SummarizationSetBy = User
+
+	column game_mode
+		dataType: string
+		summarizeBy: none
+		sourceColumn: game_mode
+
+		annotation SummarizationSetBy = User
+
+	column build_id
+		dataType: string
+		summarizeBy: none
+		sourceColumn: build_id
+
+		annotation SummarizationSetBy = User
+
+	column platform_type
+		dataType: string
+		summarizeBy: none
+		sourceColumn: platform_type
+
+		annotation SummarizationSetBy = User
+
+	column seed
+		dataType: string
+		summarizeBy: none
+		sourceColumn: seed
+
+		annotation SummarizationSetBy = User
+
+	column win
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = User
+
+	column was_abandoned
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: was_abandoned
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter
+		dataType: string
+		summarizeBy: none
+		sourceColumn: killed_by_encounter
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_event
+		dataType: string
+		summarizeBy: none
+		sourceColumn: killed_by_event
+
+		annotation SummarizationSetBy = User
+
+	column acts_completed
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: acts_completed
+
+		annotation SummarizationSetBy = User
+
+	column run_time_seconds
+		dataType: int64
+		summarizeBy: sum
+		sourceColumn: run_time_seconds
+
+		annotation SummarizationSetBy = User
+
+	column player_count
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: player_count
+
+		annotation SummarizationSetBy = User
+
+	column is_multiplayer
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_multiplayer
+
+		annotation SummarizationSetBy = User
+
+	column acts_reached
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: acts_reached
+
+		annotation SummarizationSetBy = User
+
+	column floors_reached
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: floors_reached
+
+		annotation SummarizationSetBy = User
+
+	column death_floor
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: death_floor
+
+		annotation SummarizationSetBy = User
+
+	column final_hp
+		dataType: int64
+		summarizeBy: none
+		sourceColumn: final_hp
+
+		annotation SummarizationSetBy = User
+
+	column total_damage_taken
+		dataType: int64
+		summarizeBy: sum
+		sourceColumn: total_damage_taken
+
+		annotation SummarizationSetBy = User
+
+	partition dim_run = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_run_Table = marts{[Name="dim_run",Kind="Table"]}[Data]
+				in
+				    dim_run_Table
+
+	annotation PBI_ResultType = Table
+

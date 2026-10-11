@@ -1,40 +1,40 @@
 relationship rel_date_run
-	fromColumn: fact_run.run_date
+	fromColumn: dim_run.run_date
 	toColumn: dim_date.date_key
 
 relationship rel_run_floor_state
-	fromColumn: fact_floor_state.run_id
-	toColumn: fact_run.run_id
+	fromColumn: fct_floor_state.run_id
+	toColumn: dim_run.run_id
 
 relationship rel_run_card_choice
-	fromColumn: fact_card_choice.run_id
-	toColumn: fact_run.run_id
+	fromColumn: fct_card_choice.run_id
+	toColumn: dim_run.run_id
 
-relationship rel_run_cards_gained
-	fromColumn: fact_cards_gained.run_id
-	toColumn: fact_run.run_id
+relationship rel_run_card_gained
+	fromColumn: fct_card_gained.run_id
+	toColumn: dim_run.run_id
 
 relationship rel_run_relic
-	fromColumn: fact_relic.run_id
-	toColumn: fact_run.run_id
+	fromColumn: fct_run_relic.run_id
+	toColumn: dim_run.run_id
 
 relationship rel_run_deck_card
-	fromColumn: fact_deck_card.run_id
-	toColumn: fact_run.run_id
+	fromColumn: fct_run_deck_card.run_id
+	toColumn: dim_run.run_id
 
-relationship rel_card_choice_dim_card
-	fromColumn: fact_card_choice.card_id
+relationship rel_card_choice_card
+	fromColumn: fct_card_choice.card_id
 	toColumn: dim_card.card_id
 
-relationship rel_cards_gained_dim_card
-	fromColumn: fact_cards_gained.card_id
+relationship rel_card_gained_card
+	fromColumn: fct_card_gained.card_id
 	toColumn: dim_card.card_id
 
-relationship rel_deck_card_dim_card
-	fromColumn: fact_deck_card.card_id
+relationship rel_deck_card_card
+	fromColumn: fct_run_deck_card.card_id
 	toColumn: dim_card.card_id
 
-relationship rel_relic_dim_relic
-	fromColumn: fact_relic.relic_id
+relationship rel_run_relic_relic
+	fromColumn: fct_run_relic.relic_id
 	toColumn: dim_relic.relic_id
 
