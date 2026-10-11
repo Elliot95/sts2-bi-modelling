@@ -35,6 +35,7 @@ select
     r.run_id,
     r.run_date,
     r.character,
+    {{ readable_id('r.character') }}            as character_name,
     r.ascension,
     r.game_mode,
     r.build_id,
@@ -43,7 +44,15 @@ select
     r.win,
     r.was_abandoned,
     r.killed_by_encounter,
+    {{ readable_id('r.killed_by_encounter', ['ELITE', 'BOSS', 'NORMAL', 'WEAK']) }} as killed_by_encounter_name,
+    case
+        when r.killed_by_encounter is null or r.killed_by_encounter = 'NONE.NONE' then null
+        when ends_with(r.killed_by_encounter, '_BOSS') then 'Boss'
+        when ends_with(r.killed_by_encounter, '_ELITE') then 'Elite'
+        else 'Normal'
+    end                                         as killed_by_encounter_type,
     r.killed_by_event,
+    {{ readable_id('r.killed_by_event') }}      as killed_by_event_name,
     r.acts_completed,
     r.run_time_seconds,
     s.player_count,

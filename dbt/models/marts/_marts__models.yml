@@ -28,6 +28,9 @@ models:
       - name: character
         data_type: string
         description: Primary player's character (CHARACTER.*).
+      - name: character_name
+        data_type: string
+        description: Display label, e.g. Ironclad.
       - name: ascension
         data_type: int64
       - name: game_mode
@@ -44,8 +47,20 @@ models:
         data_type: bool
       - name: killed_by_encounter
         data_type: string
+      - name: killed_by_encounter_name
+        data_type: string
+        description: Encounter display label without the type suffix; null if not killed by an encounter.
+      - name: killed_by_encounter_type
+        data_type: string
+        description: Boss / Elite / Normal, from the encounter ID suffix; null if not killed by an encounter.
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Boss', 'Elite', 'Normal']}
       - name: killed_by_event
         data_type: string
+      - name: killed_by_event_name
+        data_type: string
+        description: Event display label; null if not killed by an event.
       - name: acts_completed
         data_type: int64
         description: >
