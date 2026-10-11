@@ -27,7 +27,7 @@ SAVE_FOLDER = Path(os.environ.get(
     "STS2_SAVE_FOLDER",
     r"C:\Users\1995e\AppData\Roaming\SlayTheSpire2\steam\76561199024701292\profile1\saves\history",
 ))
-BUCKET_NAME = os.environ.get("STS2_GCS_BUCKET", "REPLACE_WITH_YOUR_BUCKET_NAME")
+BUCKET_NAME = os.environ.get("STS2_GCS_BUCKET", "")
 GCS_PREFIX = os.environ.get("STS2_GCS_PREFIX", "raw")
 MANIFEST_PATH = Path(__file__).parent / "uploaded_manifest.json"
 
@@ -43,6 +43,14 @@ def save_manifest(uploaded: set[str]) -> None:
 
 
 def main():
+    # Fail fast on misconfiguration. A missing bucket used to fall back to a
+    # placeholder name, which only surfaced as an error once there were new
+    # runs to upload (see docs/audit.md, F1).
+    if not BUCKET_NAME:
+        raise SystemExit("STS2_GCS_BUCKET is not set. Run: setx STS2_GCS_BUCKET <bucket-name>")
+    if not SAVE_FOLDER.is_dir():
+        raise SystemExit(f"Save folder not found: {SAVE_FOLDER}")
+
     uploaded = load_manifest()
 
     local_files = {f.name for f in SAVE_FOLDER.glob("*.run")}
@@ -59,9 +67,11 @@ def main():
         blob = bucket.blob(f"{GCS_PREFIX}/{filename}")
         blob.upload_from_filename(str(SAVE_FOLDER / filename))
         uploaded.add(filename)
+        # Save after every file so a mid-batch failure doesn't lose track of
+        # what already uploaded (audit F9).
+        save_manifest(uploaded)
         print(f"Uploaded {filename}")
 
-    save_manifest(uploaded)
     print(f"Done. {len(new_files)} new file(s) uploaded to gs://{BUCKET_NAME}/{GCS_PREFIX}/")
 
 
