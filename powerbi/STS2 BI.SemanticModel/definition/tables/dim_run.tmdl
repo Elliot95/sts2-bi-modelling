@@ -21,11 +21,11 @@ table dim_run
 		formatString: 0.0
 		lineageTag: 31daf419-a67d-4ee5-b834-0927336fc5a6
 
-	measure Losses = CALCULATE([Total Runs], dim_run[outcome] = "Lost")
+	measure Losses = CALCULATE([Total Runs], KEEPFILTERS(dim_run[outcome] = "Lost"))
 		formatString: #,0
 		lineageTag: aa97b787-e8b5-49b9-a6d7-e1069199d750
 
-	measure 'Abandoned Runs' = CALCULATE([Total Runs], dim_run[outcome] = "Abandoned")
+	measure 'Abandoned Runs' = CALCULATE([Total Runs], KEEPFILTERS(dim_run[outcome] = "Abandoned"))
 		formatString: #,0
 		lineageTag: 082dec7f-172e-4d8f-a2fb-fb77ac7c3130
 
