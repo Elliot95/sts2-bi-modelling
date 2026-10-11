@@ -43,6 +43,11 @@ select
     r.seed,
     r.win,
     r.was_abandoned,
+    case
+        when r.win then 'Won'
+        when coalesce(r.was_abandoned, false) then 'Abandoned'
+        else 'Lost'
+    end                                         as outcome,
     r.killed_by_encounter,
     {{ readable_id('r.killed_by_encounter', ['ELITE', 'BOSS', 'NORMAL', 'WEAK']) }} as killed_by_encounter_name,
     case

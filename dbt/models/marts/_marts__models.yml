@@ -45,6 +45,13 @@ models:
         data_type: bool
       - name: was_abandoned
         data_type: bool
+      - name: outcome
+        data_type: string
+        description: Won / Lost / Abandoned, for slicing and legends.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: ['Won', 'Lost', 'Abandoned']}
       - name: killed_by_encounter
         data_type: string
       - name: killed_by_encounter_name
