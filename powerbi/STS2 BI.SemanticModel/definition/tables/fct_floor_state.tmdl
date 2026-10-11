@@ -1,8 +1,10 @@
 table fct_floor_state
+	lineageTag: 403bc209-8653-4f73-841e-f2929796597e
 
 	column run_id
 		dataType: int64
 		isHidden
+		lineageTag: 9bc100a3-e45e-40aa-bae3-3b31c68101fc
 		summarizeBy: none
 		sourceColumn: run_id
 
@@ -10,6 +12,7 @@ table fct_floor_state
 
 	column floor_number
 		dataType: int64
+		lineageTag: b494c647-90e4-437d-ab33-6bfeaa9b0648
 		summarizeBy: none
 		sourceColumn: floor_number
 
@@ -17,6 +20,7 @@ table fct_floor_state
 
 	column player_id
 		dataType: int64
+		lineageTag: 13e7c717-90a9-4361-9287-ed9ed2d2a1e8
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -24,6 +28,7 @@ table fct_floor_state
 
 	column act_index
 		dataType: int64
+		lineageTag: f2b913d5-5ad9-4192-8130-e6aba8e93048
 		summarizeBy: none
 		sourceColumn: act_index
 
@@ -31,6 +36,7 @@ table fct_floor_state
 
 	column map_point_index
 		dataType: int64
+		lineageTag: 564e68fd-1b55-4ff5-9296-304685384492
 		summarizeBy: none
 		sourceColumn: map_point_index
 
@@ -38,6 +44,7 @@ table fct_floor_state
 
 	column map_point_type
 		dataType: string
+		lineageTag: bdb4ddc1-f63f-451c-ac34-c5300fd5a1b8
 		summarizeBy: none
 		sourceColumn: map_point_type
 
@@ -45,6 +52,7 @@ table fct_floor_state
 
 	column current_hp
 		dataType: int64
+		lineageTag: 466d10a2-d8d4-4637-8ccd-8e9a93d5b5f7
 		summarizeBy: none
 		sourceColumn: current_hp
 
@@ -52,6 +60,7 @@ table fct_floor_state
 
 	column max_hp
 		dataType: int64
+		lineageTag: 238070fb-c7ec-4f84-bbb7-33d51848c028
 		summarizeBy: none
 		sourceColumn: max_hp
 
@@ -59,6 +68,7 @@ table fct_floor_state
 
 	column current_gold
 		dataType: int64
+		lineageTag: fbf078a6-2bf7-404b-b549-04637f65f2e9
 		summarizeBy: none
 		sourceColumn: current_gold
 
@@ -66,6 +76,7 @@ table fct_floor_state
 
 	column damage_taken
 		dataType: int64
+		lineageTag: bf779313-1bfb-4a27-8c39-b4205b9ce1f6
 		summarizeBy: sum
 		sourceColumn: damage_taken
 
@@ -73,6 +84,7 @@ table fct_floor_state
 
 	column hp_healed
 		dataType: int64
+		lineageTag: 518621a8-d1ec-426e-96c6-9fd5642f3dee
 		summarizeBy: sum
 		sourceColumn: hp_healed
 
@@ -80,6 +92,7 @@ table fct_floor_state
 
 	column gold_gained
 		dataType: int64
+		lineageTag: cdd64a5b-83c0-417b-9e12-1db4606b3163
 		summarizeBy: sum
 		sourceColumn: gold_gained
 
@@ -87,6 +100,7 @@ table fct_floor_state
 
 	column gold_lost
 		dataType: int64
+		lineageTag: 5dba0537-d2b3-47e4-a04b-1807346b9c32
 		summarizeBy: sum
 		sourceColumn: gold_lost
 
@@ -94,6 +108,7 @@ table fct_floor_state
 
 	column gold_spent
 		dataType: int64
+		lineageTag: f59dc8fa-8a78-4d8a-97cc-0b56baa7a9c5
 		summarizeBy: sum
 		sourceColumn: gold_spent
 
@@ -101,6 +116,7 @@ table fct_floor_state
 
 	column gold_stolen
 		dataType: int64
+		lineageTag: af889483-4acd-41f2-8d0f-eab12f34f9d6
 		summarizeBy: sum
 		sourceColumn: gold_stolen
 
@@ -108,6 +124,7 @@ table fct_floor_state
 
 	column max_hp_gained
 		dataType: int64
+		lineageTag: 6f95f2b5-75d0-407e-a951-2be535becea3
 		summarizeBy: sum
 		sourceColumn: max_hp_gained
 
@@ -115,6 +132,7 @@ table fct_floor_state
 
 	column max_hp_lost
 		dataType: int64
+		lineageTag: 0005ecb9-6724-4e5d-bc27-586984637dab
 		summarizeBy: sum
 		sourceColumn: max_hp_lost
 

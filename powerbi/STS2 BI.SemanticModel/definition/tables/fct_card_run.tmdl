@@ -1,0 +1,134 @@
+table fct_card_run
+	lineageTag: c8dfaae8-f8ac-4c26-ae7d-bb247d2ab530
+
+	measure 'Runs Offered' = COUNTROWS(fct_card_run)
+		formatString: #,0
+		lineageTag: 95bb7f08-fcf2-4f55-ac37-ef018cb79b1f
+
+	measure 'Runs Picked' = CALCULATE(COUNTROWS(fct_card_run), fct_card_run[was_picked] = TRUE)
+		formatString: #,0
+		lineageTag: fbcb304a-d7b0-4085-93ad-a4d66e37f6ec
+
+	measure 'Runs Skipped' = CALCULATE(COUNTROWS(fct_card_run), fct_card_run[was_picked] = FALSE)
+		formatString: #,0
+		lineageTag: bcbd7a14-66bf-4322-a90f-7227b6eed85d
+
+	measure 'Run Pick Rate' = DIVIDE([Runs Picked], [Runs Offered])
+		formatString: 0.0%
+		lineageTag: 6ad57396-ad2f-4db4-a11f-178c90a2aa48
+
+	measure 'Win Rate Picked' = DIVIDE(CALCULATE([Runs Picked], dim_run[win] = TRUE), [Runs Picked])
+		formatString: 0.0%
+		lineageTag: 506a9b57-8b0f-448a-ace2-2e4750ce55ef
+
+	measure 'Win Rate Skipped' = DIVIDE(CALCULATE([Runs Skipped], dim_run[win] = TRUE), [Runs Skipped])
+		formatString: 0.0%
+		lineageTag: 2460ab05-99f8-4b17-b997-54d3911ef483
+
+	measure 'Pick Win Delta' = IF([Runs Picked] > 0 && [Runs Skipped] > 0, [Win Rate Picked] - [Win Rate Skipped])
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: c824930a-afab-446a-bbf5-768fe55a4598
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: bb3e1b83-0b5b-4beb-a0e7-a782c9bf2975
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: 45af12e4-d47a-40ee-8964-2c6ca1c4d8c5
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column card_id
+		dataType: string
+		isHidden
+		lineageTag: 93d27065-60d1-49e0-b88a-cc85eba3a286
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = User
+
+	column times_offered
+		dataType: int64
+		lineageTag: 9b1a3313-178e-4eee-92eb-fe4f7d89464f
+		summarizeBy: none
+		sourceColumn: times_offered
+
+		annotation SummarizationSetBy = User
+
+	column times_picked
+		dataType: int64
+		lineageTag: 67b5fe66-2305-434c-bcb0-f88ff97d97f9
+		summarizeBy: none
+		sourceColumn: times_picked
+
+		annotation SummarizationSetBy = User
+
+	column was_picked
+		dataType: boolean
+		lineageTag: 93d1f757-05b2-4b67-a693-d25ddecd3ad6
+		summarizeBy: none
+		sourceColumn: was_picked
+
+		annotation SummarizationSetBy = User
+
+	column first_offered_floor
+		dataType: int64
+		lineageTag: a2a2b7eb-7cc5-4524-be0b-78785847788d
+		summarizeBy: none
+		sourceColumn: first_offered_floor
+
+		annotation SummarizationSetBy = User
+
+	column first_offered_act
+		dataType: int64
+		lineageTag: 14a5459d-450c-4eef-a8c9-99585593d96c
+		summarizeBy: none
+		sourceColumn: first_offered_act
+
+		annotation SummarizationSetBy = User
+
+	column first_picked_floor
+		dataType: int64
+		lineageTag: 668578f3-39e4-42f7-9b9f-c18365c127b7
+		summarizeBy: none
+		sourceColumn: first_picked_floor
+
+		annotation SummarizationSetBy = User
+
+	column in_final_deck
+		dataType: boolean
+		lineageTag: a73bed46-54f7-4748-9854-9b72e7d85f56
+		summarizeBy: none
+		sourceColumn: in_final_deck
+
+		annotation SummarizationSetBy = User
+
+	column final_deck_copies
+		dataType: int64
+		lineageTag: cd059371-2b1b-45bd-b0a9-ed546cfc27c1
+		summarizeBy: none
+		sourceColumn: final_deck_copies
+
+		annotation SummarizationSetBy = User
+
+	partition fct_card_run = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_card_run_Table = marts{[Name="fct_card_run",Kind="Table"]}[Data]
+				in
+				    fct_card_run_Table
+
+	annotation PBI_ResultType = Table
+

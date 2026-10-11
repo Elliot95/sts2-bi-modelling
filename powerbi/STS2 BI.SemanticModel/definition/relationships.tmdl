@@ -22,6 +22,14 @@ relationship rel_run_deck_card
 	fromColumn: fct_run_deck_card.run_id
 	toColumn: dim_run.run_id
 
+relationship rel_run_card_run
+	fromColumn: fct_card_run.run_id
+	toColumn: dim_run.run_id
+
+relationship rel_card_run_card
+	fromColumn: fct_card_run.card_id
+	toColumn: dim_card.card_id
+
 relationship rel_card_choice_card
 	fromColumn: fct_card_choice.card_id
 	toColumn: dim_card.card_id

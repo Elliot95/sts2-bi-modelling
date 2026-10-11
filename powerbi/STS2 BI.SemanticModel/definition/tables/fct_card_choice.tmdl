@@ -1,20 +1,26 @@
 table fct_card_choice
+	lineageTag: a4fe55ed-a64b-470f-812e-63f2de71c35b
 
 	measure 'Times Offered' = COUNTROWS(fct_card_choice)
 		formatString: #,0
+		lineageTag: 582c5c3d-f14a-4e9a-8596-47c196e3ad5a
 
 	measure 'Times Picked' = CALCULATE(COUNTROWS(fct_card_choice), fct_card_choice[was_picked] = TRUE)
 		formatString: #,0
+		lineageTag: a367dd07-f88e-47d3-96b0-3c8b4da266b4
 
 	measure 'Card Pick Rate' = DIVIDE([Times Picked], [Times Offered])
 		formatString: 0.0%
+		lineageTag: ae6e8292-e1ce-4f76-9f18-70cba787c785
 
 	measure 'Win Rate When Picked' = CALCULATE([Win Rate], TREATAS(CALCULATETABLE(VALUES(fct_card_choice[run_id]), fct_card_choice[was_picked] = TRUE), dim_run[run_id]))
 		formatString: 0.0%
+		lineageTag: 2d873c9c-b1e0-4485-99a2-57c03ca749c5
 
 	column run_id
 		dataType: int64
 		isHidden
+		lineageTag: 108fde55-1a59-4c4e-8589-a0d966e2e260
 		summarizeBy: none
 		sourceColumn: run_id
 
@@ -22,6 +28,7 @@ table fct_card_choice
 
 	column floor_number
 		dataType: int64
+		lineageTag: a1d47fb1-20ee-4cb7-b1b2-a06be46167a9
 		summarizeBy: none
 		sourceColumn: floor_number
 
@@ -29,6 +36,7 @@ table fct_card_choice
 
 	column player_id
 		dataType: int64
+		lineageTag: f0d7bd26-ec3d-4934-816a-951809dd2528
 		summarizeBy: none
 		sourceColumn: player_id
 
@@ -37,6 +45,7 @@ table fct_card_choice
 	column card_id
 		dataType: string
 		isHidden
+		lineageTag: 716c9bae-e1aa-4423-bf14-0f0e52186e06
 		summarizeBy: none
 		sourceColumn: card_id
 
@@ -44,6 +53,7 @@ table fct_card_choice
 
 	column was_picked
 		dataType: boolean
+		lineageTag: 11719f86-46e7-4714-a435-84218dfdf9ce
 		summarizeBy: none
 		sourceColumn: was_picked
 
@@ -51,6 +61,7 @@ table fct_card_choice
 
 	column floor_added_to_deck
 		dataType: int64
+		lineageTag: 56692356-50d7-45c0-8ed7-1b4c7c2909e9
 		summarizeBy: none
 		sourceColumn: floor_added_to_deck
 

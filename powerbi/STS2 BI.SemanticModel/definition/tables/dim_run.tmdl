@@ -1,22 +1,29 @@
 table dim_run
+	lineageTag: 580eade7-beba-4cca-a733-3b827140dd3d
 
 	measure 'Total Runs' = COUNTROWS(dim_run)
 		formatString: #,0
+		lineageTag: 6b483153-e57b-4423-b72e-42a06ceb7c6e
 
-	measure 'Wins' = CALCULATE([Total Runs], dim_run[win] = TRUE)
+	measure Wins = CALCULATE([Total Runs], dim_run[win] = TRUE)
 		formatString: #,0
+		lineageTag: 28ea17d5-f848-461d-bf01-554c3015b3fc
 
 	measure 'Win Rate' = DIVIDE([Wins], [Total Runs])
 		formatString: 0.0%
+		lineageTag: de085cb5-e28c-4412-99fb-498804a13525
 
 	measure 'Avg Floors Reached' = AVERAGE(dim_run[floors_reached])
 		formatString: 0.0
+		lineageTag: 15f52072-7778-4692-a61a-e2a0b5a8e61e
 
 	measure 'Avg Death Floor' = AVERAGE(dim_run[death_floor])
 		formatString: 0.0
+		lineageTag: 31daf419-a67d-4ee5-b834-0927336fc5a6
 
 	column run_id
 		dataType: int64
+		lineageTag: c3c88a5a-807e-4e94-aabd-bd1908970332
 		summarizeBy: none
 		sourceColumn: run_id
 
@@ -25,6 +32,7 @@ table dim_run
 	column run_date
 		dataType: dateTime
 		formatString: Short Date
+		lineageTag: e11d38a8-3e5f-430b-b3e9-0adb95cc6f8b
 		summarizeBy: none
 		sourceColumn: run_date
 
@@ -34,6 +42,7 @@ table dim_run
 
 	column character
 		dataType: string
+		lineageTag: 6bc07707-10a4-407a-a4c6-4139b80cc7ff
 		summarizeBy: none
 		sourceColumn: character
 
@@ -41,6 +50,7 @@ table dim_run
 
 	column ascension
 		dataType: int64
+		lineageTag: 30536083-40e9-48e0-9aaf-fd96db58f8ab
 		summarizeBy: none
 		sourceColumn: ascension
 
@@ -48,6 +58,7 @@ table dim_run
 
 	column game_mode
 		dataType: string
+		lineageTag: 01a6ebf4-8939-4020-b448-dbed726df473
 		summarizeBy: none
 		sourceColumn: game_mode
 
@@ -55,6 +66,7 @@ table dim_run
 
 	column build_id
 		dataType: string
+		lineageTag: 8de1cd3a-6e01-4bc6-86b9-0ba7f58ac071
 		summarizeBy: none
 		sourceColumn: build_id
 
@@ -62,6 +74,7 @@ table dim_run
 
 	column platform_type
 		dataType: string
+		lineageTag: 01199144-6bb6-46cb-9172-8445a4c1585a
 		summarizeBy: none
 		sourceColumn: platform_type
 
@@ -69,6 +82,7 @@ table dim_run
 
 	column seed
 		dataType: string
+		lineageTag: 9a9f69df-8e6c-4338-a6ac-9802f54d86b1
 		summarizeBy: none
 		sourceColumn: seed
 
@@ -76,6 +90,7 @@ table dim_run
 
 	column win
 		dataType: boolean
+		lineageTag: 84bf4eeb-f75c-4703-b096-41a519ca6d90
 		summarizeBy: none
 		sourceColumn: win
 
@@ -83,6 +98,7 @@ table dim_run
 
 	column was_abandoned
 		dataType: boolean
+		lineageTag: b76d9c54-9646-42ac-b73c-040ce7769b01
 		summarizeBy: none
 		sourceColumn: was_abandoned
 
@@ -90,6 +106,7 @@ table dim_run
 
 	column killed_by_encounter
 		dataType: string
+		lineageTag: 75a33dee-fa50-4290-9422-b6d8d0777428
 		summarizeBy: none
 		sourceColumn: killed_by_encounter
 
@@ -97,6 +114,7 @@ table dim_run
 
 	column killed_by_event
 		dataType: string
+		lineageTag: 8582837f-e17d-4804-b58b-6eaea0ac9daa
 		summarizeBy: none
 		sourceColumn: killed_by_event
 
@@ -104,6 +122,7 @@ table dim_run
 
 	column acts_completed
 		dataType: int64
+		lineageTag: 652e3cc4-5d94-4d7e-95b2-136edc864ac3
 		summarizeBy: none
 		sourceColumn: acts_completed
 
@@ -111,6 +130,7 @@ table dim_run
 
 	column run_time_seconds
 		dataType: int64
+		lineageTag: 83363910-3bec-48dd-be71-be6edf855ae7
 		summarizeBy: sum
 		sourceColumn: run_time_seconds
 
@@ -118,6 +138,7 @@ table dim_run
 
 	column player_count
 		dataType: int64
+		lineageTag: 09d5029a-488b-44dc-a100-0eca5d022d04
 		summarizeBy: none
 		sourceColumn: player_count
 
@@ -125,6 +146,7 @@ table dim_run
 
 	column is_multiplayer
 		dataType: boolean
+		lineageTag: c62bbba2-0155-488a-add2-18f1a4ed3ca5
 		summarizeBy: none
 		sourceColumn: is_multiplayer
 
@@ -132,6 +154,7 @@ table dim_run
 
 	column acts_reached
 		dataType: int64
+		lineageTag: 390d1950-1d3a-4818-be29-3be9fc74e456
 		summarizeBy: none
 		sourceColumn: acts_reached
 
@@ -139,6 +162,7 @@ table dim_run
 
 	column floors_reached
 		dataType: int64
+		lineageTag: 950031d8-731c-4e2a-a8a1-4f989ba4ccf5
 		summarizeBy: none
 		sourceColumn: floors_reached
 
@@ -146,6 +170,7 @@ table dim_run
 
 	column death_floor
 		dataType: int64
+		lineageTag: 867c4210-48fd-48ef-a083-4197abd34937
 		summarizeBy: none
 		sourceColumn: death_floor
 
@@ -153,6 +178,7 @@ table dim_run
 
 	column final_hp
 		dataType: int64
+		lineageTag: beadab33-2549-4d41-9b15-16ecd1cb0318
 		summarizeBy: none
 		sourceColumn: final_hp
 
@@ -160,6 +186,7 @@ table dim_run
 
 	column total_damage_taken
 		dataType: int64
+		lineageTag: 23874f82-4345-490d-aef9-03f9742d646d
 		summarizeBy: sum
 		sourceColumn: total_damage_taken
 

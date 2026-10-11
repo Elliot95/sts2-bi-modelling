@@ -1,7 +1,9 @@
 table dim_card
+	lineageTag: ee24af1e-94b4-4eff-9c97-0357243aa7ce
 
 	column card_id
 		dataType: string
+		lineageTag: 03358976-c4c1-4b55-a080-f34690752dc4
 		summarizeBy: none
 		sourceColumn: card_id
 
@@ -9,6 +11,7 @@ table dim_card
 
 	column card_name
 		dataType: string
+		lineageTag: 04c69937-9a91-4bea-a6a6-ce21b1034bab
 		summarizeBy: none
 		sourceColumn: card_name
 
@@ -16,6 +19,7 @@ table dim_card
 
 	column first_seen_run_id
 		dataType: int64
+		lineageTag: b74171f6-4bf9-4a18-9361-50e58a78da33
 		summarizeBy: none
 		sourceColumn: first_seen_run_id
 
@@ -24,6 +28,7 @@ table dim_card
 	column first_seen_date
 		dataType: dateTime
 		formatString: Short Date
+		lineageTag: c7695ea8-a724-4360-9769-b762cbe8f9cb
 		summarizeBy: none
 		sourceColumn: first_seen_date
 
