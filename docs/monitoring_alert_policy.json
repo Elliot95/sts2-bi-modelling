@@ -1,0 +1,17 @@
+{
+  "displayName": "STS2 loader: Cloud Function errors or rejected deliveries",
+  "documentation": {
+    "content": "The sts2-load-run Cloud Function logged an error, or Eventarc deliveries were rejected (e.g. missing run.invoker). Runs uploaded to GCS may not have loaded into BigQuery. Check: gcloud logging read 'resource.labels.service_name=\"sts2-load-run\"' --freshness=1d. The loader is idempotent per run_id, so fixing the cause and re-uploading the affected .run files is safe.",
+    "mimeType": "text/markdown"
+  },
+  "combiner": "OR",
+  "conditions": [{
+    "displayName": "Loader error or unauthenticated delivery",
+    "conditionMatchedLog": {
+      "filter": "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"sts2-load-run\" AND (severity>=ERROR OR textPayload:\"was not authenticated\")"
+    }
+  }],
+  "alertStrategy": { "notificationRateLimit": { "period": "3600s" }, "autoClose": "86400s" },
+  "notificationChannels": ["projects/YOUR_PROJECT_ID/notificationChannels/YOUR_CHANNEL_ID"],
+  "severity": "ERROR"
+}
