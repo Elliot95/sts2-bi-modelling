@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["dim_run","dim_card","dim_relic","dim_date","fct_floor_state","fct_card_choice","fct_card_run","fct_card_gained","fct_run_relic","fct_run_deck_card"]
+annotation PBI_QueryOrder = ["dim_run","dim_card","dim_relic","dim_date","fct_floor_state","fct_card_choice","fct_card_run","fct_card_gained","fct_run_relic","fct_run_deck_card","dim_event","fct_event_choice","event_image"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
@@ -22,4 +22,7 @@ ref table fct_card_run
 ref table fct_card_gained
 ref table fct_run_relic
 ref table fct_run_deck_card
+ref table dim_event
+ref table fct_event_choice
+ref table event_image
 

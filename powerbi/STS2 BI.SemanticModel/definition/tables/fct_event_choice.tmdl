@@ -1,0 +1,278 @@
+table fct_event_choice
+	lineageTag: 3abf5c9a-0d5b-4eda-87fb-84ac9aebcfb5
+
+	measure Choices = COUNTROWS(fct_event_choice)
+		formatString: #,0
+		lineageTag: f12f1c99-cdae-4194-ac83-e37c0e72dc7f
+
+	measure 'Event Runs' = DISTINCTCOUNT(fct_event_choice[run_id])
+		formatString: #,0
+		lineageTag: 72db0249-a0e1-4599-82e7-80d04e320259
+
+	measure 'Option Share' = DIVIDE([Choices], CALCULATE([Choices], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])))
+		formatString: 0.0%
+		lineageTag: fb494bca-f994-4dc5-8f3c-ad7335d77ca0
+
+	measure 'Choice Win Rate' = DIVIDE(CALCULATE([Choices], fct_event_choice[win] = TRUE), CALCULATE([Choices], fct_event_choice[outcome] <> "Abandoned"))
+		formatString: 0.0%
+		lineageTag: 61f9b4a2-36b6-4c62-b2e0-15d9579d8f23
+
+	measure 'Died Before Next Act %' = DIVIDE(CALCULATE([Choices], fct_event_choice[died_before_next_act] = TRUE), [Choices])
+		formatString: 0.0%
+		lineageTag: 144370a4-f522-46cb-ba18-53a8f465e26a
+
+	measure 'Died Within 3 Floors %' = DIVIDE(CALCULATE([Choices], fct_event_choice[died_within_3_floors] = TRUE), [Choices])
+		formatString: 0.0%
+		lineageTag: 1d747187-972b-42c8-960a-20a13a925e72
+
+	measure 'Avg Floors Survived After' = AVERAGE(fct_event_choice[floors_survived_after])
+		formatString: 0.0
+		lineageTag: e6d84d1d-6f32-4be9-8bac-9e3ff5d8d257
+
+	measure 'Avg HP Change' = ROUND(AVERAGE(fct_event_choice[hp_change]), 1)
+		formatString: +0.0;-0.0;0.0
+		lineageTag: d791e711-d3da-4935-9dd2-54dccca1be5d
+
+	measure 'Avg Max HP Change' = ROUND(AVERAGE(fct_event_choice[max_hp_change]), 1)
+		formatString: +0.0;-0.0;0.0
+		lineageTag: 3da4d333-d94b-42dd-b2b9-5b471bb2a093
+
+	measure 'Avg Gold Change' = ROUND(AVERAGE(fct_event_choice[gold_change]), 0)
+		formatString: +0;-0;0
+		lineageTag: a6762bca-9dc9-4be1-9c25-1c21166da39f
+
+	measure 'Choice Win Font Color' = VAR r = [Choice Win Rate] VAR evt = CALCULATE([Choice Win Rate], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r >= evt, "#15803d", "#b91c1c"))
+		lineageTag: 8fa77e75-d16e-433f-b64f-cdc11e218bfa
+
+	measure 'Death Font Color' = VAR r = [Died Before Next Act %] VAR evt = CALCULATE([Died Before Next Act %], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r <= evt, "#15803d", "#b91c1c"))
+		lineageTag: b8047176-5267-4381-a698-ea85f60c3560
+
+	measure 'Event Image' = SELECTEDVALUE(event_image[image_url])
+		lineageTag: c01e1d48-dd05-4787-8b6c-4778b73bb73c
+		dataCategory: ImageUrl
+
+	measure 'Event Description' = SELECTEDVALUE(dim_event[description], "Select an event to read its opening text.")
+		lineageTag: d61c9eae-27e2-40b2-b90b-7d8b9eb20d30
+
+	measure 'Selected Event' = SELECTEDVALUE(dim_event[event_name], "All events")
+		lineageTag: 77960f30-94a1-4b0e-92bd-2d2f733ba2e2
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: 55388344-9668-439b-a044-c9436dac1351
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: d3f7e7cf-5b5e-4c0f-a68d-2389f1cc9a40
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_number
+		dataType: int64
+		lineageTag: a26c810e-b606-48da-8009-0f730517c48b
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = User
+
+	column act
+		dataType: int64
+		lineageTag: 2528743a-0ba7-4518-b17b-5ce5e0ec4ffd
+		summarizeBy: none
+		sourceColumn: act
+
+		annotation SummarizationSetBy = User
+
+	column choice_index
+		dataType: int64
+		lineageTag: 45466913-e5fa-4b85-aedd-0a4cbb9b1e53
+		summarizeBy: none
+		sourceColumn: choice_index
+
+		annotation SummarizationSetBy = User
+
+	column is_final_choice
+		dataType: boolean
+		lineageTag: 5cafa812-10c0-4665-a49f-92abe9613685
+		summarizeBy: none
+		sourceColumn: is_final_choice
+
+		annotation SummarizationSetBy = User
+
+	column event_id
+		dataType: string
+		isHidden
+		lineageTag: b0f83cb9-8169-40b6-8d00-3965897cdf9e
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column choice_table
+		dataType: string
+		lineageTag: d05fe3ac-e910-4857-ad3d-f3de2a021307
+		summarizeBy: none
+		sourceColumn: choice_table
+
+		annotation SummarizationSetBy = User
+
+	column choice_key
+		dataType: string
+		isHidden
+		lineageTag: 86b1b346-fc55-42cf-a746-bb66fbf9d33a
+		summarizeBy: none
+		sourceColumn: choice_key
+
+		annotation SummarizationSetBy = User
+
+	column option_page
+		dataType: string
+		lineageTag: 06d6a62a-edeb-4df9-bf7c-900fd95b97d2
+		summarizeBy: none
+		sourceColumn: option_page
+
+		annotation SummarizationSetBy = User
+
+	column option_code
+		dataType: string
+		isHidden
+		lineageTag: 7e4ed630-11b8-4970-9c0c-bc8dd9c584a7
+		summarizeBy: none
+		sourceColumn: option_code
+
+		annotation SummarizationSetBy = User
+
+	column relic_id
+		dataType: string
+		isHidden
+		lineageTag: d97af818-8573-4df8-bdf4-ecd18172f6f9
+		summarizeBy: none
+		sourceColumn: relic_id
+
+		annotation SummarizationSetBy = User
+
+	column option_name
+		dataType: string
+		lineageTag: 4fa1a146-b701-4c0f-9c40-9aa2cf34478e
+		summarizeBy: none
+		sourceColumn: option_name
+
+		annotation SummarizationSetBy = User
+
+	column option_description
+		dataType: string
+		lineageTag: d84d592a-e0a9-44c7-bad6-239c84fee050
+		summarizeBy: none
+		sourceColumn: option_description
+
+		annotation SummarizationSetBy = User
+
+	column variables_json
+		dataType: string
+		isHidden
+		lineageTag: 33c13f2a-9df7-4aa2-963d-a93c795fdd14
+		summarizeBy: none
+		sourceColumn: variables_json
+
+		annotation SummarizationSetBy = User
+
+	column outcome
+		dataType: string
+		lineageTag: 062e5240-d423-474b-abf7-bacd2f79c48f
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = User
+
+	column win
+		dataType: boolean
+		lineageTag: 592b4797-cede-40a8-aec9-f684a80bd492
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = User
+
+	column floors_survived_after
+		dataType: int64
+		lineageTag: d1bcd61f-131e-4d0c-858e-8e86bad644bb
+		summarizeBy: none
+		sourceColumn: floors_survived_after
+
+		annotation SummarizationSetBy = User
+
+	column died_within_3_floors
+		dataType: boolean
+		lineageTag: ab841ef6-add5-47c5-91f3-805a93327718
+		summarizeBy: none
+		sourceColumn: died_within_3_floors
+
+		annotation SummarizationSetBy = User
+
+	column died_before_next_act
+		dataType: boolean
+		lineageTag: e8c3a9bf-980b-472b-a853-0a256f1cce05
+		summarizeBy: none
+		sourceColumn: died_before_next_act
+
+		annotation SummarizationSetBy = User
+
+	column hp_after
+		dataType: int64
+		lineageTag: 2899d7b2-0d60-406d-a68d-2af3d66a4f31
+		summarizeBy: none
+		sourceColumn: hp_after
+
+		annotation SummarizationSetBy = User
+
+	column max_hp_after
+		dataType: int64
+		lineageTag: fcb8d42a-1a36-40e9-b475-6cf8721dfc7e
+		summarizeBy: none
+		sourceColumn: max_hp_after
+
+		annotation SummarizationSetBy = User
+
+	column hp_change
+		dataType: int64
+		lineageTag: 01ff5a62-a6e8-48b6-8737-c7919ad9ac4e
+		summarizeBy: none
+		sourceColumn: hp_change
+
+		annotation SummarizationSetBy = User
+
+	column max_hp_change
+		dataType: int64
+		lineageTag: d7422639-f461-4457-b3b6-e03e3c88a162
+		summarizeBy: none
+		sourceColumn: max_hp_change
+
+		annotation SummarizationSetBy = User
+
+	column gold_change
+		dataType: int64
+		lineageTag: 663e82c7-87be-4d28-8dc5-e5704bd75392
+		summarizeBy: none
+		sourceColumn: gold_change
+
+		annotation SummarizationSetBy = User
+
+	partition fct_event_choice = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_event_choice_Table = marts{[Name="fct_event_choice",Kind="Table"]}[Data]
+				in
+				    fct_event_choice_Table
+
+	annotation PBI_ResultType = Table
+

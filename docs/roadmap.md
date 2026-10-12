@@ -19,17 +19,16 @@ Field paths are from the structure discovery in
 | `acts[]` (act IDs) | `dim_act` | Act-specific difficulty, if act variants differ between runs. |
 
 Adding any of these follows the same pattern: extend `flatten_run()` in
-`cloud_function/main.py`, add the raw table to `sql/schema.sql`, add a
+`cloud_function/flatten.py`, add the raw table to `sql/schema.sql`, add a
 staging view + mart + tests in `dbt/`, then reprocess the history. The
 loader is idempotent per run_id, so reprocessing is safe; see the
 backfill notes in `docs/gcp_setup.md`.
 
 ## Enrichment
 
-- **Card/relic metadata**: rarity, energy cost, type and character. There's
-  no external catalog to join yet. Options are a hand-maintained dbt seed
-  (`seeds/card_metadata.csv`) or scraping the game's data files. `dim_card`
-  already has the natural key to join on.
+- **Card/relic/event metadata**: done. The seeds are built from the
+  installed game (`scripts/build_reference_seeds.py`). Event choices are
+  modelled as `fct_event_choice` + `dim_event`.
 - **Game patches**: `dim_patch(build_id, first_seen_run_id,
   first_seen_date)`, discovered incrementally like `dim_card`, to compare
   win rates across balance patches.

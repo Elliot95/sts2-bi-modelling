@@ -1,0 +1,37 @@
+table event_image
+	lineageTag: 028f85ca-9f88-4e4b-b43b-b3dd370d3fa9
+
+	column event_id
+		dataType: string
+		isHidden
+		lineageTag: 76f4b187-8ada-459c-a1a3-2d895886a78b
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column image_url
+		dataType: string
+		lineageTag: 1db0bf05-8c31-455d-ac79-ba0e08fc940b
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: image_url
+
+		annotation SummarizationSetBy = User
+
+	partition event_image = m
+		mode: import
+		source =
+				let
+				    // Artwork extracted from the local game install by scripts/extract_event_images.py.
+				    // Missing folder -> empty table, so refresh never fails on a fresh clone.
+				    Files = try Table.Buffer(Folder.Files(EventArtFolder)) otherwise #table({"Name", "Extension", "Content"}, {}),
+				    Jpgs = Table.SelectRows(Files, each Text.Lower([Extension]) = ".jpg"),
+				    WithId = Table.AddColumn(Jpgs, "event_id", each "EVENT." & Text.Upper(Text.BeforeDelimiter([Name], ".")), type text),
+				    WithUrl = Table.AddColumn(WithId, "image_url", each "data:image/jpeg;base64," & Binary.ToText([Content], BinaryEncoding.Base64), type text),
+				    Result = Table.SelectColumns(WithUrl, {"event_id", "image_url"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

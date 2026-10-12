@@ -46,3 +46,15 @@ relationship rel_run_relic_relic
 	fromColumn: fct_run_relic.relic_id
 	toColumn: dim_relic.relic_id
 
+relationship rel_run_event_choice
+	fromColumn: fct_event_choice.run_id
+	toColumn: dim_run.run_id
+
+relationship rel_event_event_choice
+	fromColumn: fct_event_choice.event_id
+	toColumn: dim_event.event_id
+
+relationship rel_event_image
+	fromColumn: event_image.event_id
+	toColumn: dim_event.event_id
+

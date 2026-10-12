@@ -1,0 +1,5 @@
+expression EventArtFolder = "C:\Users\1995e\sts2-bi-modelling\powerbi\assets\events" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 88114119-16d3-4934-9cbb-7e5f80c864fd
+
+	annotation PBI_ResultType = Text
+

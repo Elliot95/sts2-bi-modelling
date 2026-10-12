@@ -33,6 +33,8 @@ dimension side to the "many" fact side):
 - `dim_card[card_id]` → `fct_card_choice`, `fct_card_gained`,
   `fct_run_deck_card` on `card_id`
 - `dim_relic[relic_id]` → `fct_run_relic[relic_id]`
+- `dim_run[run_id]` and `dim_event[event_id]` → `fct_event_choice`
+- `dim_event[event_id]` → `event_image[event_id]` (local artwork, below)
 - `dim_date[date_key]` → `dim_run[run_date]`
 
 Mark `dim_date` as a **Date table** (Table tools → Mark as date table) so
@@ -105,6 +107,35 @@ documented columns, is meant to prevent.
 `Win Rate When Picked`, filtered by a specific card, is the kind of
 "decision impact" metric the project README calls out as the end goal —
 it answers "do I win more often in runs where I picked this card?".
+
+## Event artwork
+
+The Events page shows each event's illustration. The art belongs to Mega
+Crit, so this public repo never contains it. It is rebuilt from the
+player's own install instead:
+
+1. `python scripts/extract_event_images.py` reads `SlayTheSpire2.pck`,
+   decodes each event's texture (Godot `.ctex`: embedded WebP/PNG, or
+   BC1/BC3/BC7 blocks wrapped in a DDS header for Pillow), and writes
+   ~480px JPEG thumbnails to `powerbi/assets/events/` (gitignored).
+2. The `event_image` table reads that folder with `Folder.Files` (path
+   in the `EventArtFolder` parameter, Transform data → Edit parameters)
+   and turns each file into a `data:image/jpeg;base64,...` URI. The
+   `Event Image` measure is categorised as *Image URL*, so a table
+   renders it as a picture.
+
+Why data URIs rather than links: Power BI image visuals only load
+`http(s)` or `data:` URLs, not local paths, and hosting the images
+publicly would mean redistributing them. A text value is capped at
+32,766 characters, so the script keeps every JPEG under 23 KB.
+
+If the folder is missing (a fresh clone), the query returns an empty
+table and refresh still succeeds; the page just shows no artwork. After
+a game patch, re-run the script and Refresh.
+
+This is the one Power BI query that doesn't read `sts2_marts`. It is a
+presentation asset, not data, and keeping it local keeps it out of
+BigQuery and the repo.
 
 ## Sharing (free tier)
 
