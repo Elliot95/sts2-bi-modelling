@@ -1,0 +1,67 @@
+potion_id,potion_name,description
+POTION.AMBERGRIS,Ambergris,"Heal for {HealPercent}% of your Max HP. If used in combat, take an extra turn."
+POTION.ASHWATER,Ashwater,Exhaust any number of cards in your Hand.
+POTION.ATTACK_POTION,Attack Potion,Choose 1 of 3 random Attack cards to add into your Hand. It's free to play this turn.
+POTION.BEETLE_JUICE,Beetle Juice,Enemy's attacks deal {DamageDecrease}% less damage {Repeat:plural:next turn|for the next {} turns}.
+POTION.BLESSING_OF_THE_FORGE,Blessing of the Forge,Upgrade all cards in your Hand for the rest of combat.
+POTION.BLOCK_POTION,Block Potion,Gain {Block} Block.
+POTION.BLOOD_POTION,Blood Potion,Heal for {HealPercent}% of your Max HP.
+POTION.BONE_BREW,Bone Brew,Summon {Summon}.
+POTION.BOTTLED_POTENTIAL,Bottled Potential,Shuffle ALL your cards into your Draw Pile. Draw {Cards} {Cards:plural:card|cards}.
+POTION.CLARITY,Clarity Extract,"Draw {Cards} {Cards:plural:card|cards}. At the start of your next {ClarityPower:plural:turn|{} turns}, draw 1 additional card."
+POTION.COLORLESS_POTION,Colorless Potion,Choose 1 of 3 random Colorless cards to add into your Hand. It's free to play this turn.
+POTION.COSMIC_CONCOCTION,Cosmic Concoction,Add {Cards} Upgraded Colorless {Cards:plural:card|cards} into your Hand.
+POTION.CUNNING_POTION,Cunning Potion,Add {Cards} Upgraded {Cards:plural:Shiv|Shivs} into your Hand.
+POTION.CURE_ALL,Cure All,Gain {Energy:energyIcons()}. Draw {Cards} {Cards:plural:card|cards}.
+POTION.DEPRECATED_POTION,Deprecated Potion,This potion has been removed from the game.
+POTION.DEXTERITY_POTION,Dexterity Potion,Gain {DexterityPower} Dexterity.
+POTION.DISTILLED_CHAOS,Distilled Chaos,Play the top {Repeat} cards of your Draw Pile.
+POTION.DROPLET_OF_PRECOGNITION,Droplet of Precognition,Choose a card in your Draw Pile and add it into your Hand.
+POTION.DUPLICATOR,Duplicator,"This turn, your next card is played an extra time."
+POTION.ENERGY_POTION,Energy Potion,Gain {Energy:energyIcons()}.
+POTION.ENTROPIC_BREW,Entropic Brew,Fill all your empty potion slots with random potions.
+POTION.ESSENCE_OF_DARKNESS,Essence of Darkness,Channel a Dark for each of your Orb Slots.
+POTION.EXPLOSIVE_AMPOULE,Explosive Ampoule,Deal {Damage} damage to ALL enemies.
+POTION.FAIRY_IN_A_BOTTLE,Fairy in a Bottle,"When your HP would be reduced to 0, instead this potion is discarded and you heal to 30% of your Max HP."
+POTION.FIRE_POTION,Fire Potion,Deal {Damage} damage.
+POTION.FLEX_POTION,Flex Potion,"Gain {StrengthPower} Strength. At the end of your turn, lose {StrengthPower} Strength."
+POTION.FOCUS_POTION,Focus Potion,Gain {FocusPower} Focus.
+POTION.FORTIFIER,Fortifier,Triple your Block.
+POTION.FOUL_POTION,Foul Potion,Deal {Damage} damage to ALL players and enemies. Can be thrown at the Merchant for {Gold} Gold instead.
+POTION.FRUIT_JUICE,Fruit Juice,Gain {MaxHp} Max HP.
+POTION.FYSH_OIL,Fysh Oil,Gain {StrengthPower} Strength and {DexterityPower} Dexterity.
+POTION.GAMBLERS_BREW,Gambler's Brew,"Discard any number of cards, then draw that many."
+POTION.GHOST_IN_A_JAR,Ghost in a Jar,Gain 1 Intangible.
+POTION.GIGANTIFICATION_POTION,Gigantification Potion,The next Attack you play deals triple damage.
+POTION.GLOWWATER_POTION,Glowwater Potion,Exhaust your Hand. Draw {Cards} cards.
+POTION.HEART_OF_IRON,Heart of Iron,Gain {PlatingPower} Plating.
+POTION.KINGS_COURAGE,King's Courage,Forge {Forge}.
+POTION.LIQUID_BRONZE,Liquid Bronze,Gain {ThornsPower} Thorns.
+POTION.LIQUID_MEMORIES,Liquid Memories,Put a card from your Discard Pile into your Hand. It's free to play this turn.
+POTION.LUCKY_TONIC,Lucky Tonic,Gain {BufferPower} Buffer.
+POTION.MAZALETHS_GIFT,Mazaleth's Gift,Gain {RitualPower} Ritual.
+POTION.MOCK_DISCARD_AND_ADD_SHIVS_POTION,Mock Discard and Add Shivs Potion,
+POTION.OROBIC_ACID,Orobic Acid,"Add a random Attack, Skill, and Power into your Hand. They're free to play this turn."
+POTION.POISON_POTION,Poison Potion,Apply {PoisonPower} Poison.
+POTION.POTION_OF_BINDING,Potion of Binding,Apply {WeakPower:diff()} Weak and {VulnerablePower:diff()} Vulnerable to ALL enemies.
+POTION.POTION_OF_CAPACITY,Potion of Capacity,Gain {Repeat} Orb {Repeat:plural:Slot|Slots}.
+POTION.POTION_OF_DOOM,Potion of Doom,Apply {DoomPower} Doom.
+POTION.POTION_SHAPED_ROCK,Potion-Shaped Rock,Deal {Damage} damage.
+POTION.POT_OF_GHOULS,Pot of Ghouls,Add {Cards} {Cards:plural:Soul|Souls} into your Hand.
+POTION.POWDERED_DEMISE,Powdered Demise,Enemy loses {Demise} HP at the end of each of its turns.
+POTION.POWER_POTION,Power Potion,Choose 1 of 3 random Power cards to add into your Hand. It's free to play this turn.
+POTION.RADIANT_TINCTURE,Radiant Tincture,Gain {Energy:energyIcons()}. Gain an additional {energyPrefix:energyIcons(1)} at the start of your next {RadiancePower} {RadiancePower:plural:turn|turns}.
+POTION.REGEN_POTION,Regen Potion,Gain {RegenPower} Regen.
+POTION.SHACKLING_POTION,Shackling Potion,ALL enemies lose {StrengthPower} Strength this turn.
+POTION.SHIP_IN_A_BOTTLE,Ship in a Bottle,"Gain {Block:diff()} Block. Next turn, gain {Block:diff()} Block."
+POTION.SKILL_POTION,Skill Potion,Choose 1 of 3 random Skill cards to add into your Hand. It's free to play this turn.
+POTION.SNECKO_OIL,Snecko Oil,Draw {Cards} cards. Randomize the cost of cards in your Hand this turn.
+POTION.SOLDIERS_STEW,Soldier's Stew,All cards containing Strike gain 1 Replay this combat.
+POTION.SPEED_POTION,Speed Potion,"Gain {DexterityPower} Dexterity. At the end of your turn, lose {DexterityPower} Dexterity."
+POTION.STABLE_SERUM,Stable Serum,Retain your Hand for {Repeat} {Repeat:plural:turn|turns}.
+POTION.STAR_POTION,Star Potion,Gain {Stars:starIcons()}.
+POTION.STRENGTH_POTION,Strength Potion,Gain {StrengthPower} Strength.
+POTION.SWIFT_POTION,Swift Potion,Draw {Cards} {Cards:plural:card|cards}.
+POTION.TOUCH_OF_INSANITY,Touch of Insanity,Choose a card in your Hand. It is free to play this combat.
+POTION.VULNERABLE_POTION,Vulnerable Potion,Apply {VulnerablePower} Vulnerable.
+POTION.WEAK_POTION,Weak Potion,Apply {WeakPower} Weak.

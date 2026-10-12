@@ -1,0 +1,20 @@
+select
+    cast(run_id as int64)           as run_id,
+    cast(run_date as date)          as run_date,
+    cast(act_index as int64)        as act_index,
+    cast(map_point_index as int64)  as map_point_index,
+    cast(floor_number as int64)     as floor_number,
+    cast(player_id as int64)        as player_id,
+    map_point_type,
+    cast(current_hp as int64)       as current_hp,
+    cast(max_hp as int64)           as max_hp,
+    cast(current_gold as int64)     as current_gold,
+    cast(damage_taken as int64)     as damage_taken,
+    cast(hp_healed as int64)        as hp_healed,
+    cast(gold_gained as int64)      as gold_gained,
+    cast(gold_lost as int64)        as gold_lost,
+    cast(gold_spent as int64)       as gold_spent,
+    cast(gold_stolen as int64)      as gold_stolen,
+    cast(max_hp_gained as int64)    as max_hp_gained,
+    cast(max_hp_lost as int64)      as max_hp_lost
+from {{ source('sts2', 'fact_floor_state') }}

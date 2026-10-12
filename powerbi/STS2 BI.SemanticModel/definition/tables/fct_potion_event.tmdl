@@ -1,0 +1,78 @@
+table fct_potion_event
+	lineageTag: fa6ab911-870e-4823-ba97-94b22d7c7ab7
+
+	measure 'Potion Uses' = CALCULATE(COUNTROWS(fct_potion_event), fct_potion_event[action] = "used")
+		formatString: #,0
+		lineageTag: f63aba06-100f-4cdf-b716-84adb8c2e0f7
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: c809511f-47ee-4de1-b5fe-984c7ef574ed
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: 2fe6ab07-3ca1-4fb3-a7ce-07ca6bfeeac6
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_number
+		dataType: int64
+		lineageTag: 0e5c1d29-7e6b-42f3-b609-c399bc05b5f2
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = User
+
+	column act
+		dataType: int64
+		lineageTag: ee13c670-c300-4fcf-bc83-ce7f3a9da322
+		summarizeBy: none
+		sourceColumn: act
+
+		annotation SummarizationSetBy = User
+
+	column potion_id
+		dataType: string
+		isHidden
+		lineageTag: bfc99e70-83b5-4fd5-abe2-a4e17d275666
+		summarizeBy: none
+		sourceColumn: potion_id
+
+		annotation SummarizationSetBy = User
+
+	column action
+		dataType: string
+		lineageTag: 1d09d687-c22a-4243-93e0-d5a661886078
+		summarizeBy: none
+		sourceColumn: action
+
+		annotation SummarizationSetBy = User
+
+	column was_picked
+		dataType: boolean
+		lineageTag: 94a50c4f-38fb-498c-bbd2-a667a672ea65
+		summarizeBy: none
+		sourceColumn: was_picked
+
+		annotation SummarizationSetBy = User
+
+	partition fct_potion_event = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_potion_event_Table = marts{[Name="fct_potion_event",Kind="Table"]}[Data]
+				in
+				    fct_potion_event_Table
+
+	annotation PBI_ResultType = Table
+

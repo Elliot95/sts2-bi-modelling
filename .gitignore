@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+scripts/uploaded_manifest.json
+
+# Power BI Desktop local/machine-specific artifacts (not part of the project definition)
+powerbi/**/.pbi/
+powerbi/**/*.abf
+powerbi/**/diagramLayout.json
+*.pbix
+
+# dbt local artifacts
+dbt/.venv/
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml
+
+# .NET build output
+tools/**/bin/
+tools/**/obj/
+
+# Game artwork extracted locally by scripts/extract_event_images.py (Mega Crit IP, not redistributed)
+powerbi/assets/

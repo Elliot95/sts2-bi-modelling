@@ -1,0 +1,39 @@
+version: 2
+
+# Staging: one view per source, 1:1. Explicit columns + casts only; column
+# names are kept identical to the raw tables. The only behavioural change is
+# deduping the catalog tables (cards/relics).
+models:
+  - name: stg_sts2__runs
+    description: One row per run (from sts2.fact_run).
+    columns:
+      - name: run_id
+        description: Run start time in epoch seconds; unique per run.
+        data_tests: [unique, not_null]
+
+  - name: stg_sts2__floor_states
+    description: One row per run / floor / player (HP and gold after each map point).
+
+  - name: stg_sts2__card_choices
+    description: One row per card offered on a card-choice screen.
+
+  - name: stg_sts2__cards_gained
+    description: Cards added to the deck outside a choice screen.
+
+  - name: stg_sts2__run_relics
+    description: Relics held at end of run.
+
+  - name: stg_sts2__run_deck_cards
+    description: Final deck composition at end of run.
+
+  - name: stg_sts2__cards
+    description: Card catalog, deduped to the earliest sighting per card_id.
+    columns:
+      - name: card_id
+        data_tests: [unique, not_null]
+
+  - name: stg_sts2__relics
+    description: Relic catalog, deduped to the earliest sighting per relic_id.
+    columns:
+      - name: relic_id
+        data_tests: [unique, not_null]

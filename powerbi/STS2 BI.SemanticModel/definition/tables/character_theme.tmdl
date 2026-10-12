@@ -1,0 +1,69 @@
+table character_theme
+	lineageTag: a38c98f5-0951-4902-bd3c-71eab1521843
+
+	measure 'Page Character' = IF(HASONEVALUE(dim_run[character_name]), VALUES(dim_run[character_name]), "Default")
+		isHidden
+		lineageTag: 9586aee4-da76-4e59-92ac-59003f99b20d
+
+	measure 'Page Bg' = VAR ch = [Page Character] RETURN COALESCE(CALCULATE(MAX(character_theme[bg]), REMOVEFILTERS(character_theme), character_theme[character] = ch), "#0b1220")
+		lineageTag: ee17713f-9d41-4ddb-a778-0479e86afc1f
+
+	measure 'Page Panel' = VAR ch = [Page Character] RETURN COALESCE(CALCULATE(MAX(character_theme[panel]), REMOVEFILTERS(character_theme), character_theme[character] = ch), "#111a2e")
+		lineageTag: bc90f5a6-f493-49e4-9f70-2ac6d321e785
+
+	measure 'Page Accent' = VAR ch = [Page Character] RETURN COALESCE(CALCULATE(MAX(character_theme[accent]), REMOVEFILTERS(character_theme), character_theme[character] = ch), "#f5b041")
+		lineageTag: 4cf9bde3-896c-40a4-bedd-552e2eaada03
+
+	measure 'Page Image' = VAR ch = [Page Character] VAR parts = CALCULATETABLE(character_image, REMOVEFILTERS(character_image), character_image[character] = ch) RETURN IF(NOT ISEMPTY(parts), "data:image/jpeg;base64," & CONCATENATEX(parts, character_image[chunk], "", character_image[part], ASC))
+		lineageTag: 5674a2d7-98ad-4b83-bc94-d943e73d01d9
+		dataCategory: ImageUrl
+
+	column character
+		dataType: string
+		isHidden
+		lineageTag: 3063c890-1a5b-41c8-a40e-951a8cf0f97b
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = User
+
+	column bg
+		dataType: string
+		isHidden
+		lineageTag: faac2f5c-a6b5-47ca-864a-f098621cc9bb
+		summarizeBy: none
+		sourceColumn: bg
+
+		annotation SummarizationSetBy = User
+
+	column panel
+		dataType: string
+		isHidden
+		lineageTag: 0116e2d3-bbdd-4668-a33b-7837cd878d93
+		summarizeBy: none
+		sourceColumn: panel
+
+		annotation SummarizationSetBy = User
+
+	column accent
+		dataType: string
+		isHidden
+		lineageTag: ba110b56-ce5c-4dc3-bd5b-1d55b0179f94
+		summarizeBy: none
+		sourceColumn: accent
+
+		annotation SummarizationSetBy = User
+
+	partition character_theme = m
+		mode: import
+		source =
+				let
+				    // Colour theme per character, written by scripts/extract_event_images.py.
+				    Csv = try Csv.Document(File.Contents(CharacterArtFolder & "\palette.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]) otherwise #table({"Column1", "Column2", "Column3", "Column4"}, {{"character", "bg", "panel", "accent"}}),
+				    Promoted = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),
+				    Result = Table.TransformColumnTypes(Promoted, {{"character", type text}, {"bg", type text}, {"panel", type text}, {"accent", type text}})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

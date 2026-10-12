@@ -1,0 +1,101 @@
+table dim_date
+	lineageTag: f318234e-8bac-471f-8370-f12a80507de9
+	dataCategory: Time
+
+	column date_key
+		dataType: dateTime
+		isKey
+		formatString: Short Date
+		lineageTag: 9d4e6fc8-a895-4163-86d9-b319e77fc736
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		lineageTag: 8cdf2b6a-f02a-47cf-9284-92c0a791581a
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = User
+
+	column quarter
+		dataType: int64
+		lineageTag: 040f9bdb-f02a-4575-8fa7-dd02ec407554
+		summarizeBy: none
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = User
+
+	column month
+		dataType: int64
+		lineageTag: b5114484-7f1d-482b-b14a-8a0924126b53
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = User
+
+	column month_name
+		dataType: string
+		lineageTag: 054beada-67ec-4c6e-ab05-4626299b6016
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = User
+
+	column day
+		dataType: int64
+		lineageTag: 19ca3309-b078-48cf-b249-f91002bfedaa
+		summarizeBy: none
+		sourceColumn: day
+
+		annotation SummarizationSetBy = User
+
+	column day_of_week
+		dataType: int64
+		lineageTag: c1484caf-5263-4dbc-ad6f-a78b470986d1
+		summarizeBy: none
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = User
+
+	column day_name
+		dataType: string
+		lineageTag: f9e3b8d5-cf3d-413b-8950-2a63160981b4
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = User
+
+	column week_of_year
+		dataType: int64
+		lineageTag: f045ff18-fa5d-46bb-89cf-18f7c28154de
+		summarizeBy: none
+		sourceColumn: week_of_year
+
+		annotation SummarizationSetBy = User
+
+	column is_weekend
+		dataType: boolean
+		lineageTag: ed52ec8f-51b2-41e8-bf19-42dcc1bc74aa
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = User
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_date_Table = marts{[Name="dim_date",Kind="Table"]}[Data]
+				in
+				    dim_date_Table
+
+	annotation PBI_ResultType = Table
+

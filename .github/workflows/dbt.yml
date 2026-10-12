@@ -1,0 +1,48 @@
+name: dbt build
+
+# Rebuilds the staging/marts layers and runs every data-quality test.
+# A failing test fails the run (red X on the Actions tab + email to the owner).
+on:
+  schedule:
+    # 14:30 UTC daily. Uploads land monthly (Task Scheduler, day 1 ~14:32 UK
+    # time) but a daily rebuild is free and also catches manual uploads.
+    - cron: "30 14 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["dbt/**", ".github/workflows/dbt.yml"]
+  pull_request:
+    paths: ["dbt/**", ".github/workflows/dbt.yml"]
+
+permissions:
+  contents: read
+  id-token: write   # required for keyless Workload Identity Federation auth
+
+concurrency:
+  group: dbt-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Authenticate to Google Cloud (Workload Identity Federation)
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SA_EMAIL }}
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: dbt/requirements.txt
+
+      - name: Install dbt
+        run: pip install -r dbt/requirements.txt
+
+      - name: dbt build (models + tests)
+        run: dbt build --project-dir dbt --profiles-dir dbt

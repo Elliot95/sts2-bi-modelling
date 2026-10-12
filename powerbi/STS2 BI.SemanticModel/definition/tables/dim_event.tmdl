@@ -1,0 +1,58 @@
+table dim_event
+	lineageTag: dabe64c5-baf6-4aeb-bf7d-9c64bb306df5
+
+	column event_id
+		dataType: string
+		isHidden
+		lineageTag: 03a484e5-64cb-4fa5-91e6-8422d07fa457
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column event_name
+		dataType: string
+		lineageTag: 6d14045f-18ec-41dd-b08c-5e4e3791dce1
+		summarizeBy: none
+		sourceColumn: event_name
+
+		annotation SummarizationSetBy = User
+
+	column event_kind
+		dataType: string
+		lineageTag: abbdbdae-5ebd-43e0-8eed-f00ccfbb5018
+		summarizeBy: none
+		sourceColumn: event_kind
+
+		annotation SummarizationSetBy = User
+
+	column description
+		dataType: string
+		lineageTag: 9923d1cb-3ee7-44a3-a8ca-d6cba112f9d3
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = User
+
+	column in_catalog
+		dataType: boolean
+		isHidden
+		lineageTag: 18580800-2b72-4d81-bc76-99b984cc2d5b
+		summarizeBy: none
+		sourceColumn: in_catalog
+
+		annotation SummarizationSetBy = User
+
+	partition dim_event = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_event_Table = marts{[Name="dim_event",Kind="Table"]}[Data]
+				in
+				    dim_event_Table
+
+	annotation PBI_ResultType = Table
+

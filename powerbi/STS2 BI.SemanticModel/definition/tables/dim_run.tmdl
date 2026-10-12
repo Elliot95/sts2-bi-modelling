@@ -1,0 +1,344 @@
+table dim_run
+	lineageTag: 580eade7-beba-4cca-a733-3b827140dd3d
+
+	measure 'Total Runs' = COUNTROWS(dim_run)
+		formatString: #,0
+		lineageTag: 6b483153-e57b-4423-b72e-42a06ceb7c6e
+
+	measure Wins = CALCULATE([Total Runs], dim_run[win] = TRUE)
+		formatString: #,0
+		lineageTag: 28ea17d5-f848-461d-bf01-554c3015b3fc
+
+	measure 'Win Rate' = DIVIDE([Wins], [Total Runs])
+		formatString: 0.0%
+		lineageTag: de085cb5-e28c-4412-99fb-498804a13525
+
+	measure 'Avg Floors Reached' = AVERAGE(dim_run[floors_reached])
+		formatString: 0.0
+		lineageTag: 15f52072-7778-4692-a61a-e2a0b5a8e61e
+
+	measure 'Avg Death Floor' = AVERAGE(dim_run[death_floor])
+		formatString: 0.0
+		lineageTag: 31daf419-a67d-4ee5-b834-0927336fc5a6
+
+	measure Losses = CALCULATE([Total Runs], KEEPFILTERS(dim_run[outcome] = "Lost"))
+		formatString: #,0
+		lineageTag: aa97b787-e8b5-49b9-a6d7-e1069199d750
+
+	measure 'Abandoned Runs' = CALCULATE([Total Runs], KEEPFILTERS(dim_run[outcome] = "Abandoned"))
+		formatString: #,0
+		lineageTag: 082dec7f-172e-4d8f-a2fb-fb77ac7c3130
+
+	measure 'Win Rate (Completed)' = DIVIDE([Wins], [Total Runs] - [Abandoned Runs])
+		formatString: 0.0%
+		lineageTag: 58e71373-3243-45a9-8efc-1ceac0b99a89
+
+	measure 'Character Color' = SELECTEDVALUE(dim_run[character_color], "#64748b")
+		lineageTag: 23a09d6c-7509-4a39-94c5-d247ba7ff894
+
+	measure 'Character Row Color' = SELECTEDVALUE(dim_run[character_color_shade], "#111a2e")
+		lineageTag: ffb3b050-ef32-4802-b8b9-8a25c9d7d403
+
+	measure 'Win Rate Font Color' = VAR r = [Win Rate (Completed)] VAR overall = CALCULATE([Win Rate (Completed)], ALL(dim_run)) RETURN IF(ISBLANK(r), BLANK(), IF(r >= overall, "#4ade80", "#f87171"))
+		lineageTag: 8f10db5f-1669-496b-8d03-394681bada1f
+
+	measure 'Floors Font Color' = VAR f = [Avg Floors Reached] VAR overall = CALCULATE([Avg Floors Reached], ALL(dim_run)) RETURN IF(ISBLANK(f), BLANK(), IF(f >= overall, "#4ade80", "#f87171"))
+		lineageTag: 295bea7a-f891-4456-b601-0090cfd1ce4f
+
+	measure 'Outcome Font Color' = SWITCH(SELECTEDVALUE(dim_run[outcome]), "Won", "#4ade80", "Lost", "#f87171", "Abandoned", "#9ca3af")
+		lineageTag: f093957a-9b56-4ed0-b19b-fd828640767f
+
+	column run_id
+		dataType: int64
+		lineageTag: c3c88a5a-807e-4e94-aabd-bd1908970332
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column run_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: e11d38a8-3e5f-430b-b3e9-0adb95cc6f8b
+		summarizeBy: none
+		sourceColumn: run_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column character
+		dataType: string
+		isHidden
+		lineageTag: 6bc07707-10a4-407a-a4c6-4139b80cc7ff
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = User
+
+	column ascension
+		dataType: int64
+		lineageTag: 30536083-40e9-48e0-9aaf-fd96db58f8ab
+		summarizeBy: none
+		sourceColumn: ascension
+
+		annotation SummarizationSetBy = User
+
+	column game_mode
+		dataType: string
+		lineageTag: 01a6ebf4-8939-4020-b448-dbed726df473
+		summarizeBy: none
+		sourceColumn: game_mode
+
+		annotation SummarizationSetBy = User
+
+	column build_id
+		dataType: string
+		lineageTag: 8de1cd3a-6e01-4bc6-86b9-0ba7f58ac071
+		summarizeBy: none
+		sourceColumn: build_id
+
+		annotation SummarizationSetBy = User
+
+	column platform_type
+		dataType: string
+		lineageTag: 01199144-6bb6-46cb-9172-8445a4c1585a
+		summarizeBy: none
+		sourceColumn: platform_type
+
+		annotation SummarizationSetBy = User
+
+	column seed
+		dataType: string
+		lineageTag: 9a9f69df-8e6c-4338-a6ac-9802f54d86b1
+		summarizeBy: none
+		sourceColumn: seed
+
+		annotation SummarizationSetBy = User
+
+	column win
+		dataType: boolean
+		lineageTag: 84bf4eeb-f75c-4703-b096-41a519ca6d90
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = User
+
+	column was_abandoned
+		dataType: boolean
+		lineageTag: b76d9c54-9646-42ac-b73c-040ce7769b01
+		summarizeBy: none
+		sourceColumn: was_abandoned
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter
+		dataType: string
+		isHidden
+		lineageTag: 75a33dee-fa50-4290-9422-b6d8d0777428
+		summarizeBy: none
+		sourceColumn: killed_by_encounter
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_event
+		dataType: string
+		isHidden
+		lineageTag: 8582837f-e17d-4804-b58b-6eaea0ac9daa
+		summarizeBy: none
+		sourceColumn: killed_by_event
+
+		annotation SummarizationSetBy = User
+
+	column acts_completed
+		dataType: int64
+		lineageTag: 652e3cc4-5d94-4d7e-95b2-136edc864ac3
+		summarizeBy: none
+		sourceColumn: acts_completed
+
+		annotation SummarizationSetBy = User
+
+	column run_time_seconds
+		dataType: int64
+		lineageTag: 83363910-3bec-48dd-be71-be6edf855ae7
+		summarizeBy: sum
+		sourceColumn: run_time_seconds
+
+		annotation SummarizationSetBy = User
+
+	column player_count
+		dataType: int64
+		lineageTag: 09d5029a-488b-44dc-a100-0eca5d022d04
+		summarizeBy: none
+		sourceColumn: player_count
+
+		annotation SummarizationSetBy = User
+
+	column is_multiplayer
+		dataType: boolean
+		lineageTag: c62bbba2-0155-488a-add2-18f1a4ed3ca5
+		summarizeBy: none
+		sourceColumn: is_multiplayer
+
+		annotation SummarizationSetBy = User
+
+	column acts_reached
+		dataType: int64
+		lineageTag: 390d1950-1d3a-4818-be29-3be9fc74e456
+		summarizeBy: none
+		sourceColumn: acts_reached
+
+		annotation SummarizationSetBy = User
+
+	column floors_reached
+		dataType: int64
+		lineageTag: 950031d8-731c-4e2a-a8a1-4f989ba4ccf5
+		summarizeBy: none
+		sourceColumn: floors_reached
+
+		annotation SummarizationSetBy = User
+
+	column death_floor
+		dataType: int64
+		lineageTag: 867c4210-48fd-48ef-a083-4197abd34937
+		summarizeBy: none
+		sourceColumn: death_floor
+
+		annotation SummarizationSetBy = User
+
+	column final_hp
+		dataType: int64
+		lineageTag: beadab33-2549-4d41-9b15-16ecd1cb0318
+		summarizeBy: none
+		sourceColumn: final_hp
+
+		annotation SummarizationSetBy = User
+
+	column total_damage_taken
+		dataType: int64
+		lineageTag: 23874f82-4345-490d-aef9-03f9742d646d
+		summarizeBy: sum
+		sourceColumn: total_damage_taken
+
+		annotation SummarizationSetBy = User
+
+	column character_name
+		dataType: string
+		lineageTag: 58c991fb-39ca-4116-880c-da244ca27fbd
+		summarizeBy: none
+		sourceColumn: character_name
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter_name
+		dataType: string
+		lineageTag: eddb8dcd-c51c-49dc-a78d-9f8fc4f3ddf6
+		summarizeBy: none
+		sourceColumn: killed_by_encounter_name
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_encounter_type
+		dataType: string
+		lineageTag: c18e7f84-ff89-45b8-9cfd-77dead85d640
+		summarizeBy: none
+		sourceColumn: killed_by_encounter_type
+
+		annotation SummarizationSetBy = User
+
+	column killed_by_event_name
+		dataType: string
+		lineageTag: 1af9083f-9112-48f8-942c-67fe289cbdb2
+		summarizeBy: none
+		sourceColumn: killed_by_event_name
+
+		annotation SummarizationSetBy = User
+
+	column outcome
+		dataType: string
+		lineageTag: fa81e7bb-81a4-42fd-bea9-6653309a9146
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = User
+
+	column character_color
+		dataType: string
+		isHidden
+		lineageTag: 96c89702-9a0c-42f6-bf94-936874371d13
+		summarizeBy: none
+		sourceColumn: character_color
+
+		annotation SummarizationSetBy = User
+
+	column character_color_tint
+		dataType: string
+		isHidden
+		lineageTag: a09d72bd-8e89-47ad-8d30-346c265c1040
+		summarizeBy: none
+		sourceColumn: character_color_tint
+
+		annotation SummarizationSetBy = User
+
+	column play_mode
+		dataType: string
+		lineageTag: 90ff7a88-5fc7-48e5-bcc3-fe88b1f98976
+		summarizeBy: none
+		sourceColumn: play_mode
+
+		annotation SummarizationSetBy = User
+
+	column party_size
+		dataType: string
+		lineageTag: fb7f2679-9876-4c25-973a-dca71c22995c
+		summarizeBy: none
+		sourceColumn: party_size
+
+		annotation SummarizationSetBy = User
+
+	column ended_by
+		dataType: string
+		lineageTag: 38556c3b-66c5-48f9-9f20-cf8276b582d7
+		summarizeBy: none
+		sourceColumn: ended_by
+
+		annotation SummarizationSetBy = User
+
+	column ended_by_type
+		dataType: string
+		lineageTag: 9c558be7-e05d-4064-a5d6-6b3d8b96a903
+		summarizeBy: none
+		sourceColumn: ended_by_type
+
+		annotation SummarizationSetBy = User
+
+	column run_time_minutes
+		dataType: double
+		lineageTag: 6ccfe188-0d79-441c-b815-e5586ce4ec8a
+		summarizeBy: none
+		sourceColumn: run_time_minutes
+
+		annotation SummarizationSetBy = User
+
+	column character_color_shade
+		dataType: string
+		isHidden
+		lineageTag: 2200962b-e49d-41a8-9bdf-ecbdd158ff44
+		summarizeBy: none
+		sourceColumn: character_color_shade
+
+		annotation SummarizationSetBy = User
+
+	partition dim_run = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_run_Table = marts{[Name="dim_run",Kind="Table"]}[Data]
+				in
+				    dim_run_Table
+
+	annotation PBI_ResultType = Table
+

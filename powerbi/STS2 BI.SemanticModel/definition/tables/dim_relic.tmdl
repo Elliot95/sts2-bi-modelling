@@ -1,0 +1,51 @@
+table dim_relic
+	lineageTag: 4ebad87b-dab4-47b0-9e84-41e86519fcc2
+
+	column relic_id
+		dataType: string
+		lineageTag: 8a4226f5-9163-41e9-84cb-43f90bd94507
+		summarizeBy: none
+		sourceColumn: relic_id
+
+		annotation SummarizationSetBy = User
+
+	column relic_name
+		dataType: string
+		lineageTag: f885a4cb-faba-46ba-9149-f2e50215575e
+		summarizeBy: none
+		sourceColumn: relic_name
+
+		annotation SummarizationSetBy = User
+
+	column first_seen_run_id
+		dataType: int64
+		lineageTag: 436373d1-6e64-4cae-8264-2c2df0da829c
+		summarizeBy: none
+		sourceColumn: first_seen_run_id
+
+		annotation SummarizationSetBy = User
+
+	column first_seen_date
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 9226e660-bee9-40b2-94ea-e8cc921cc79f
+		summarizeBy: none
+		sourceColumn: first_seen_date
+
+		annotation SummarizationSetBy = User
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_relic = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_relic_Table = marts{[Name="dim_relic",Kind="Table"]}[Data]
+				in
+				    dim_relic_Table
+
+	annotation PBI_ResultType = Table
+

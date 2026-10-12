@@ -1,0 +1,165 @@
+table fct_rest_choice
+	lineageTag: 1537157c-d91f-4403-9476-20d9b81b2e44
+
+	measure 'Rest Choices' = COUNTROWS(fct_rest_choice)
+		formatString: #,0
+		lineageTag: 09be4a18-0e46-4fc8-8938-9d4695b70fb0
+
+	measure 'Rest Share' = DIVIDE(CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] = "HEAL"), CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] IN {"HEAL", "SMITH"}))
+		formatString: 0.0%
+		lineageTag: da1f15b8-a19e-4fd5-9543-2653e1cb73a1
+
+	measure 'Died Next Act After Rest' = DIVIDE(CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] = "HEAL", fct_rest_choice[died_before_next_act] = TRUE), CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] = "HEAL"))
+		formatString: 0.0%
+		lineageTag: 1d22f31c-a66d-4a33-a249-66dcc4db4000
+
+	measure 'Died Next Act After Smith' = DIVIDE(CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] = "SMITH", fct_rest_choice[died_before_next_act] = TRUE), CALCULATE(COUNTROWS(fct_rest_choice), fct_rest_choice[rest_option] = "SMITH"))
+		formatString: 0.0%
+		lineageTag: cf80d79e-a26e-477f-a3af-5e15836e60d1
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: d52b88ec-1de9-42cf-b291-1f0354f62acf
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: 9ccaac19-4011-46b1-b206-5d4458cc10ae
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_number
+		dataType: int64
+		lineageTag: 88200be1-e794-4be1-86d0-a1eb8cca2433
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = User
+
+	column act
+		dataType: int64
+		lineageTag: 53d4da09-460f-497d-9bc7-bb0b59b5d6a2
+		summarizeBy: none
+		sourceColumn: act
+
+		annotation SummarizationSetBy = User
+
+	column choice_index
+		dataType: int64
+		isHidden
+		lineageTag: ecc3abac-6681-4e61-9d58-7b8ccad8f6b7
+		summarizeBy: none
+		sourceColumn: choice_index
+
+		annotation SummarizationSetBy = User
+
+	column rest_option
+		dataType: string
+		isHidden
+		lineageTag: d5a7a944-b706-46bd-bba8-dfda027ab0e6
+		summarizeBy: none
+		sourceColumn: rest_option
+
+		annotation SummarizationSetBy = User
+
+	column option_name
+		dataType: string
+		lineageTag: a7f5ae4c-1fc3-4bc6-bc58-fbbd64987ef3
+		summarizeBy: none
+		sourceColumn: option_name
+
+		annotation SummarizationSetBy = User
+
+	column hp_before
+		dataType: int64
+		lineageTag: b0d9b178-2e50-4fd9-b7bb-a9b797dc1748
+		summarizeBy: none
+		sourceColumn: hp_before
+
+		annotation SummarizationSetBy = User
+
+	column max_hp_before
+		dataType: int64
+		lineageTag: b9b0c608-15d1-4156-8677-f99f7f93c03a
+		summarizeBy: none
+		sourceColumn: max_hp_before
+
+		annotation SummarizationSetBy = User
+
+	column hp_pct_before
+		dataType: double
+		lineageTag: 2dd6494a-6726-4ce7-976b-92159fb89a81
+		summarizeBy: none
+		sourceColumn: hp_pct_before
+
+		annotation SummarizationSetBy = User
+
+	column hp_band
+		dataType: string
+		lineageTag: e32118b8-ceb6-42fd-8c89-3502ddf35651
+		summarizeBy: none
+		sourceColumn: hp_band
+		sortByColumn: hp_band_order
+
+		annotation SummarizationSetBy = User
+
+	column hp_band_order
+		dataType: int64
+		isHidden
+		lineageTag: 65d4884f-ebaf-4ad4-8bf2-819a22e14387
+		summarizeBy: none
+		sourceColumn: hp_band_order
+
+		annotation SummarizationSetBy = User
+
+	column outcome
+		dataType: string
+		lineageTag: 03fe5180-d871-428d-93a2-1fe445ec5388
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = User
+
+	column win
+		dataType: boolean
+		lineageTag: 8347d558-326e-48d3-be85-ae33cbcf168e
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = User
+
+	column floors_survived_after
+		dataType: int64
+		lineageTag: cc6baf0c-e480-437c-ab9e-104cc25237ed
+		summarizeBy: none
+		sourceColumn: floors_survived_after
+
+		annotation SummarizationSetBy = User
+
+	column died_before_next_act
+		dataType: boolean
+		lineageTag: 22f96757-284c-4640-bf2d-d67e93cbc98c
+		summarizeBy: none
+		sourceColumn: died_before_next_act
+
+		annotation SummarizationSetBy = User
+
+	partition fct_rest_choice = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_rest_choice_Table = marts{[Name="fct_rest_choice",Kind="Table"]}[Data]
+				in
+				    fct_rest_choice_Table
+
+	annotation PBI_ResultType = Table
+

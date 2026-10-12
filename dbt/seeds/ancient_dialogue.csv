@@ -1,0 +1,288 @@
+event_id,character,conversation,line,speaker,text
+EVENT.DARV,Any,0,0,Darv,"Here, take one of these forgotten gems with ya!"
+EVENT.DARV,Any,1,0,Darv,I’ve got things to do today! Take whatever ya want from that pile!!
+EVENT.DARV,Defect,0,0,Darv,"You’re a beautiful hunk of junk, you know that?"
+EVENT.DARV,Defect,0,1,Defect,<3
+EVENT.DARV,Defect,1,0,Darv,"Still keeping at it, I see... Let’s see if we can upgrade ya!"
+EVENT.DARV,Defect,2,0,Darv,I’ve been holding on to your friend’s uhh... um. Nevermind nevermind!!
+EVENT.DARV,Defect,2,1,Defect,<Inquisitive beeps>
+EVENT.DARV,Defect,2,2,Darv,"My scrappy scrapper, forget I said all that!"
+EVENT.DARV,First visit,0,0,Darv,"...where did I put... Oh! Come to see my collection!? Take anything from that pile over there, put it to good use!"
+EVENT.DARV,Ironclad,0,0,Darv,The flaming warrior has returned! I’ve got just the thing for ya!
+EVENT.DARV,Ironclad,1,0,Darv,Good to see ya still kickin’ and bashin’ em heads in!
+EVENT.DARV,Ironclad,2,0,Darv,I’m still holding on to that heavy blade of yours... but I can’t find no one to restore it.
+EVENT.DARV,Ironclad,2,1,Ironclad,The Ironclad stares at Darv.
+EVENT.DARV,Ironclad,2,2,Darv,Maybe the Architect knows somethin’.
+EVENT.DARV,Necrobinder,0,0,Darv,I can tell you’re a serious one. What can I do for ya missy?
+EVENT.DARV,Necrobinder,0,1,Necrobinder,Anything to help me kill a most loathsome man.
+EVENT.DARV,Necrobinder,0,2,Darv,Very well then... have a gander!
+EVENT.DARV,Necrobinder,1,0,Darv,Still on that warpath? I ain’t gonna stop ya!
+EVENT.DARV,Necrobinder,2,0,Darv,"This book seems tied to ya, been around longer than you have."
+EVENT.DARV,Necrobinder,2,1,Necrobinder,How did you come into possession of that?
+EVENT.DARV,Necrobinder,2,2,Darv,Scary things have a way of ending up in my collection.
+EVENT.DARV,Regent,0,0,Darv,What brings the likes of you up here? Wanna take a look at my collection?
+EVENT.DARV,Regent,0,1,Regent,I do enjoy fine wares...
+EVENT.DARV,Regent,0,2,Darv,Yeah!
+EVENT.DARV,Regent,1,0,Darv,Back for more your highness?!
+EVENT.DARV,Regent,2,0,Darv,"To my new friend, do I have somethin’ for ya!"
+EVENT.DARV,Regent,2,1,Regent,I’m listening!
+EVENT.DARV,Regent,2,2,Darv,I’d give it but the Architect nabbed it from me!! Help a buddy out! Do me a favor will ya?
+EVENT.DARV,Silent,0,0,Darv,Back in the Spire for you too huh? Can’t resist those shinies right?!
+EVENT.DARV,Silent,1,0,Darv,I’ll trade ya somethin’ nice for that trophy you got there!
+EVENT.DARV,Silent,2,0,Darv,"Pity ya don’t remember all my generosity! Yeah yeah, you know how Neow is..."
+EVENT.DARV,Silent,2,1,Silent,...
+EVENT.DARV,Silent,2,2,Darv,Well! Let’s get you equipped for that final showdown or whatevah!
+EVENT.NEOW,Any,0,0,Neow,...hello... ..again.....
+EVENT.NEOW,Any,1,0,Neow,...awaken... ..Awaken.....
+EVENT.NEOW,Any,2,0,Neow,..receive.... this.... ..blessing.. ...go......
+EVENT.NEOW,Any,3,0,Neow,..I’ve... ..brought... ..you back...
+EVENT.NEOW,Any,4,0,Neow,...kill.. the... ARCHITECT
+EVENT.NEOW,Defect,0,0,Neow,...construct.. what... ....have you.. become...?
+EVENT.NEOW,Defect,1,0,Neow,...he.. can... ....fix.. you.. ...everything....
+EVENT.NEOW,Defect,2,0,Neow,...I.. can’t... ..make... ...you.. forget....
+EVENT.NEOW,Defect,2,1,Defect,<resolute beeping sounds>
+EVENT.NEOW,Defect,2,2,Neow,...good....
+EVENT.NEOW,First visit,0,0,Neow,I’ve... remade you.... ...go... ..up.....
+EVENT.NEOW,Ironclad,0,0,Neow,..arise.. my.. warrior... ..time... to fight...again...
+EVENT.NEOW,Ironclad,1,0,Neow,..still.. lost.. to rage... good...
+EVENT.NEOW,Ironclad,2,0,Neow,..remember.. the.. first..time ...you ..came...before me..
+EVENT.NEOW,Ironclad,2,1,Neow,..so..furious...
+EVENT.NEOW,Ironclad,2,2,Neow,...so..useful...
+EVENT.NEOW,Necrobinder,0,0,Neow,...we.... share... ..the same... ..goal....
+EVENT.NEOW,Necrobinder,0,1,Necrobinder,HE KILLED ALL THAT I LOVE!!
+EVENT.NEOW,Necrobinder,0,2,Neow,...my power..... is yours...
+EVENT.NEOW,Necrobinder,1,0,Neow,He... still.. ....breathes...
+EVENT.NEOW,Necrobinder,2,0,Necrobinder,Is... it.. ...even... possible...?
+EVENT.NEOW,Necrobinder,2,1,Neow,... Architect.... ..weakening.... ..we.... stronger...
+EVENT.NEOW,Regent,0,0,Regent,"Oversized blue creature, I am the future King!"
+EVENT.NEOW,Regent,0,1,Neow,..cute... ...you... will see.. ..me... ...again....
+EVENT.NEOW,Regent,1,0,Neow,...again..?
+EVENT.NEOW,Regent,2,0,Regent,Why can’t I win?!
+EVENT.NEOW,Regent,2,1,Neow,...receive.. this... ..blessing...
+EVENT.NEOW,Regent,2,2,Regent,"...yes, thank you Neow."
+EVENT.NEOW,Silent,0,0,Neow,...returned.. from... outside? ..knew... you’d... be back...
+EVENT.NEOW,Silent,1,0,Neow,...your.. ...trophy.. awaits...
+EVENT.NEOW,Silent,2,0,Neow,..both...know..agony..of..family...
+EVENT.NEOW,Silent,2,1,Silent,...
+EVENT.NEOW,Silent,2,2,Neow,..still...seeking..approval...? ...FOOLISH...
+EVENT.NONUPEIPE,Any,0,0,Nonupeipe,Madness awaits at the top. Don my power and vanquish.
+EVENT.NONUPEIPE,Any,1,0,Nonupeipe,"You’ve traveled so far to reach me! Come closer, receive my blessing."
+EVENT.NONUPEIPE,Defect,0,0,Nonupeipe,"Could a construct truly be worthy of my blessings? Come forward, Defect. You will be the most beautiful of all automata."
+EVENT.NONUPEIPE,Defect,1,0,Nonupeipe,"My poor, battered machine, let me refine you."
+EVENT.NONUPEIPE,Defect,2,0,Nonupeipe,"I usually don’t like the Architect’s things, but I admit you’re growing on me."
+EVENT.NONUPEIPE,Defect,2,1,Defect,<embarrassed chirp>
+EVENT.NONUPEIPE,First visit,0,0,Nonupeipe,"I haven’t had a visitor in a millennia! You’re looking quite drab, here, let’s find something delightful for you to wear."
+EVENT.NONUPEIPE,Ironclad,0,0,Nonupeipe,"Ah, the Ironclad finally arrives before me. Come forth and I shall endow you with my power."
+EVENT.NONUPEIPE,Ironclad,1,0,Nonupeipe,Ironclad ironclad... was my previous gift not enough?
+EVENT.NONUPEIPE,Ironclad,2,0,Nonupeipe,You return again my champion? How many times? Were you not strong enough to wipe out entire clans before?
+EVENT.NONUPEIPE,Necrobinder,0,0,Necrobinder,"Your guards are dead, rumors say you can bestow blessings for those who wish the Architect dead."
+EVENT.NONUPEIPE,Necrobinder,0,1,Nonupeipe,"I appreciate someone capable and shall grant a measure of my power. Next time, don’t kill my guards."
+EVENT.NONUPEIPE,Necrobinder,1,0,Nonupeipe,"A mage needs fine accouterments for battle. Come forth, Necrobinder."
+EVENT.NONUPEIPE,Necrobinder,2,0,Nonupeipe,The Architect won’t be pleased to see that pet of yours.
+EVENT.NONUPEIPE,Necrobinder,2,1,Necrobinder,Do you mean Osty? He will be the one to deliver the final blow.
+EVENT.NONUPEIPE,Regent,0,0,Regent,I seek audience with Nonupeipe!
+EVENT.NONUPEIPE,Regent,0,1,Nonupeipe,Such beautiful robes you’ve brought from faraway lands! Have your minions bring you closer and I will bless thee.
+EVENT.NONUPEIPE,Regent,1,0,Nonupeipe,Royal blessings for royal visitors. Servants! Fetch some tea for us.
+EVENT.NONUPEIPE,Regent,2,0,Nonupeipe,The Architect has gone mad! If only a noble champion could save us from this plight...
+EVENT.NONUPEIPE,Regent,2,1,Regent,"Fear not! I, the Regent, will put an end to the madness! But first, tea!"
+EVENT.NONUPEIPE,Silent,0,0,Nonupeipe,A little thief has snuck into my domain? Don’t think I can’t see you? Come on out!
+EVENT.NONUPEIPE,Silent,0,1,Silent,The Silent steps out of the shadows...
+EVENT.NONUPEIPE,Silent,0,2,Nonupeipe,"A huntress, what beckons your return to the Spire? Approach and don these blessings."
+EVENT.NONUPEIPE,Silent,1,0,Nonupeipe,"I have prepared gifts for you, assassin, don’t be shy."
+EVENT.NONUPEIPE,Silent,2,0,Nonupeipe,"Of all of her puppets, you surprise me most."
+EVENT.NONUPEIPE,Silent,2,1,Silent,...
+EVENT.NONUPEIPE,Silent,2,2,Nonupeipe,What took your first life? Did Neow find you? A shame you don’t speak.
+EVENT.OROBAS,Any,0,0,Orobas,Try this!!!
+EVENT.OROBAS,Any,1,0,Orobas,Very good finds!! Look look!
+EVENT.OROBAS,Defect,0,0,Orobas,What! Servant construct?! Still working!! Why here? Why not at Factory??
+EVENT.OROBAS,Defect,1,0,Orobas,Shiny orbs! How work? Ouch!!
+EVENT.OROBAS,Defect,2,0,Orobas,Core broken? Neow use broken construct? Manipulated?
+EVENT.OROBAS,Defect,2,1,Defect,<quietly beeps>
+EVENT.OROBAS,Defect,2,2,Orobas,Architect fix you?
+EVENT.OROBAS,First visit,0,0,Orobas,"Puppet puppet!! All the way up here?! Take these, take take!"
+EVENT.OROBAS,Ironclad,0,0,Orobas,An Ironclad!? How possible?? Scary. Very scary!!
+EVENT.OROBAS,Ironclad,1,0,Orobas,Contract signer? Why!? Bad choice? Yes. Mistake!
+EVENT.OROBAS,Ironclad,2,0,Orobas,Wishing you freedom!! Wishing hard! Vakuu bad. Very bad! Architect free you?
+EVENT.OROBAS,Necrobinder,0,0,Orobas,Dead?! Not dead! Why puppet? Big hand!!
+EVENT.OROBAS,Necrobinder,0,1,Necrobinder,I’m no puppet. There’s a man I must kill. What can you do for me?
+EVENT.OROBAS,Necrobinder,0,2,Orobas,Killing bad!! Take this instead!
+EVENT.OROBAS,Necrobinder,1,0,Orobas,Not dead one! Good gifts for you!! Violence bad.
+EVENT.OROBAS,Necrobinder,2,0,Orobas,No violence! Collect shiny instead... Shiny!!
+EVENT.OROBAS,Necrobinder,2,1,Necrobinder,My quest will only end when the Architect is no more. Violence is inevitable.
+EVENT.OROBAS,Necrobinder,2,2,Orobas,Architect not bad! Maybe talk? Talking good!! Very good!
+EVENT.OROBAS,Regent,0,0,Orobas,Traveller! From space!? Where in space? How from space? Pointy head! Little friends!!
+EVENT.OROBAS,Regent,0,1,Regent,The Regent monologues for hours.
+EVENT.OROBAS,Regent,0,2,Orobas,Exciting! Impressive!! More! More!!!
+EVENT.OROBAS,Regent,1,0,Orobas,More stories! Found these for you! Now tell more story!!
+EVENT.OROBAS,Regent,2,0,Regent,"My number one fan! Orobas, friend! Lovely to see you’re still alive!"
+EVENT.OROBAS,Regent,2,1,Orobas,Stories?!
+EVENT.OROBAS,Regent,2,2,Regent,Of course of course... but have you found any trinkets for me?
+EVENT.OROBAS,Silent,0,0,Orobas,Infection...? BLIGHT!? Take and go!!
+EVENT.OROBAS,Silent,0,1,Silent,...
+EVENT.OROBAS,Silent,1,0,Orobas,Not contagious? Very dying? Architect help you?
+EVENT.OROBAS,Silent,2,0,Orobas,Where sisters? Scary mean sisters! Be good person! Don’t be like sisters!!
+EVENT.PAEL,Any,0,0,Pael,Welcome back friend. Let my flesh help you...
+EVENT.PAEL,Any,1,0,Pael,Pael is sleeping. His snoring shakes the room.
+EVENT.PAEL,Defect,0,0,Pael,"Troubled automaton, looking for your friend? Let me help..."
+EVENT.PAEL,Defect,1,0,Pael,Do constructs dream? Watch and copy me...
+EVENT.PAEL,Defect,2,0,Pael,I dreamt of your friend... Father can restore Flaw...
+EVENT.PAEL,First visit,0,0,Pael,A puppet has arrived? Can you check on Father? I’m too tired...
+EVENT.PAEL,Ironclad,0,0,Pael,You contain such rage. Take from me and find some peace...
+EVENT.PAEL,Ironclad,1,0,Pael,Do you remember how it feels to dream? It is good to sleep...
+EVENT.PAEL,Ironclad,2,0,Pael,You must quell your flames. Father can free you...
+EVENT.PAEL,Necrobinder,0,0,Pael,Such malice paints your heart.
+EVENT.PAEL,Necrobinder,0,1,Necrobinder,We would share the same paint if you knew what’s befallen me.
+EVENT.PAEL,Necrobinder,0,2,Pael,There is no peace on your path. Take a part of me to ease your burdens...
+EVENT.PAEL,Necrobinder,1,0,Pael,The one with the Hand returns. Painful memories. Take my strength and leave...
+EVENT.PAEL,Necrobinder,2,0,Pael,Killing Father won’t bring peace.
+EVENT.PAEL,Necrobinder,2,1,Necrobinder,You call that thing your father!?
+EVENT.PAEL,Necrobinder,2,2,Pael,We do not choose our family...
+EVENT.PAEL,Regent,0,0,Regent,Hello! I am the Regent. Hellooo?? HELLO!?
+EVENT.PAEL,Regent,0,1,Pael,Quiet down now. Take a part of me and be on your way...
+EVENT.PAEL,Regent,1,0,Regent,"I’m back! Ah, you’re asleep of course. Let’s see here..."
+EVENT.PAEL,Regent,2,0,Regent,Why do you give yourself away?
+EVENT.PAEL,Regent,2,1,Pael,Why not give when I have an abundance of flesh?
+EVENT.PAEL,Regent,2,2,Pael,"When you return, I will be replenished anew. That’s what sleep does..."
+EVENT.PAEL,Silent,0,0,Pael,"Murderous creature, no need for violence here. Have part of me and find peace..."
+EVENT.PAEL,Silent,1,0,Pael,"Trophy hunting? Sure, take a part of me... Whatever grants you comfort..."
+EVENT.PAEL,Silent,2,0,Pael,You’ve poisoned me...? What is this going to...? zZZzz...
+EVENT.TANX,Any,0,0,Tanx,GROW STRONGER SO WE CAN FIGHT!!!
+EVENT.TANX,Any,1,0,Tanx,YOU CAN NEVER HAVE TOO MANY WEAPONS!!
+EVENT.TANX,Defect,0,0,Tanx,CONSTRUCT! NO WEAPONS!? HAVE THIS!
+EVENT.TANX,Defect,1,0,Tanx,ORBS ARE NOT WEAPONS!!
+EVENT.TANX,Defect,2,0,Tanx,"FIGHT ME, DEFECT!!"
+EVENT.TANX,Defect,2,1,Defect,The Defect valiantly fights.
+EVENT.TANX,Defect,2,2,Tanx,ORBS ARE WEAPONS!?
+EVENT.TANX,First visit,0,0,Tanx,SO WEAK! BUT YOU HAVE POTENTIAL! USE THIS WEAPON!!
+EVENT.TANX,Ironclad,0,0,Tanx,"IMPRESSIVE SWORD, WARRIOR! YOU CAN USE MORE WEAPONS!"
+EVENT.TANX,Ironclad,1,0,Tanx,WEAPONS FOR THE WARRIOR! GRAB A WEAPON! LET’S FIGHT!
+EVENT.TANX,Ironclad,2,0,Tanx,"FIGHT ME, IRONCLAD!!"
+EVENT.TANX,Ironclad,2,1,Ironclad,The Ironclad fights Tanx.
+EVENT.TANX,Ironclad,2,2,Tanx,"YEEES!! MIGHTY FIGHT, TAKE WEAPON!"
+EVENT.TANX,Necrobinder,0,0,Tanx,WHAT A MIGHTY SCYTHE!
+EVENT.TANX,Necrobinder,0,1,Necrobinder,"Yes, it’s special-made for vengeance."
+EVENT.TANX,Necrobinder,0,2,Tanx,DOES THE HAND NEED A WEAPON!?
+EVENT.TANX,Necrobinder,1,0,Tanx,"FIGHT ME, OSTY!!"
+EVENT.TANX,Necrobinder,2,0,Tanx,"FIGHT ME, NECROBINDER!!"
+EVENT.TANX,Necrobinder,2,1,Necrobinder,The Necrobinder and Osty scuffle with Tanx.
+EVENT.TANX,Necrobinder,2,2,Tanx,MIGHTY TEAMWORK!! HAVE A WEAPON!
+EVENT.TANX,Regent,0,0,Tanx,ORANGE!? HOW IS THIS BEING ORANGE!??
+EVENT.TANX,Regent,0,1,Regent,All know that orange is the most regal color!
+EVENT.TANX,Regent,0,2,Tanx,INCREDIBLE! SO MIGHTY!!
+EVENT.TANX,Regent,1,0,Tanx,ORANGE ONE!! CHOOSE A MIGHTY WEAPON!
+EVENT.TANX,Regent,2,0,Tanx,"FIGHT ME, REGENT!!"
+EVENT.TANX,Regent,2,1,Regent,No! We fought last time I was here!
+EVENT.TANX,Regent,2,2,Tanx,FIGHT ME AGAIN!!
+EVENT.TANX,Silent,0,0,Tanx,A HUNTRESS! I WILL SHARPEN YOUR CLAW!!
+EVENT.TANX,Silent,1,0,Tanx,WHY DAGGERS!! UNMIGHTY!
+EVENT.TANX,Silent,2,0,Tanx,"FIGHT ME, SILENT!!"
+EVENT.TANX,Silent,2,1,Silent,"The Silent escapes, stealing a weapon on the way."
+EVENT.TANX,Silent,2,2,Tanx,WHERE DID YOU GO!!!
+EVENT.TEZCATARA,Any,0,0,Tezcatara,"Welcome back, sweetie. Let me burn away your flaws."
+EVENT.TEZCATARA,Any,1,0,Tezcatara,"Do come in, dear! What can Tezcatara do for you today?"
+EVENT.TEZCATARA,Defect,0,0,Defect,<greetings beep>
+EVENT.TEZCATARA,Defect,0,1,Tezcatara,Not here to annoy me? What an unusual little construct...
+EVENT.TEZCATARA,Defect,1,0,Tezcatara,Now how silly would it be if he were unmade by one of his own?
+EVENT.TEZCATARA,Defect,2,0,Tezcatara,Are you sure you want to be fixed up?
+EVENT.TEZCATARA,Defect,2,1,Defect,<inquisitive beep>
+EVENT.TEZCATARA,Defect,2,2,Tezcatara,"Well, if you’re really certain."
+EVENT.TEZCATARA,First visit,0,0,Tezcatara,"Oh, a visitor! Do come in, dear! What can Tezcatara do for you?"
+EVENT.TEZCATARA,Ironclad,0,0,Tezcatara,"You burn so pretty! Come in, come in!"
+EVENT.TEZCATARA,Ironclad,1,0,Tezcatara,Such a strong boy you are! Come and eat something. Can’t slaughter on an empty stomach!
+EVENT.TEZCATARA,Ironclad,2,0,Tezcatara,"Ohh, Architect still alive? Kill him quickly would you? I’ll be waiting right here!"
+EVENT.TEZCATARA,Necrobinder,0,0,Tezcatara,Now what’s a skeleton doing inside these walls?
+EVENT.TEZCATARA,Necrobinder,0,1,Necrobinder,My aim is simple. Vengeance for my family. I’ll reach the top and make him pay.
+EVENT.TEZCATARA,Necrobinder,0,2,Tezcatara,Wonderful!
+EVENT.TEZCATARA,Necrobinder,1,0,Tezcatara,"Come in, come in! Let’s make your flames burn brighter."
+EVENT.TEZCATARA,Necrobinder,2,0,Tezcatara,Those flames around you remind me of something forbidden.
+EVENT.TEZCATARA,Necrobinder,2,1,Necrobinder,What do you know?
+EVENT.TEZCATARA,Necrobinder,2,2,Tezcatara,I know who wrote that book.
+EVENT.TEZCATARA,Regent,0,0,Tezcatara,"Oh my, what an exotic visitor! Who might you be, sweetie?"
+EVENT.TEZCATARA,Regent,0,1,Regent,"I’m no sweetie! Address me with respect, giant... thing-person!"
+EVENT.TEZCATARA,Regent,0,2,Tezcatara,Where are my manners? Tezcatara cackles with delight.
+EVENT.TEZCATARA,Regent,1,0,Tezcatara,You and your friends are back again? I’ve made treats for you!
+EVENT.TEZCATARA,Regent,2,0,Tezcatara,Welcome back regal boy! Looks like you’re doing great out there.
+EVENT.TEZCATARA,Regent,2,1,Regent,Yes of course! Just some minor setbacks at the upper levels... like dying.
+EVENT.TEZCATARA,Regent,2,2,Tezcatara,We all need to learn from our mistakes.
+EVENT.TEZCATARA,Silent,0,0,Tezcatara,"Come closer, quiet one. I can’t see well..."
+EVENT.TEZCATARA,Silent,0,1,Silent,...
+EVENT.TEZCATARA,Silent,0,2,Tezcatara,You can trust me.
+EVENT.TEZCATARA,Silent,1,0,Tezcatara,Such a nasty sickness you have. Let’s take care of you.
+EVENT.TEZCATARA,Silent,2,0,Tezcatara,"I’ve met your sisters, you know? Such lovely girls they are."
+EVENT.TEZCATARA,Silent,2,1,Silent,...
+EVENT.TEZCATARA,Silent,2,2,Tezcatara,Oh dear... you haven’t been fighting have you?
+EVENT.THE_ARCHITECT,Defect,0,0,The Architect,What are you doing here?
+EVENT.THE_ARCHITECT,Defect,0,1,Defect,<random garbled lines>
+EVENT.THE_ARCHITECT,Defect,0,2,The Architect,Repair you? Make me.
+EVENT.THE_ARCHITECT,Defect,1,0,The Architect,You’re back? Didn’t I dismantle you?
+EVENT.THE_ARCHITECT,Defect,1,1,Defect,<random garbled lines>
+EVENT.THE_ARCHITECT,Defect,1,2,The Architect,Fix you? Fix your friend? Ridiculous.
+EVENT.THE_ARCHITECT,Defect,2,0,The Architect,How do you keep coming back? Is this Neow’s doing?
+EVENT.THE_ARCHITECT,Defect,2,1,Defect,<random garbled lines>
+EVENT.THE_ARCHITECT,Defect,2,2,The Architect,Foolish
+EVENT.THE_ARCHITECT,Ironclad,0,0,The Architect,So the arch demon’s thrall has arrived?
+EVENT.THE_ARCHITECT,Ironclad,0,1,Ironclad,Enemy... Kill...
+EVENT.THE_ARCHITECT,Ironclad,1,0,The Architect,"Cursed to fight forever, aren’t you?"
+EVENT.THE_ARCHITECT,Ironclad,1,1,Ironclad,Architect... arch... enemy!!
+EVENT.THE_ARCHITECT,Ironclad,1,2,The Architect,Do you even know your name?
+EVENT.THE_ARCHITECT,Ironclad,2,0,The Architect,I pity you.
+EVENT.THE_ARCHITECT,Ironclad,2,1,Ironclad,Kill...
+EVENT.THE_ARCHITECT,Ironclad,2,2,The Architect,"Return to the bottom, Ironclad."
+EVENT.THE_ARCHITECT,Necrobinder,0,0,Necrobinder,ARCHITECT! You killed my parents. You killed my friend. You killed my LIFE! ...and now I will kill YOU!
+EVENT.THE_ARCHITECT,Necrobinder,0,1,The Architect,Vengeance is it? No thank you.
+EVENT.THE_ARCHITECT,Necrobinder,1,0,Necrobinder,ARCHITECT! You killed my parents. You killed my friend. You killed my-
+EVENT.THE_ARCHITECT,Necrobinder,1,1,The Architect,You cannot change the past with anger.
+EVENT.THE_ARCHITECT,Necrobinder,2,0,Necrobinder,ARCHITECT! You killed my parents. You killed my friend. You killed my LIFE-
+EVENT.THE_ARCHITECT,Necrobinder,2,1,The Architect,I did what I must to maintain order.
+EVENT.THE_ARCHITECT,Necrobinder,3,0,Necrobinder,ARCHITECT! You killed my parents. You killed my friend. You killed my-
+EVENT.THE_ARCHITECT,Necrobinder,3,1,The Architect,Life
+EVENT.THE_ARCHITECT,Necrobinder,3,2,Necrobinder,"What...?! Die, monster!"
+EVENT.THE_ARCHITECT,Regent,0,0,Regent,"I’ve arrived! You there, commoner! Is this the top?"
+EVENT.THE_ARCHITECT,Regent,0,1,The Architect,I need quiet...
+EVENT.THE_ARCHITECT,Regent,0,2,Regent,I’ll teach you some manners!
+EVENT.THE_ARCHITECT,Regent,1,0,Regent,I’ve arrived again!
+EVENT.THE_ARCHITECT,Regent,1,1,The Architect,The loud fool returns?
+EVENT.THE_ARCHITECT,Regent,1,2,Regent,I’m neither loud nor a fool! Face me!
+EVENT.THE_ARCHITECT,Regent,2,0,Regent,I’ve had enough of your poor manners!
+EVENT.THE_ARCHITECT,Regent,2,1,The Architect,Something we can both agree on.
+EVENT.THE_ARCHITECT,Regent,2,2,Regent,Let’s dance!
+EVENT.THE_ARCHITECT,Silent,0,0,The Architect,Not even an introduction?
+EVENT.THE_ARCHITECT,Silent,1,0,The Architect,Where did you come from? What are you after?
+EVENT.THE_ARCHITECT,Silent,2,0,The Architect,Hrrgh! DIE!!
+EVENT.THE_ARCHITECT,Silent,3,0,The Architect,Annoying wretch! BE GONE!!
+EVENT.VAKUU,Any,0,0,Vakuu,Seeking glory in the Spire are we? I have some propositions for you...
+EVENT.VAKUU,Any,1,0,Vakuu,{Visits}. {Visits} {Visits:plural:time|times} you’ve been here.
+EVENT.VAKUU,Any,2,0,Vakuu,You realize this never ends?
+EVENT.VAKUU,Defect,0,0,Vakuu,"Broken one, let me perfect you."
+EVENT.VAKUU,Defect,1,0,Vakuu,Do you find it strange that your fellow constructs want you dead?
+EVENT.VAKUU,Defect,2,0,Vakuu,"If you bring me the Architect’s heart, I will restore your companion."
+EVENT.VAKUU,Defect,2,1,Defect,<fearful beeping>
+EVENT.VAKUU,Defect,2,2,Vakuu,What’s more important? Your creator or your friend?
+EVENT.VAKUU,First visit,0,0,Vakuu,Give yourself to me and you will be feared as much as I.
+EVENT.VAKUU,Ironclad,0,0,Vakuu,Imagine seeing you again after so long.
+EVENT.VAKUU,Ironclad,0,1,Ironclad,SACRED DEMON! What have you done to me!?
+EVENT.VAKUU,Ironclad,0,2,Vakuu,Exactly what you bargained for.
+EVENT.VAKUU,Ironclad,1,0,Vakuu,Do the lost tribes weigh on you...? Vakuu howls with laughter.
+EVENT.VAKUU,Ironclad,2,0,Vakuu,My puppet of puppets... why haven’t you killed the Architect yet?
+EVENT.VAKUU,Ironclad,2,1,Ironclad,"After I kill the Architect, I will kill YOU!"
+EVENT.VAKUU,Ironclad,2,2,Vakuu,Yawn I look forward to watching you fail.
+EVENT.VAKUU,Necrobinder,0,0,Vakuu,We both seek vengeance. It will have a cost to pay.
+EVENT.VAKUU,Necrobinder,0,1,Necrobinder,I accept any cost. Every cost for his death.
+EVENT.VAKUU,Necrobinder,1,0,Vakuu,I know where you got that Hand.
+EVENT.VAKUU,Necrobinder,2,0,Vakuu,The Architect has gravely wounded us both.
+EVENT.VAKUU,Necrobinder,2,1,Necrobinder,"Get on with it, demon. Show me your contracts."
+EVENT.VAKUU,Necrobinder,2,2,Vakuu,Straight to business. Very well...
+EVENT.VAKUU,Regent,0,0,Vakuu,A being from the stars? Within these accursed walls?
+EVENT.VAKUU,Regent,0,1,Regent,Do you know of me?
+EVENT.VAKUU,Regent,0,2,Vakuu,"Yes, I think we can help each other."
+EVENT.VAKUU,Regent,1,0,Vakuu,More of my power can be yours for a small price.
+EVENT.VAKUU,Regent,2,0,Regent,I don’t think these deals are good. I’m not feeling great.
+EVENT.VAKUU,Regent,2,1,Vakuu,You read the contracts thoroughly have you not? You have signed them with full intent and responsibility no?
+EVENT.VAKUU,Regent,2,2,Vakuu,Are you not going to fulfill your end of the bargain? How about another contract? Isn’t that better?
+EVENT.VAKUU,Silent,0,0,Vakuu,Killer.
+EVENT.VAKUU,Silent,0,1,Silent,...
+EVENT.VAKUU,Silent,0,2,Vakuu,This won’t end well for you.
+EVENT.VAKUU,Silent,1,0,Vakuu,Vakuu displays his various contracts to the Silent
+EVENT.VAKUU,Silent,2,0,Vakuu,"The Architect is not enough, kill your sisters too!"
+EVENT.VAKUU,Silent,2,1,Silent,...
+EVENT.VAKUU,Silent,2,2,Vakuu,"No need for words, we are the same."

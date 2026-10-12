@@ -1,0 +1,50 @@
+table fct_run_relic
+	lineageTag: 77293f32-948f-411f-9ddc-535f4f842752
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: 72e9f89b-ef8f-4ab1-9bd1-d3eecc09a779
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: c25624cc-b7af-4427-a97f-0f783505f62c
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column relic_id
+		dataType: string
+		isHidden
+		lineageTag: 543719d3-f903-4de9-b966-bd76039474c3
+		summarizeBy: none
+		sourceColumn: relic_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_added_to_deck
+		dataType: int64
+		lineageTag: 299fa873-4d57-4195-a327-43c4602530b8
+		summarizeBy: none
+		sourceColumn: floor_added_to_deck
+
+		annotation SummarizationSetBy = User
+
+	partition fct_run_relic = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_run_relic_Table = marts{[Name="fct_run_relic",Kind="Table"]}[Data]
+				in
+				    fct_run_relic_Table
+
+	annotation PBI_ResultType = Table
+

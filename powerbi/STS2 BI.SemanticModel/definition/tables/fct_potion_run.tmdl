@@ -1,0 +1,173 @@
+table fct_potion_run
+	lineageTag: 1486db23-cba7-46c3-9690-cc96fb66d241
+
+	measure 'Potions Offered' = SUM(fct_potion_run[times_offered])
+		formatString: #,0
+		lineageTag: ec8b1d9e-98e3-4c8c-ad9d-089417f81fb2
+
+	measure 'Potions Picked' = SUM(fct_potion_run[times_picked])
+		formatString: #,0
+		lineageTag: 1c14fbc8-7f8c-4c92-861b-bc23182c58c1
+
+	measure 'Potion Pick Rate' = DIVIDE([Potions Picked], [Potions Offered])
+		formatString: 0.0%
+		lineageTag: 7c1d76b3-01c3-4aa8-bba6-a6cc2157f00b
+
+	measure 'Potions Used' = SUM(fct_potion_run[times_used])
+		formatString: #,0
+		lineageTag: d3a9b8d7-891a-4787-9bdd-c22f5e7f6c3f
+
+	measure 'Potions Discarded' = SUM(fct_potion_run[times_discarded])
+		formatString: #,0
+		lineageTag: 76c479a6-d666-45d7-bb41-1e6b6b04c6c8
+
+	measure 'Win Rate Potion Picked' = DIVIDE(CALCULATE(DISTINCTCOUNT(fct_potion_run[run_id]), fct_potion_run[was_picked] = TRUE, KEEPFILTERS(dim_run[win] = TRUE)), CALCULATE(DISTINCTCOUNT(fct_potion_run[run_id]), fct_potion_run[was_picked] = TRUE, KEEPFILTERS(dim_run[outcome] <> "Abandoned")))
+		formatString: 0.0%
+		lineageTag: 192075a5-dc0b-4b51-abcf-53a930b5c9f0
+
+	measure 'Win Rate Potion Skipped' = DIVIDE(CALCULATE(DISTINCTCOUNT(fct_potion_run[run_id]), fct_potion_run[was_offered] = TRUE, fct_potion_run[was_picked] = FALSE, KEEPFILTERS(dim_run[win] = TRUE)), CALCULATE(DISTINCTCOUNT(fct_potion_run[run_id]), fct_potion_run[was_offered] = TRUE, fct_potion_run[was_picked] = FALSE, KEEPFILTERS(dim_run[outcome] <> "Abandoned")))
+		formatString: 0.0%
+		lineageTag: 1ffd318e-2b52-471b-9699-cf9314e606f3
+
+	measure 'Potion Win Delta' = IF(NOT ISBLANK([Win Rate Potion Picked]) && NOT ISBLANK([Win Rate Potion Skipped]), [Win Rate Potion Picked] - [Win Rate Potion Skipped])
+		formatString: +0.0%;-0.0%;0.0%
+		lineageTag: 30682bbf-695b-4b61-a00e-af8ec4e5e0aa
+
+	measure 'Potion Delta Font Color' = SWITCH(TRUE(), ISBLANK([Potion Win Delta]), BLANK(), [Potion Win Delta] > 0, "#4ade80", [Potion Win Delta] < 0, "#f87171", "#cbd5e1")
+		lineageTag: cc9415d1-d35b-461d-a5e1-838095806a0f
+
+	measure 'Held At Death' = CALCULATE(SUM(fct_potion_run[held_at_end_count]), KEEPFILTERS(dim_run[outcome] = "Lost"))
+		formatString: #,0
+		lineageTag: d9c8b04e-0dc4-4a27-bc81-ac60dc1662a9
+
+	measure 'Losses Holding Potions' = CALCULATE(DISTINCTCOUNT(fct_potion_run[run_id]), fct_potion_run[held_at_end] = TRUE, KEEPFILTERS(dim_run[outcome] = "Lost"))
+		formatString: #,0
+		lineageTag: 2dcd0003-76d7-469f-808a-6bf0283c9204
+
+	measure 'Died Holding Potions %' = DIVIDE([Losses Holding Potions], [Losses])
+		formatString: 0.0%
+		lineageTag: a2b54ca1-eeee-48f6-a079-b39e6d76d8a0
+
+	measure 'Avg Potions Held At Death' = DIVIDE([Held At Death], [Losses])
+		formatString: 0.00
+		lineageTag: a187b04d-32af-42ed-ac4e-3f0d69877a9f
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: 9feb4215-c6f3-4d96-88ab-db8fdce2c189
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: d4712db0-253b-4c87-99fa-17962412a29a
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column potion_id
+		dataType: string
+		isHidden
+		lineageTag: 647e7ef3-d60f-4082-80ea-948cb08d1904
+		summarizeBy: none
+		sourceColumn: potion_id
+
+		annotation SummarizationSetBy = User
+
+	column times_offered
+		dataType: int64
+		lineageTag: 4061b2dd-d3b2-444b-a962-b75b801c9a7f
+		summarizeBy: none
+		sourceColumn: times_offered
+
+		annotation SummarizationSetBy = User
+
+	column times_picked
+		dataType: int64
+		lineageTag: ed058926-cbf7-4ce7-85c5-2eea29eda94d
+		summarizeBy: none
+		sourceColumn: times_picked
+
+		annotation SummarizationSetBy = User
+
+	column was_offered
+		dataType: boolean
+		lineageTag: c4567c54-55e3-4f93-a29a-dc0045edc405
+		summarizeBy: none
+		sourceColumn: was_offered
+
+		annotation SummarizationSetBy = User
+
+	column was_picked
+		dataType: boolean
+		lineageTag: 25b77240-bced-4373-bb0a-9b9834aeeaba
+		summarizeBy: none
+		sourceColumn: was_picked
+
+		annotation SummarizationSetBy = User
+
+	column times_used
+		dataType: int64
+		lineageTag: 053ebb85-a95b-4c8e-8cf2-52b4ba15fcb8
+		summarizeBy: none
+		sourceColumn: times_used
+
+		annotation SummarizationSetBy = User
+
+	column times_discarded
+		dataType: int64
+		lineageTag: 9f349f04-73e0-4a09-a810-fff36890257a
+		summarizeBy: none
+		sourceColumn: times_discarded
+
+		annotation SummarizationSetBy = User
+
+	column times_bought
+		dataType: int64
+		lineageTag: df7e6767-2bdd-4828-8d05-f08f4eeae0fc
+		summarizeBy: none
+		sourceColumn: times_bought
+
+		annotation SummarizationSetBy = User
+
+	column first_offered_floor
+		dataType: int64
+		lineageTag: 384ea781-4098-4ad0-9b79-0d97045b24fb
+		summarizeBy: none
+		sourceColumn: first_offered_floor
+
+		annotation SummarizationSetBy = User
+
+	column held_at_end_count
+		dataType: int64
+		lineageTag: ead6ed5b-b6c0-4995-812e-0b2c4036bef6
+		summarizeBy: none
+		sourceColumn: held_at_end_count
+
+		annotation SummarizationSetBy = User
+
+	column held_at_end
+		dataType: boolean
+		lineageTag: 01a2cfe8-3cc8-40ed-bdb0-ce041b356474
+		summarizeBy: none
+		sourceColumn: held_at_end
+
+		annotation SummarizationSetBy = User
+
+	partition fct_potion_run = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_potion_run_Table = marts{[Name="fct_potion_run",Kind="Table"]}[Data]
+				in
+				    fct_potion_run_Table
+
+	annotation PBI_ResultType = Table
+

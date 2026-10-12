@@ -1,0 +1,107 @@
+version: 2
+
+sources:
+  - name: sts2
+    description: >
+      Raw landing tables written by the GCS-triggered Cloud Function
+      (cloud_function/main.py). Already flattened from the nested .run JSON,
+      but otherwise untouched. Tests here are deliberately strict: staging
+      dedupes the catalog tables, so these are what alert on upstream bugs
+      (e.g. the concurrent-MERGE duplicates in dim_card/dim_relic).
+    tables:
+      - name: fact_run
+        description: One row per run.
+        columns:
+          - name: run_id
+            data_tests: [unique, not_null]
+          - name: run_date
+            data_tests: [not_null]
+
+      - name: fact_floor_state
+        description: One row per run / floor / player.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+
+      - name: fact_card_choice
+        description: One row per card offered on a card-choice screen.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+
+      - name: fact_cards_gained
+        description: Cards added outside a choice screen.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+
+      - name: fact_relic
+        description: Relics held at end of run.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+
+      - name: fact_deck_card
+        description: Final deck at end of run.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+
+      - name: fact_event_choice
+        description: One row per choice made in an event or Ancient room.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: event_id
+            data_tests: [not_null]
+
+      - name: fact_potion_event
+        description: One row per potion per action (offered / used / discarded / bought) on a floor.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: potion_id
+            data_tests: [not_null]
+          - name: action
+            data_tests:
+              - accepted_values:
+                  arguments: {values: [offered, used, discarded, bought]}
+
+      - name: fact_run_potion
+        description: Potions still held when the run ended, one row per occupied slot.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: potion_id
+            data_tests: [not_null]
+
+      - name: fact_room
+        description: One row per room on a floor (shared by every player on it).
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: room_type
+            data_tests:
+              - not_null
+              - accepted_values:
+                  arguments: {values: [monster, elite, boss, event, rest_site, treasure, shop]}
+
+      - name: fact_rest_choice
+        description: One row per rest-site option taken.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: rest_option
+            data_tests: [not_null]
+
+      - name: dim_card
+        description: Card catalog, discovered incrementally by the loader.
+        columns:
+          - name: card_id
+            data_tests: [unique, not_null]
+
+      - name: dim_relic
+        description: Relic catalog, discovered incrementally by the loader.
+        columns:
+          - name: relic_id
+            data_tests: [unique, not_null]

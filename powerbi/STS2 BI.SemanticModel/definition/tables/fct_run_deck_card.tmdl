@@ -1,0 +1,50 @@
+table fct_run_deck_card
+	lineageTag: 06d1a7d5-b30d-4b7a-b8ec-32c90fff8c41
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: cc5fe47b-a522-44ee-ae79-38f4ab85801d
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: 2b12f2c7-d351-4d85-be23-2b147139e944
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column card_id
+		dataType: string
+		isHidden
+		lineageTag: e5f6796a-bce6-4668-80cd-b3f14b9dd5b6
+		summarizeBy: none
+		sourceColumn: card_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_added_to_deck
+		dataType: int64
+		lineageTag: 5630e6c1-109a-45bf-9691-516f42bc4ad3
+		summarizeBy: none
+		sourceColumn: floor_added_to_deck
+
+		annotation SummarizationSetBy = User
+
+	partition fct_run_deck_card = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_run_deck_card_Table = marts{[Name="fct_run_deck_card",Kind="Table"]}[Data]
+				in
+				    fct_run_deck_card_Table
+
+	annotation PBI_ResultType = Table
+

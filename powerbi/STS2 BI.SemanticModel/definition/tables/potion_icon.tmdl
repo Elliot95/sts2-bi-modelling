@@ -1,0 +1,39 @@
+table potion_icon
+	isHidden
+	lineageTag: edd5679e-05ab-4c80-9e8d-3ccba9608fcb
+
+	column potion_id
+		dataType: string
+		isHidden
+		lineageTag: abd590c0-b300-41c1-9d10-9fa26466fb5b
+		summarizeBy: none
+		sourceColumn: potion_id
+
+		annotation SummarizationSetBy = User
+
+	column icon_url
+		dataType: string
+		isHidden
+		lineageTag: eceeb23f-06c1-4816-b325-9a74798d8849
+		dataCategory: ImageUrl
+		summarizeBy: none
+		sourceColumn: icon_url
+
+		annotation SummarizationSetBy = User
+
+	partition potion_icon = m
+		mode: import
+		source =
+				let
+				    // Potion icons cropped from the game's sprite atlas by scripts/extract_event_images.py.
+				    // Each is ~10 KB, well under the 32,766-character text limit, so no chunking.
+				    Files = try Table.Buffer(Folder.Files(PotionArtFolder)) otherwise #table({"Name", "Extension", "Content"}, {}),
+				    Pngs = Table.SelectRows(Files, each Text.Lower([Extension]) = ".png"),
+				    WithId = Table.AddColumn(Pngs, "potion_id", each "POTION." & Text.Upper(Text.BeforeDelimiter([Name], ".")), type text),
+				    WithUrl = Table.AddColumn(WithId, "icon_url", each "data:image/png;base64," & Binary.ToText([Content], BinaryEncoding.Base64), type text),
+				    Result = Table.SelectColumns(WithUrl, {"potion_id", "icon_url"})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,75 @@
+table event_theme
+	lineageTag: d6b86051-bca2-4155-8c5a-74b6eaa25dfb
+
+	measure 'Theme Event Id' = IF(HASONEVALUE(dim_event[event_id]), VALUES(dim_event[event_id]), "EVENT.NEOW")
+		isHidden
+		lineageTag: 1b5d5c9c-2749-41c7-b9c3-1954f3a9448d
+
+	measure 'Theme Bg' = VAR eid = [Theme Event Id] RETURN COALESCE(CALCULATE(MAX(event_theme[bg]), REMOVEFILTERS(event_theme), event_theme[event_id] = eid), "#0b1220")
+		lineageTag: 6a647112-d420-45df-a512-acdda7e5c492
+
+	measure 'Theme Panel' = VAR eid = [Theme Event Id] RETURN COALESCE(CALCULATE(MAX(event_theme[panel]), REMOVEFILTERS(event_theme), event_theme[event_id] = eid), "#111a2e")
+		lineageTag: 5055a644-ca63-48a0-b612-92bda76c8c92
+
+	measure 'Theme Accent' = VAR eid = [Theme Event Id] RETURN COALESCE(CALCULATE(MAX(event_theme[accent]), REMOVEFILTERS(event_theme), event_theme[event_id] = eid), "#f5b041")
+		lineageTag: cb00793d-f149-4d10-8619-df8ee0e3a7f2
+
+	measure 'Theme Text' = "#f3f4f6"
+		lineageTag: bd766ae0-7551-4e50-a4fb-4c071e4b7d27
+
+	measure 'Theme Muted' = "#cbd5e1"
+		lineageTag: 2e00af29-09eb-4d7b-ab72-0a142afad19a
+
+	measure 'Event Image' = VAR eid = [Theme Event Id] VAR parts = CALCULATETABLE(event_image, REMOVEFILTERS(event_image), event_image[event_id] = eid) RETURN IF(NOT ISEMPTY(parts), "data:image/jpeg;base64," & CONCATENATEX(parts, event_image[chunk], "", event_image[part], ASC))
+		lineageTag: db9ececf-8937-4334-bf98-84cbfa316a29
+		dataCategory: ImageUrl
+
+	column event_id
+		dataType: string
+		isHidden
+		lineageTag: 4bde5b04-56e1-44d2-b5c2-9d65f837e9a8
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column bg
+		dataType: string
+		isHidden
+		lineageTag: ba82f48c-e825-4d0e-a0d2-009c774eb37b
+		summarizeBy: none
+		sourceColumn: bg
+
+		annotation SummarizationSetBy = User
+
+	column panel
+		dataType: string
+		isHidden
+		lineageTag: 34cd68ae-3a31-4779-99d9-1b6a30302caf
+		summarizeBy: none
+		sourceColumn: panel
+
+		annotation SummarizationSetBy = User
+
+	column accent
+		dataType: string
+		isHidden
+		lineageTag: bf435852-cfa7-4cd6-917d-8fc2630aadea
+		summarizeBy: none
+		sourceColumn: accent
+
+		annotation SummarizationSetBy = User
+
+	partition event_theme = m
+		mode: import
+		source =
+				let
+				    // Colour theme per event, derived from its artwork by scripts/extract_event_images.py.
+				    Csv = try Csv.Document(File.Contents(EventArtFolder & "\palette.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]) otherwise #table({"Column1", "Column2", "Column3", "Column4"}, {{"event_id", "bg", "panel", "accent"}}),
+				    Promoted = Table.PromoteHeaders(Csv, [PromoteAllScalars = true]),
+				    Result = Table.TransformColumnTypes(Promoted, {{"event_id", type text}, {"bg", type text}, {"panel", type text}, {"accent", type text}})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

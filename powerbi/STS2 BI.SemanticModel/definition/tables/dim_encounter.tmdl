@@ -1,0 +1,53 @@
+table dim_encounter
+	lineageTag: 30e6534d-c9a8-4fe6-b43c-89c0b3dc61ab
+
+	measure 'Death Line' = VAR t = SELECTEDVALUE(dim_encounter[loss_text]) VAR n = SELECTEDVALUE(dim_encounter[encounter_name]) VAR ch = IF(HASONEVALUE(dim_run[character_name]), VALUES(dim_run[character_name]), "Ironclad") RETURN IF(ISBLANK(t), "Click an encounter in the table to see how the game describes losing to it.", SUBSTITUTE(SUBSTITUTE(t, "{encounter}", n), "{character}", ch))
+		lineageTag: 6e427f96-2fa1-4cf4-a5ae-b6b165a74a75
+
+	column encounter_id
+		dataType: string
+		isHidden
+		lineageTag: 0f28af87-f691-4b27-b34e-df6813411fa7
+		summarizeBy: none
+		sourceColumn: encounter_id
+
+		annotation SummarizationSetBy = User
+
+	column encounter_name
+		dataType: string
+		lineageTag: 68b3a469-a3bf-4633-9236-162e6301a079
+		summarizeBy: none
+		sourceColumn: encounter_name
+
+		annotation SummarizationSetBy = User
+
+	column encounter_type
+		dataType: string
+		lineageTag: 77e7ec49-d21d-4c8e-8e1a-953ed12a0df7
+		summarizeBy: none
+		sourceColumn: encounter_type
+
+		annotation SummarizationSetBy = User
+
+	column loss_text
+		dataType: string
+		isHidden
+		lineageTag: 70ad6e6c-7c50-4739-81db-1e99de555e3d
+		summarizeBy: none
+		sourceColumn: loss_text
+
+		annotation SummarizationSetBy = User
+
+	partition dim_encounter = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_encounter_Table = marts{[Name="dim_encounter",Kind="Table"]}[Data]
+				in
+				    dim_encounter_Table
+
+	annotation PBI_ResultType = Table
+

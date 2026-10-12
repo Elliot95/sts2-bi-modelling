@@ -1,0 +1,600 @@
+version: 2
+
+# Marts: the star schema Power BI reads (dataset sts2_marts). Contracts are
+# enforced so a column/type change fails the build loudly instead of silently
+# breaking the report. Every fct_* relates to dim_run (the run hub), never to
+# another fact.
+
+models:
+  - name: dim_run
+    description: >
+      One row per run. Hub dimension: run attributes plus run-level metrics
+      derived from floor states. All fct_* tables relate here on run_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        description: Run start time in epoch seconds; primary key.
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: run_date
+        data_type: date
+        description: UTC date the run started.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date_key}
+      - name: character
+        data_type: string
+        description: Primary player's character (CHARACTER.*).
+      - name: character_name
+        data_type: string
+        description: Display label, e.g. Ironclad.
+      - name: character_color
+        data_type: string
+        description: The character's card-frame colour (hex) from card_catalog, for consistent visual colouring.
+      - name: character_color_tint
+        data_type: string
+        description: Pale tint of character_color (80% white) for readable backgrounds.
+      - name: character_color_shade
+        data_type: string
+        description: Deep shade of character_color (75% dark base) for row backgrounds on the dark report theme.
+      - name: ascension
+        data_type: int64
+      - name: game_mode
+        data_type: string
+      - name: build_id
+        data_type: string
+      - name: platform_type
+        data_type: string
+      - name: seed
+        data_type: string
+      - name: win
+        data_type: bool
+      - name: was_abandoned
+        data_type: bool
+      - name: outcome
+        data_type: string
+        description: Won / Lost / Abandoned, for slicing and legends.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: ['Won', 'Lost', 'Abandoned']}
+      - name: killed_by_encounter
+        data_type: string
+      - name: killed_by_encounter_name
+        data_type: string
+        description: Encounter display label without the type suffix; null if not killed by an encounter.
+      - name: killed_by_encounter_type
+        data_type: string
+        description: Boss / Elite / Normal, from the encounter ID suffix; null if not killed by an encounter.
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Boss', 'Elite', 'Normal']}
+      - name: killed_by_event
+        data_type: string
+      - name: killed_by_event_name
+        data_type: string
+        description: Event display label; null if not killed by an event.
+      - name: ended_by
+        data_type: string
+        description: For lost runs, the encounter or event that ended the run; null for wins and abandoned runs.
+      - name: ended_by_type
+        data_type: string
+        description: Boss / Elite / Normal / Event / Unknown for lost runs; null otherwise.
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Boss', 'Elite', 'Normal', 'Event', 'Unknown']}
+      - name: acts_completed
+        data_type: int64
+        description: >
+          Raw len(acts) from the .run file: the number of acts on the run's
+          map (always 3 in current data), NOT progress. Use acts_reached.
+      - name: run_time_seconds
+        data_type: int64
+      - name: run_time_minutes
+        data_type: float64
+        description: Run duration in minutes (1 dp), for display.
+      - name: player_count
+        data_type: int64
+        description: Distinct players with floor-state rows (null if the run has none).
+      - name: is_multiplayer
+        data_type: bool
+        description: True when player_count > 1.
+      - name: play_mode
+        data_type: string
+        description: Solo / Multiplayer label for slicers and comparisons.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments: {values: ['Solo', 'Multiplayer']}
+      - name: party_size
+        data_type: string
+        description: Solo / 2 players / 3 players / 4 players.
+        data_tests: [not_null]
+      - name: acts_reached
+        data_type: int64
+        description: Acts actually entered (max act_index + 1).
+      - name: floors_reached
+        data_type: int64
+        description: Highest floor_number reached in the run.
+      - name: death_floor
+        data_type: int64
+        description: floors_reached for runs that were lost (not won, not abandoned); null otherwise.
+      - name: final_hp
+        data_type: int64
+        description: >
+          HP at the last recorded floor. Single-player runs only (null for
+          multiplayer: the host player isn't identifiable in the raw data).
+      - name: total_damage_taken
+        data_type: int64
+        description: Sum of damage_taken across all floors. Single-player runs only.
+
+  - name: dim_card
+    description: One row per card. card_name is derived from card_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: card_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: card_name
+        data_type: string
+      - name: card_character
+        data_type: string
+        description: Owning character from the card_catalog seed (second source); 'Unknown' if not in the catalog.
+        data_tests: [not_null]
+      - name: rarity
+        data_type: string
+      - name: card_type
+        data_type: string
+      - name: energy_cost
+        data_type: string
+      - name: card_color
+        data_type: string
+        description: Card frame colour (hex) for conditional formatting; grey if not in the catalog.
+      - name: card_color_tint
+        data_type: string
+        description: Pale tint of card_color (80% white) for readable table backgrounds.
+      - name: card_color_shade
+        data_type: string
+        description: Deep shade of card_color (75% dark base) for row backgrounds on the dark report theme.
+      - name: in_catalog
+        data_type: bool
+      - name: first_seen_run_id
+        data_type: int64
+      - name: first_seen_date
+        data_type: date
+
+  - name: dim_relic
+    description: One row per relic. relic_name is derived from relic_id.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: relic_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: relic_name
+        data_type: string
+      - name: first_seen_run_id
+        data_type: int64
+      - name: first_seen_date
+        data_type: date
+
+  - name: dim_date
+    description: One row per calendar day (2024-01-01 to Dec 31 three years ahead).
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: date_key
+        data_type: date
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - name: year
+        data_type: int64
+      - name: quarter
+        data_type: int64
+      - name: month
+        data_type: int64
+      - name: month_name
+        data_type: string
+      - name: day
+        data_type: int64
+      - name: day_of_week
+        data_type: int64
+        description: 1 = Sunday .. 7 = Saturday.
+      - name: day_name
+        data_type: string
+      - name: week_of_year
+        data_type: int64
+        description: ISO week number.
+      - name: is_weekend
+        data_type: bool
+
+  - name: fct_floor_state
+    description: One row per run / floor / player. HP and gold after each map point.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - {name: act_index, data_type: int64}
+      - {name: map_point_index, data_type: int64}
+      - {name: map_point_type, data_type: string}
+      - {name: current_hp, data_type: int64}
+      - {name: max_hp, data_type: int64}
+      - {name: current_gold, data_type: int64}
+      - {name: damage_taken, data_type: int64}
+      - {name: hp_healed, data_type: int64}
+      - {name: gold_gained, data_type: int64}
+      - {name: gold_lost, data_type: int64}
+      - {name: gold_spent, data_type: int64}
+      - {name: gold_stolen, data_type: int64}
+      - {name: max_hp_gained, data_type: int64}
+      - {name: max_hp_lost, data_type: int64}
+
+  - name: fct_card_choice
+    description: One row per card offered at a card-choice screen.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: was_picked, data_type: bool}
+      - {name: floor_added_to_deck, data_type: int64}
+
+  - name: fct_card_run
+    description: >
+      One row per run / player / card offered at a choice screen (fct_card_choice
+      rolled up to run level). Powers the picked-vs-skipped win-rate comparison:
+      both groups reached the offer, so it avoids the survivorship bias of
+      comparing picked runs to the overall win rate. Still correlation, not
+      causation: picks depend on what the deck already needs.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: times_offered, data_type: int64, description: Offers of this card to this player in the run.}
+      - {name: times_picked, data_type: int64}
+      - {name: was_picked, data_type: bool, description: Picked at least once in the run.}
+      - {name: first_offered_floor, data_type: int64}
+      - {name: first_offered_act, data_type: int64, description: Act (1-based) of the first offer.}
+      - {name: first_picked_floor, data_type: int64}
+      - {name: in_final_deck, data_type: bool, description: Card is in this player's end-of-run deck.}
+      - {name: final_deck_copies, data_type: int64}
+
+  - name: fct_card_gained
+    description: One row per card added outside a choice screen.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: floor_number, data_type: int64}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+
+  - name: fct_run_relic
+    description: One row per relic held at end of run.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: relic_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_relic'), field: relic_id}
+      - {name: floor_added_to_deck, data_type: int64}
+
+  - name: fct_run_deck_card
+    description: One row per card copy in the final deck (repeat card_ids are legitimate).
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: card_id
+        data_type: string
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_card'), field: card_id}
+      - {name: floor_added_to_deck, data_type: int64}
+
+  - name: dim_event
+    description: One row per event or Ancient seen in runs; names and opening text from the game's localization.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: event_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - {name: event_name, data_type: string}
+      - name: event_kind
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: ['Event', 'Ancient']}
+      - {name: description, data_type: string}
+      - {name: in_catalog, data_type: bool}
+
+  - name: fct_event_choice
+    description: >
+      One row per choice made in an event or Ancient room, joined to what
+      happened next: floors survived afterwards, died within 3 floors, died
+      before the next act (abandoned runs never count as deaths), and the HP /
+      max HP / gold change recorded on that floor.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64, description: Act (1-based) the choice was made in.}
+      - {name: choice_index, data_type: int64, description: Order of the choice on that floor (multi-step events).}
+      - {name: is_final_choice, data_type: bool, description: Last choice on the floor for this player.}
+      - name: event_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_event'), field: event_id}
+      - {name: choice_table, data_type: string, description: "events = an event option; relics = a relic chosen at an Ancient."}
+      - {name: choice_key, data_type: string}
+      - {name: option_page, data_type: string}
+      - {name: option_code, data_type: string}
+      - {name: relic_id, data_type: string}
+      - {name: option_name, data_type: string, description: Display title of the option (or relic) chosen.}
+      - {name: option_description, data_type: string}
+      - {name: variables_json, data_type: string}
+      - {name: outcome, data_type: string}
+      - {name: win, data_type: bool}
+      - {name: floors_survived_after, data_type: int64}
+      - {name: died_within_3_floors, data_type: bool}
+      - {name: died_before_next_act, data_type: bool}
+      - {name: hp_after, data_type: int64}
+      - {name: max_hp_after, data_type: int64}
+      - {name: hp_change, data_type: int64}
+      - {name: max_hp_change, data_type: int64}
+      - {name: gold_change, data_type: int64}
+
+  - name: dim_ancient_dialogue
+    description: >
+      One row per line of Ancient dialogue: what each Ancient says to each
+      character (conversation 0 = first meeting). From the game's localization.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: event_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_event'), field: event_id}
+      - {name: character, data_type: string, description: "Ironclad / Silent / Defect / Necrobinder / Regent, or Any / First visit for generic lines."}
+      - {name: conversation, data_type: int64}
+      - {name: line, data_type: int64}
+      - {name: step, data_type: int64, description: 1-based line number within the conversation.}
+      - {name: encounter, data_type: string, description: "Encounter 1 = first meeting, then return visits; Generic N = lines for any character."}
+      - {name: encounter_order, data_type: int64, description: Sort key for encounter.}
+      - {name: speaker, data_type: string}
+      - {name: text, data_type: string}
+
+  - name: dim_potion
+    description: One row per potion seen in runs; names and effect text from the game's localization.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: potion_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - {name: potion_name, data_type: string}
+      - {name: description, data_type: string}
+      - {name: in_catalog, data_type: bool}
+
+  - name: fct_potion_event
+    description: One row per potion per action (offered / used / discarded / bought) on a floor.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64, description: Act (1-based).}
+      - name: potion_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_potion'), field: potion_id}
+      - name: action
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [offered, used, discarded, bought]}
+      - {name: was_picked, data_type: bool, description: For offered rows, whether the potion was taken.}
+
+  - name: fct_potion_run
+    description: >
+      One row per run / player / potion that player came across. Picked vs
+      skipped (both were offered), use rate, and held_at_end: for a lost run,
+      the player died still holding the potion.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: potion_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_potion'), field: potion_id}
+      - {name: times_offered, data_type: int64}
+      - {name: times_picked, data_type: int64}
+      - {name: was_offered, data_type: bool}
+      - {name: was_picked, data_type: bool}
+      - {name: times_used, data_type: int64}
+      - {name: times_discarded, data_type: int64}
+      - {name: times_bought, data_type: int64}
+      - {name: first_offered_floor, data_type: int64}
+      - {name: held_at_end_count, data_type: int64}
+      - {name: held_at_end, data_type: bool, description: Still held when the run ended.}
+
+  - name: dim_encounter
+    description: One row per encounter fought in runs, with its name and the game's death line.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: encounter_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - {name: encounter_name, data_type: string}
+      - name: encounter_type
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [Weak, Normal, Elite, Boss]}
+      - {name: loss_text, data_type: string, description: "The game's death line, with {character} / {encounter} placeholders."}
+
+  - name: fct_combat
+    description: >
+      One row per fight per player: encounter, turns, HP going in, damage taken
+      (absolute and as a share of max HP), potions drunk, and whether the run
+      was lost right there.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64}
+      - {name: room_index, data_type: int64}
+      - name: encounter_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_encounter'), field: encounter_id}
+      - name: room_type
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [Normal, Elite, Boss]}
+      - {name: monster_count, data_type: int64}
+      - {name: turns_taken, data_type: int64}
+      - {name: hp_before, data_type: int64}
+      - {name: max_hp_before, data_type: int64}
+      - {name: hp_pct_before, data_type: float64}
+      - {name: hp_band, data_type: string, description: "HP going in: Under 40% / 40-70% / 70%+."}
+      - {name: hp_band_order, data_type: int64}
+      - {name: damage_taken, data_type: int64}
+      - {name: damage_pct_of_max, data_type: float64}
+      - {name: hp_after, data_type: int64}
+      - {name: potions_used, data_type: int64}
+      - {name: died_here, data_type: bool}
+      - {name: outcome, data_type: string}
+      - {name: win, data_type: bool}
+
+  - name: fct_rest_choice
+    description: >
+      One row per rest-site option taken, with HP going in (and an HP band) and
+      what happened next. died_before_next_act: lost in the same act.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64}
+      - {name: choice_index, data_type: int64}
+      - {name: rest_option, data_type: string}
+      - {name: option_name, data_type: string}
+      - {name: hp_before, data_type: int64}
+      - {name: max_hp_before, data_type: int64}
+      - {name: hp_pct_before, data_type: float64}
+      - {name: hp_band, data_type: string, description: "HP going in: Under 40% / 40-70% / 70%+."}
+      - {name: hp_band_order, data_type: int64}
+      - {name: outcome, data_type: string}
+      - {name: win, data_type: bool}
+      - {name: floors_survived_after, data_type: int64}
+      - {name: died_before_next_act, data_type: bool}

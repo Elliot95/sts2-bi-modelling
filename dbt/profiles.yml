@@ -1,0 +1,14 @@
+# No secrets here: `oauth` uses Application Default Credentials.
+#   Locally:  `gcloud auth application-default login`
+#   CI:       google-github-actions/auth (Workload Identity Federation)
+sts2:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT', 'sts2-bi-1995ebj') }}"
+      dataset: sts2_marts
+      location: US
+      threads: 4
+      job_execution_timeout_seconds: 300
