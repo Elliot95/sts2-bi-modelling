@@ -39,7 +39,7 @@ reasoning, this file is just the entry point:
   keyless Workload Identity Federation. Run locally with
   `dbt/.venv/Scripts/dbt build --profiles-dir .` from `dbt/`.
 - Power BI: PBIP project in `powerbi/`, reading **only** `sts2_marts`
-  (plus local artwork, see below). Pages: Where runs end, Solo vs
+  (plus local artwork, see below). Pages: Where runs end, Fights, Solo vs
   Multiplayer, Cards, Events, Potions, Explore (+ the user's two scratch
   pages). Dark theme; pages are themed by the Character slicer
   (`character_image` / `character_theme`, `Page *` measures).

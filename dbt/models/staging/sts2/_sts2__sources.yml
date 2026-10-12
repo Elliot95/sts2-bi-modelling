@@ -75,6 +75,25 @@ sources:
           - name: potion_id
             data_tests: [not_null]
 
+      - name: fact_room
+        description: One row per room on a floor (shared by every player on it).
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: room_type
+            data_tests:
+              - not_null
+              - accepted_values:
+                  arguments: {values: [monster, elite, boss, event, rest_site, treasure, shop]}
+
+      - name: fact_rest_choice
+        description: One row per rest-site option taken.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: rest_option
+            data_tests: [not_null]
+
       - name: dim_card
         description: Card catalog, discovered incrementally by the loader.
         columns:

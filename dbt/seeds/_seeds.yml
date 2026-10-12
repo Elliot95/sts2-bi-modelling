@@ -120,3 +120,27 @@ seeds:
     columns:
       - name: potion_id
         data_tests: [unique, not_null]
+
+  - name: encounter_catalog
+    description: Every encounter's display name and the game's death line for it, from encounters.json.
+    config:
+      schema: sts2_staging
+      column_types:
+        encounter_id: string
+        encounter_name: string
+        loss_text: string
+    columns:
+      - name: encounter_id
+        data_tests: [unique, not_null]
+
+  - name: rest_option_catalog
+    description: Rest-site options (Rest, Smith, and relic-granted ones) with names and descriptions, from rest_site_ui.json.
+    config:
+      schema: sts2_staging
+      column_types:
+        rest_option: string
+        option_name: string
+        description: string
+    columns:
+      - name: rest_option
+        data_tests: [unique, not_null]

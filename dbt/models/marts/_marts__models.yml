@@ -508,3 +508,93 @@ models:
       - {name: first_offered_floor, data_type: int64}
       - {name: held_at_end_count, data_type: int64}
       - {name: held_at_end, data_type: bool, description: Still held when the run ended.}
+
+  - name: dim_encounter
+    description: One row per encounter fought in runs, with its name and the game's death line.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: encounter_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - {name: encounter_name, data_type: string}
+      - name: encounter_type
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [Weak, Normal, Elite, Boss]}
+      - {name: loss_text, data_type: string, description: "The game's death line, with {character} / {encounter} placeholders."}
+
+  - name: fct_combat
+    description: >
+      One row per fight per player: encounter, turns, HP going in, damage taken
+      (absolute and as a share of max HP), potions drunk, and whether the run
+      was lost right there.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64}
+      - {name: room_index, data_type: int64}
+      - name: encounter_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_encounter'), field: encounter_id}
+      - name: room_type
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [Normal, Elite, Boss]}
+      - {name: monster_count, data_type: int64}
+      - {name: turns_taken, data_type: int64}
+      - {name: hp_before, data_type: int64}
+      - {name: max_hp_before, data_type: int64}
+      - {name: hp_pct_before, data_type: float64}
+      - {name: hp_band, data_type: string, description: "HP going in: Under 40% / 40-70% / 70%+."}
+      - {name: hp_band_order, data_type: int64}
+      - {name: damage_taken, data_type: int64}
+      - {name: damage_pct_of_max, data_type: float64}
+      - {name: hp_after, data_type: int64}
+      - {name: potions_used, data_type: int64}
+      - {name: died_here, data_type: bool}
+      - {name: outcome, data_type: string}
+      - {name: win, data_type: bool}
+
+  - name: fct_rest_choice
+    description: >
+      One row per rest-site option taken, with HP going in (and an HP band) and
+      what happened next. died_before_next_act: lost in the same act.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64}
+      - {name: choice_index, data_type: int64}
+      - {name: rest_option, data_type: string}
+      - {name: option_name, data_type: string}
+      - {name: hp_before, data_type: int64}
+      - {name: max_hp_before, data_type: int64}
+      - {name: hp_pct_before, data_type: float64}
+      - {name: hp_band, data_type: string, description: "HP going in: Under 40% / 40-70% / 70%+."}
+      - {name: hp_band_order, data_type: int64}
+      - {name: outcome, data_type: string}
+      - {name: win, data_type: bool}
+      - {name: floors_survived_after, data_type: int64}
+      - {name: died_before_next_act, data_type: bool}

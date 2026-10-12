@@ -24,6 +24,7 @@ land — it's the fastest way to answer "where did we leave off?"
 | Reference data from the game files (seeds)    | ✅ Done: replaced the scraped wiki catalogue (ToS) |
 | Event choices (extract, model, report)        | ✅ Done: 8,596 choices backfilled; immersive Events page |
 | Potions (extract, model, report)              | ✅ Done: 23,721 potion events + 639 held at run end; Potions page |
+| Fights + rest sites (extract, model, report)  | ✅ Done: 22,246 rooms, 17,231 fights, 5,967 rest choices; Fights page |
 | Dark, character-themed report                 | ✅ Done: every page follows the Character slicer's art and colour |
 | Error alerting + least-privilege loader SA    | ✅ Done (audit F3, F4) |
 | End-to-end audit                              | ✅ Done (`docs/audit.md`); re-audit after the Events work pending |
@@ -159,6 +160,5 @@ scratch (a new environment, a second machine, etc.):
 
 1. Merge PR #1 to `main` so the daily dbt cron starts (audit F5).
 2. Re-run the audit and re-export `docs/report.pdf` with the Events page.
-3. See `docs/roadmap.md` for model expansion. `fct_room` (per-room combat
-   detail) is the highest-value next table, followed by `players[1:]`
-   characters for co-op analysis.
+3. See `docs/roadmap.md` for model expansion: `players[1:]` characters
+   for co-op analysis, run modifiers, card upgrades/removals.

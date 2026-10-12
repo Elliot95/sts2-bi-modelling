@@ -1,0 +1,93 @@
+encounter_id,encounter_name,loss_text
+ENCOUNTER.AEONGLASS_BOSS,Aeonglass,{encounter} didn't take kindly to {character}'s disturbance.
+ENCOUNTER.AXEBOTS_NORMAL,Axebot,{character} was dismembered by an {encounter}.
+ENCOUNTER.BATTLEWORN_DUMMY_EVENT_V1_ENCOUNTER,Battleworn Dummy,{character} was somehow killed by {encounter}???
+ENCOUNTER.BATTLEWORN_DUMMY_EVENT_V2_ENCOUNTER,Battleworn Dummy,{character} was somehow killed by {encounter}???
+ENCOUNTER.BATTLEWORN_DUMMY_EVENT_V3_ENCOUNTER,Battleworn Dummy,{character} was somehow killed by {encounter}???
+ENCOUNTER.BOWLBUGS_NORMAL,Bowlbug Swarm,{character} got in the way of a busy {encounter}.
+ENCOUNTER.BOWLBUGS_WEAK,Bowlbugs,{character} got in the way of some busy {encounter}.
+ENCOUNTER.BYGONE_EFFIGY_ELITE,Bygone Effigy,{character} was sliced in half by a {encounter}.
+ENCOUNTER.BYRDONIS_ELITE,Byrdonis,{encounter} protected its children from {character}.
+ENCOUNTER.CEREMONIAL_BEAST_BOSS,Ceremonial Beast,{character} was put to rest by the {encounter}.
+ENCOUNTER.CHOMPERS_NORMAL,An Automaton Pair,{character} was chomped to death by {encounter}.
+ENCOUNTER.CONSTRUCT_MENAGERIE_NORMAL,Construct Menagerie,The {encounter} crushed {character}.
+ENCOUNTER.CORPSE_SLUGS_NORMAL,Many Corpse Slugs,{encounter} feasted on {character}.
+ENCOUNTER.CORPSE_SLUGS_WEAK,Corpse Slugs,{encounter} feasted on {character}.
+ENCOUNTER.CUBEX_CONSTRUCT_NORMAL,Cubex Construct,{character} was lasered to death by a {encounter}.
+ENCOUNTER.CULTISTS_NORMAL,Cultists,{character} was slain by some {encounter}. Caaaaw...
+ENCOUNTER.DECIMILLIPEDE_ELITE,The Decimillipede,{character} couldn't survive {encounter}'s domain.
+ENCOUNTER.DENSE_VEGETATION_EVENT_ENCOUNTER,Wrigglers,{character} was infested by {encounter}.
+ENCOUNTER.DEPRECATED_ENCOUNTER,Deprecated Encounter,{character} encountered some monsters that have been removed from the game.
+ENCOUNTER.DEVOTED_SCULPTOR_WEAK,Devoted Sculptor,{character} was smashed to pieces by {encounter}.
+ENCOUNTER.ENTOMANCER_ELITE,Entomancer,{character} was stung to death by an {encounter}.
+ENCOUNTER.EXOSKELETONS_NORMAL,Many Exoskeletons,{character} was eviscerated by {encounter}.
+ENCOUNTER.EXOSKELETONS_WEAK,Exoskeletons,{character} was eviscerated by some {encounter}.
+ENCOUNTER.FABRICATOR_NORMAL,Fabricator,{character} was zapped by a {encounter}'s bots.
+ENCOUNTER.FAKE_MERCHANT_EVENT_ENCOUNTER,The Merchant???,{character} faced the wrath of {encounter}
+ENCOUNTER.FLYCONID_NORMAL,Shroom and Slime,{character} was absorbed by a {encounter}.
+ENCOUNTER.FLYCONID_WEAK,Flyconid,{character} was smashed by a {encounter}.
+ENCOUNTER.FOGMOG_NORMAL,Fogmog,{character} was distracted by a {encounter}'s illusions.
+ENCOUNTER.FOSSIL_STALKER_NORMAL,Fossil Stalker,{character} was ambushed by a {encounter}.
+ENCOUNTER.FROG_KNIGHT_NORMAL,Frog Knight,A valiant {encounter} triumphed over {character}.
+ENCOUNTER.FUZZY_WURM_CRAWLER_WEAK,Fuzzy Wurm Crawler,A {encounter} spat on {character}.
+ENCOUNTER.GLOBE_HEAD_NORMAL,A Lone Globe Head,{encounter} zapped {character}.
+ENCOUNTER.GREMLIN_MERC_NORMAL,Two Gremlins in a Trenchcoat,{character} got mugged by {encounter}.
+ENCOUNTER.HAUNTED_SHIP_NORMAL,Haunted Ship,A {encounter} stomped all over {character}.
+ENCOUNTER.HUNTER_KILLER_NORMAL,Hunter Killer,{character} was disemboweled by a {encounter}.
+ENCOUNTER.INFESTED_PRISMS_ELITE,Infested Prism,{character} was stopped by an {encounter}.
+ENCOUNTER.INKLETS_NORMAL,Inklets,Some {encounter} wouldn't let {character} pass.
+ENCOUNTER.KAISER_CRAB_BOSS,Kaiser Crab,The {encounter} struck {character} from all sides.
+ENCOUNTER.KNIGHTS_ELITE,Knight Gang,{character} was slain by a {encounter}.
+ENCOUNTER.KNOWLEDGE_DEMON_BOSS,Knowledge Demon,The {encounter} cursed {character} with overwhelming knowledge.
+ENCOUNTER.LAGAVULIN_MATRIARCH_BOSS,Lagavulin Matriarch,{character} was cut in half by the {encounter}.
+ENCOUNTER.LIVING_FOG_NORMAL,Living Fog,{character} couldn't bear the stench of some {encounter}.
+ENCOUNTER.LOUSE_PROGENITOR_NORMAL,Louse Progenitor,{character} was paralyzed by a {encounter}.
+ENCOUNTER.MAWLER_NORMAL,Mawler,{character} became a delicious meal for a {encounter}.
+ENCOUNTER.MECHA_KNIGHT_ELITE,Mecha Knight,{character} was stabbed and burned by a {encounter}.
+ENCOUNTER.MYSTERIOUS_KNIGHT_EVENT_ENCOUNTER,Mysterious Knight,{character} tried to take a {encounter}'s key.
+ENCOUNTER.MYTES_NORMAL,Mass of Mytes,{character} was swarmed by a {encounter}.
+ENCOUNTER.NIBBITS_NORMAL,A Pair of Nibbits,{encounter} beat up {character}.
+ENCOUNTER.NIBBITS_WEAK,A Lone Nibbit,{encounter} beat up {character}.
+ENCOUNTER.OVERGROWTH_CRAWLERS,Overgrowth Crawlers,Some {encounter} feasted on {character}.
+ENCOUNTER.OVERGROWTH_WILDLIFE,Overgrowth Wildlife,Some {encounter} feasted on {character}.
+ENCOUNTER.OVICOPTER_NORMAL,Ovicopter,{character} became food for an {encounter}'s children.
+ENCOUNTER.OWL_MAGISTRATE_NORMAL,Owl Magistrate,{character} was sentenced to death by an {encounter}.
+ENCOUNTER.PHANTASMAL_GARDENERS_ELITE,Phantasmal Gardeners,{character} was put to rest by the {encounter}.
+ENCOUNTER.PHROG_PARASITE_ELITE,Phrog Parasite,A {encounter} spread its colony to {character}.
+ENCOUNTER.PUNCH_CONSTRUCT_NORMAL,Punch Construct,{character} engaged in fisticuffs with a {encounter}.
+ENCOUNTER.PUNCH_OFF_EVENT_ENCOUNTER,Punch Constructs,{character} interrupted a bout between two {encounter}.
+ENCOUNTER.QUEEN_BOSS,Queen,The {encounter} added a piece of {character} to her collection.
+ENCOUNTER.RUBY_RAIDERS_NORMAL,Ruby Raiders,{character} got jumped by a group of {encounter}.
+ENCOUNTER.SCROLLS_OF_BITING_NORMAL,Many Scrolls of Biting,{encounter} tore {character} to shreds.
+ENCOUNTER.SCROLLS_OF_BITING_WEAK,Scrolls of Biting,Some {encounter} tore {character} to shreds.
+ENCOUNTER.SEAPUNK_NORMAL,Underdocks Wildlife,{character} was defeated by some {encounter}.
+ENCOUNTER.SEAPUNK_WEAK,Seapunk,A {encounter} clobbered {character}.
+ENCOUNTER.SEWER_CLAM_NORMAL,Sewer Clam,{character} was gobbled up by a {encounter}.
+ENCOUNTER.SHRINKER_BEETLE_WEAK,Shrinker Beetle,A {encounter} snacked on {character}.
+ENCOUNTER.SKULKING_COLONY_ELITE,Skulking Colony,{character} was absorbed by a {encounter}
+ENCOUNTER.SLIMED_BERSERKER_NORMAL,Slimed Berserker,{character} was absorbed into a {encounter}.
+ENCOUNTER.SLIMES_NORMAL,Swarm of Slimes,{character} was felled by a {encounter}.
+ENCOUNTER.SLIMES_WEAK,Group of Slimes,{character} was felled by a {encounter}.
+ENCOUNTER.SLITHERING_STRANGLER_NORMAL,Strangler and Friend,{character} was suffocated by a {encounter}.
+ENCOUNTER.SLUDGE_SPINNER_WEAK,Sludge Spinner,{character} couldn't defeat a {encounter}.
+ENCOUNTER.SLUMBERING_BEETLE_NORMAL,Slumber Party,{character} interrupted a {encounter}.
+ENCOUNTER.SNAPPING_JAXFRUIT_NORMAL,Overgrowth Flora,{character} ran afoul of some {encounter}.
+ENCOUNTER.SOUL_FYSH_BOSS,Soul Fysh,A {encounter} beckoned {character} to their doom.
+ENCOUNTER.SOUL_NEXUS_ELITE,Soul Nexus,{character} died to a {encounter} on a forgotten battlefield.
+ENCOUNTER.SPINY_TOAD_NORMAL,Spiny Toad,{character} couldn't pierce the {encounter}'s spikes.
+ENCOUNTER.TERROR_EEL_ELITE,Terror Eel,A {encounter} was too terrifying for {character}.
+ENCOUNTER.TEST_SUBJECT_BOSS,Test Subject,A {encounter} loyally guarded its masters from {character}.
+ENCOUNTER.THE_ARCHITECT_EVENT_ENCOUNTER,The Architect,You shouldn't be seeing this.
+ENCOUNTER.THE_INSATIABLE_BOSS,The Insatiable,"{encounter} devoured {character}. And yet, it still hungers..."
+ENCOUNTER.THE_KIN_BOSS,The Kin,{character} was annihilated by {encounter}'s superior strategy.
+ENCOUNTER.THE_LOST_AND_FORGOTTEN_NORMAL,Lost and Forgotten,The {encounter} stole {character}'s will to live.
+ENCOUNTER.THE_OBSCURA_NORMAL,The Obscura,{encounter} and its illusion smashed {character}.
+ENCOUNTER.THIEVING_HOPPER_WEAK,Thieving Hopper,A {encounter} mugged {character}.
+ENCOUNTER.TOADPOLES_WEAK,Toadpoles,{character} couldn't deal with some {encounter}.
+ENCOUNTER.TUNNELER_NORMAL,Tunneling Twosome,A {encounter} finished off {character}.
+ENCOUNTER.TUNNELER_WEAK,Tunneler,{character} got whacked by a {encounter}.
+ENCOUNTER.TURRET_OPERATOR_WEAK,Turret Operator,A {encounter} riddled {character} full of holes.
+ENCOUNTER.TWO_TAILED_RATS_NORMAL,Two-Tailed Rats,{character} was swarmed by some {encounter}.
+ENCOUNTER.VANTOM_BOSS,Vantom,{character} was turned into an Inklet by the {encounter}.
+ENCOUNTER.VINE_SHAMBLER_NORMAL,Vine Shambler,{character} couldn't escape a {encounter}.
+ENCOUNTER.WATERFALL_GIANT_BOSS,Waterfall Giant,The {encounter} cleansed the Underdocks of {character}.

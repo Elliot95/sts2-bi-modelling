@@ -41,6 +41,8 @@ FACT_TABLES = (
     "fact_event_choice",
     "fact_potion_event",
     "fact_run_potion",
+    "fact_room",
+    "fact_rest_choice",
 )
 
 

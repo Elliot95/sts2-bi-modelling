@@ -1,0 +1,224 @@
+table fct_combat
+	lineageTag: 386dc36c-624d-454f-b21c-6721e6af00bb
+
+	measure Fights = COUNTROWS(fct_combat)
+		formatString: #,0
+		lineageTag: b88da7aa-96f3-4687-9ef2-23a0a123160f
+
+	measure 'Fight Deaths' = CALCULATE(COUNTROWS(fct_combat), fct_combat[died_here] = TRUE)
+		formatString: #,0
+		lineageTag: 3c8e103d-746c-4ff6-905b-8074eff49852
+
+	measure 'Fight Death Rate' = DIVIDE([Fight Deaths] + 0, [Fights])
+		formatString: 0.0%
+		lineageTag: 502fe5c9-36e6-4b08-8f9f-e173c434d4ab
+
+	measure 'Avg Turns' = AVERAGE(fct_combat[turns_taken])
+		formatString: 0.0
+		lineageTag: a9fd4d6a-a376-4622-a2cf-876e224e2778
+
+	measure 'Avg Damage % Max HP' = AVERAGE(fct_combat[damage_pct_of_max])
+		formatString: 0.0%
+		lineageTag: 64c4732b-28aa-4047-b48c-9fc1b3a15fdd
+
+	measure 'Avg Potions In Fight' = AVERAGE(fct_combat[potions_used])
+		formatString: 0.00
+		lineageTag: 438de410-e737-4a1c-adb4-7eb10c688ac9
+
+	measure 'Avg HP Going In' = AVERAGE(fct_combat[hp_pct_before])
+		formatString: 0%
+		lineageTag: 38b4ff32-9c58-45ec-a534-d40f38e5b36d
+
+	measure 'HP Going Into Fatal Fights' = CALCULATE(AVERAGE(fct_combat[hp_pct_before]), fct_combat[died_here] = TRUE)
+		formatString: 0%
+		lineageTag: 3f671b1c-214c-44da-b92c-9a0612ecfc0a
+
+	measure 'Death Rate Font Color' = VAR r = [Fight Death Rate] VAR overall = CALCULATE([Fight Death Rate], REMOVEFILTERS(dim_encounter)) RETURN IF(ISBLANK(r), BLANK(), IF(r <= overall, "#4ade80", "#f87171"))
+		lineageTag: bab2db03-3ea2-4008-964a-516700b4962a
+
+	column run_id
+		dataType: int64
+		isHidden
+		lineageTag: 4b7b5c01-57da-412c-b4f8-98dde7432228
+		summarizeBy: none
+		sourceColumn: run_id
+
+		annotation SummarizationSetBy = User
+
+	column player_id
+		dataType: int64
+		lineageTag: 8951d3e8-f9dc-4a2e-87ea-129b8a28a195
+		summarizeBy: none
+		sourceColumn: player_id
+
+		annotation SummarizationSetBy = User
+
+	column floor_number
+		dataType: int64
+		lineageTag: 6f4146a5-d33f-4608-8c53-dee56890fa04
+		summarizeBy: none
+		sourceColumn: floor_number
+
+		annotation SummarizationSetBy = User
+
+	column act
+		dataType: int64
+		lineageTag: d16a3d6e-908b-4d66-b3a1-83416dc8a425
+		summarizeBy: none
+		sourceColumn: act
+
+		annotation SummarizationSetBy = User
+
+	column room_index
+		dataType: int64
+		isHidden
+		lineageTag: 3b20d324-7832-47a2-93b4-942596806467
+		summarizeBy: none
+		sourceColumn: room_index
+
+		annotation SummarizationSetBy = User
+
+	column encounter_id
+		dataType: string
+		isHidden
+		lineageTag: ce398f94-7dc9-4f4d-b912-7e7aed06de43
+		summarizeBy: none
+		sourceColumn: encounter_id
+
+		annotation SummarizationSetBy = User
+
+	column room_type
+		dataType: string
+		lineageTag: 3eccb031-50b1-4675-beb6-64337edefbb5
+		summarizeBy: none
+		sourceColumn: room_type
+
+		annotation SummarizationSetBy = User
+
+	column monster_count
+		dataType: int64
+		lineageTag: 57160074-35a7-4cab-aeca-55710e24d396
+		summarizeBy: none
+		sourceColumn: monster_count
+
+		annotation SummarizationSetBy = User
+
+	column turns_taken
+		dataType: int64
+		lineageTag: 7e807881-0b35-444b-8e68-603c0eb6be95
+		summarizeBy: none
+		sourceColumn: turns_taken
+
+		annotation SummarizationSetBy = User
+
+	column hp_before
+		dataType: int64
+		lineageTag: de707011-48f1-4036-aad8-4bf0465344d2
+		summarizeBy: none
+		sourceColumn: hp_before
+
+		annotation SummarizationSetBy = User
+
+	column max_hp_before
+		dataType: int64
+		lineageTag: 1dfe206d-fab2-4f25-915e-03a2f9f6c0fc
+		summarizeBy: none
+		sourceColumn: max_hp_before
+
+		annotation SummarizationSetBy = User
+
+	column hp_pct_before
+		dataType: double
+		lineageTag: 4872f004-41f8-4973-81a6-38383143a376
+		summarizeBy: none
+		sourceColumn: hp_pct_before
+
+		annotation SummarizationSetBy = User
+
+	column hp_band
+		dataType: string
+		lineageTag: 64d6cc26-1776-4c83-8b54-9dcb9bc05687
+		summarizeBy: none
+		sourceColumn: hp_band
+		sortByColumn: hp_band_order
+
+		annotation SummarizationSetBy = User
+
+	column hp_band_order
+		dataType: int64
+		isHidden
+		lineageTag: 69e89e59-f56a-4a6b-8cbe-751ca9df1c19
+		summarizeBy: none
+		sourceColumn: hp_band_order
+
+		annotation SummarizationSetBy = User
+
+	column damage_taken
+		dataType: int64
+		lineageTag: 7f0bcd50-62d7-4fed-a78d-10749616a406
+		summarizeBy: none
+		sourceColumn: damage_taken
+
+		annotation SummarizationSetBy = User
+
+	column damage_pct_of_max
+		dataType: double
+		lineageTag: 9b9117db-c098-4fe3-9968-2ff562fa6d06
+		summarizeBy: none
+		sourceColumn: damage_pct_of_max
+
+		annotation SummarizationSetBy = User
+
+	column hp_after
+		dataType: int64
+		lineageTag: cacbf873-49c0-49e1-a3fe-a63ee1be3f65
+		summarizeBy: none
+		sourceColumn: hp_after
+
+		annotation SummarizationSetBy = User
+
+	column potions_used
+		dataType: int64
+		lineageTag: 8e60da26-2a86-47d9-ad82-c35786c7879e
+		summarizeBy: none
+		sourceColumn: potions_used
+
+		annotation SummarizationSetBy = User
+
+	column died_here
+		dataType: boolean
+		lineageTag: 6c74a06f-c13a-4bc8-a651-4aed5ce7b0cf
+		summarizeBy: none
+		sourceColumn: died_here
+
+		annotation SummarizationSetBy = User
+
+	column outcome
+		dataType: string
+		lineageTag: dc99b9d5-50f4-4f4b-bfc9-8ae7e7465521
+		summarizeBy: none
+		sourceColumn: outcome
+
+		annotation SummarizationSetBy = User
+
+	column win
+		dataType: boolean
+		lineageTag: 829c4308-fc5b-42fc-adf5-b99e75bc03d0
+		summarizeBy: none
+		sourceColumn: win
+
+		annotation SummarizationSetBy = User
+
+	partition fct_combat = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    fct_combat_Table = marts{[Name="fct_combat",Kind="Table"]}[Data]
+				in
+				    fct_combat_Table
+
+	annotation PBI_ResultType = Table
+

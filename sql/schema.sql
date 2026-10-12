@@ -195,3 +195,35 @@ CREATE TABLE IF NOT EXISTS sts2.fact_run_potion (
 )
 PARTITION BY run_date
 CLUSTER BY potion_id;
+
+-- fact_room: one row per room on a floor (run / floor / room_index). Rooms are
+-- shared by every player on the floor. model_id is the encounter for fights
+-- (ENCOUNTER.*) or the event (EVENT.*); monster_ids is pipe-delimited.
+CREATE TABLE IF NOT EXISTS sts2.fact_room (
+  run_id         INT64 NOT NULL,
+  run_date       DATE NOT NULL,
+  floor_number   INT64,
+  act_index      INT64,
+  room_index     INT64,
+  room_type      STRING,
+  model_id       STRING,
+  monster_ids    STRING,
+  monster_count  INT64,
+  turns_taken    INT64
+)
+PARTITION BY run_date
+CLUSTER BY room_type, model_id;
+
+-- fact_rest_choice: one row per rest-site option taken (run / floor / player /
+-- choice_index): HEAL, SMITH, or relic-granted options (DIG, LIFT, ...).
+CREATE TABLE IF NOT EXISTS sts2.fact_rest_choice (
+  run_id        INT64 NOT NULL,
+  run_date      DATE NOT NULL,
+  floor_number  INT64,
+  act_index     INT64,
+  player_id     INT64,
+  choice_index  INT64,
+  rest_option   STRING
+)
+PARTITION BY run_date
+CLUSTER BY rest_option;

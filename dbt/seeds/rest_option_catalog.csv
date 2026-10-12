@@ -1,0 +1,10 @@
+rest_option,option_name,description
+CLONE,Clone,Duplicate all cards enchanted with {EnchantmentName}.
+COOK,Cook,Remove {Cards} cards from your Deck and gain {MaxHp} Max HP.
+DIG,Dig,Dig for a Relic.
+HATCH,Hatch,Hatch your Byrdonis Egg.
+HEAL,Rest,Heal for 30% of your Max HP ({Heal}).{ExtraText}
+KINDLE,Kindle,Add {RekindleAmount} charges to {RelicName}.
+LIFT,Train,Start battles with +1 Strength. ({LiftsLeft} Left)
+MEND,Mend,Heal {HasTarget:{Name}|someone else} for 30% of their Max HP{HasTarget: ({Heal})|}.
+SMITH,Smith,Upgrade {Count:plural:a card|{} cards} in your Deck.

@@ -149,6 +149,11 @@ The star schema Power BI reads lives in `sts2_marts`, built by dbt:
   skipped in the same run, for the win-rate comparison)
 * `fct_event_choice`: one row per event or Ancient choice, joined to what
   happened next (died before the next act, within 3 floors, HP/gold change)
+* `fct_combat`: one row per fight per player: encounter, turns, HP going
+  in, damage as a share of max HP, potions drunk, and whether the run was
+  lost right there; `dim_encounter` adds names and the game's death lines
+* `fct_rest_choice`: every rest-site choice (rest, smith, relic options)
+  with HP going in and whether the run died before the next act
 * `fct_potion_event`: one row per potion offered / drunk / discarded /
   bought on a floor; `fct_potion_run` rolls it up per run, player and
   potion, incl. potions still held when the run ended
@@ -203,8 +208,8 @@ Findings the modelling surfaced:
   teammates' decks/relics/floor state can be compared directly
 * `fact_run.character` only extracts `players[0]` — non-host players'
   character choices aren't captured anywhere yet
-* Modifiers and per-room combat detail are in the raw JSON but
-  not modelled yet
+* Run modifiers and card upgrades/removals are in the raw JSON but not
+  modelled yet (see `docs/roadmap.md`)
 * Event artwork is not in the repo: run `scripts/extract_event_images.py`
   against your own install to see it (the report works without it)
 
@@ -212,7 +217,9 @@ Findings the modelling surfaced:
 
 ## 📑 Report & audit
 
-* Report pages: **Where runs end**, **Solo vs Multiplayer**, **Cards**,
+* Report pages: **Where runs end**, **Fights & rest sites** (death rate
+  per encounter and by HP going in: bosses entered under 40% HP kill 29%
+  of the time vs 8% above 70%), **Solo vs Multiplayer**, **Cards**,
   **Events** (pick an event and the page takes on its artwork and colours;
   option outcomes, and Ancient dialogue by character and encounter),
   **Potions** (pick and drink rates, picked-vs-skipped win rates, and how

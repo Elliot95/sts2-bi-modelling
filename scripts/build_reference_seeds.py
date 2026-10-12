@@ -7,6 +7,8 @@ Builds the dbt reference seeds from the player's OWN Slay the Spire 2 install:
     dbt/seeds/relic_catalog.csv         relic -> name, description
     dbt/seeds/ancient_dialogue.csv      Ancient x character x visit -> dialogue lines
     dbt/seeds/potion_catalog.csv        potion -> name, description
+    dbt/seeds/encounter_catalog.csv     encounter -> name, the game's death line
+    dbt/seeds/rest_option_catalog.csv   rest-site option -> name, description
 
 Sources (read-only, nothing in the game folder is modified):
   * sts2.dll  - card pools and each card's rarity / type / cost, read as
@@ -152,6 +154,22 @@ def potion_catalog(pck: Pck) -> None:
     write_csv(SEEDS / "potion_catalog.csv", sorted(rows, key=lambda r: r["potion_id"]))
 
 
+def encounter_catalog(pck: Pck) -> None:
+    loc = json.loads(pck.read("localization/eng/encounters.json"))
+    rows = [{"encounter_id": f"ENCOUNTER.{k[:-len('.title')]}", "encounter_name": clean(v),
+             "loss_text": clean(loc.get(k[:-len(".title")] + ".loss", ""))}
+            for k, v in loc.items() if k.endswith(".title") and k.count(".") == 1]
+    write_csv(SEEDS / "encounter_catalog.csv", sorted(rows, key=lambda r: r["encounter_id"]))
+
+
+def rest_option_catalog(pck: Pck) -> None:
+    loc = json.loads(pck.read("localization/eng/rest_site_ui.json"))
+    rows = [{"rest_option": k[len("OPTION_"):-len(".name")], "option_name": clean(v),
+             "description": clean(loc.get(k[:-len(".name")] + ".description", ""))}
+            for k, v in loc.items() if k.startswith("OPTION_") and k.endswith(".name")]
+    write_csv(SEEDS / "rest_option_catalog.csv", sorted(rows, key=lambda r: r["rest_option"]))
+
+
 def relic_catalog(pck: Pck) -> None:
     loc = json.loads(pck.read("localization/eng/relics.json"))
     rows = [{"relic_id": f"RELIC.{k[:-len('.title')]}", "relic_name": clean(v),
@@ -170,6 +188,8 @@ def main():
     relic_catalog(pck)
     ancient_dialogue(pck)
     potion_catalog(pck)
+    encounter_catalog(pck)
+    rest_option_catalog(pck)
 
 
 if __name__ == "__main__":

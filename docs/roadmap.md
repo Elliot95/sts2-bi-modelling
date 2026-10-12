@@ -12,7 +12,6 @@ Field paths are from the structure discovery in
 
 | Raw field | Would become | Question it unlocks |
 |---|---|---|
-| `map_point_history[][].rooms[]`: `room_type`, `model_id`, `monster_ids[]`, `turns_taken` | `fct_room` (grain: run / floor / room) + `dim_encounter` | *Why* runs end: which fights cost the most HP and turns, and which encounters kill most often per act. This completes the report's guiding question ("where do my runs end?"), which floor-level HP can only partly answer. |
 | `modifiers` | `dim_modifier` + `bridge_run_modifier` (many-to-many) | Performance on challenge/modified runs vs standard. |
 | `players[1:].character` | `fct_run_player` (grain: run / player) | Co-op analysis: teammate characters (only `players[0]` is captured today, via `fact_run.character`). Would also make the host identifiable, so per-player HP metrics could be filled for multiplayer runs. |
 | `acts[]` (act IDs) | `dim_act` | Act-specific difficulty, if act variants differ between runs. |
@@ -25,6 +24,10 @@ backfill notes in `docs/gcp_setup.md`.
 
 ## Enrichment
 
+- **Rooms and rest sites**: done. `fct_combat` (one row per fight per
+  player: encounter, turns, HP going in, damage as % of max HP, potions
+  drunk, died here), `dim_encounter` (names + the game's death lines) and
+  `fct_rest_choice` (rest vs smith with HP going in), on the Fights page.
 - **Potions**: done. `fct_potion_event` (offered/used/discarded/bought
   per floor) and `fct_potion_run` (run roll-up incl. held at the end),
   with the Potions report page.

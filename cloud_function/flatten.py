@@ -37,6 +37,7 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
     }]
 
     floor_state, card_choices, cards_gained, event_choices, potion_events = [], [], [], [], []
+    rooms, rest_choices = [], []
 
     floor_number = 0
     for act_index, act in enumerate(data.get("map_point_history", [])):
@@ -47,6 +48,22 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
             # ("GOLDEN_COMPASS.title" in the relics table), not an event option.
             event_id = next((room.get("model_id") for room in (point.get("rooms") or [])
                              if (room.get("model_id") or "").startswith("EVENT.")), None)
+            # Rooms are shared by all players on the floor (usually one; an
+            # event can lead into a fight, giving two).
+            for room_index, room in enumerate(point.get("rooms") or []):
+                monsters = room.get("monster_ids") or []
+                rooms.append({
+                    "run_id": run_id,
+                    "run_date": run_date,
+                    "floor_number": floor_number,
+                    "act_index": act_index,
+                    "room_index": room_index,
+                    "room_type": room.get("room_type"),
+                    "model_id": room.get("model_id"),
+                    "monster_ids": "|".join(monsters),
+                    "monster_count": len(monsters),
+                    "turns_taken": room.get("turns_taken"),
+                })
             for stats in point.get("player_stats", []):
                 player_id = stats.get("player_id")
 
@@ -112,6 +129,17 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
                     for potion_id in stats.get(key) or []:
                         potion(potion_id, action)
 
+                for choice_index, option in enumerate(stats.get("rest_site_choices") or []):
+                    rest_choices.append({
+                        "run_id": run_id,
+                        "run_date": run_date,
+                        "floor_number": floor_number,
+                        "act_index": act_index,
+                        "player_id": player_id,
+                        "choice_index": choice_index,
+                        "rest_option": option,
+                    })
+
                 # Multi-step events record several choices on one floor, in order.
                 for choice_index, choice in enumerate(stats.get("event_choices") or []):
                     title = choice.get("title") or {}
@@ -171,4 +199,6 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
         "fact_event_choice": event_choices,
         "fact_potion_event": potion_events,
         "fact_run_potion": run_potions,
+        "fact_room": rooms,
+        "fact_rest_choice": rest_choices,
     }
