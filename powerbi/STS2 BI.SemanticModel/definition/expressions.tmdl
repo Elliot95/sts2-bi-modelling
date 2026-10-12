@@ -3,3 +3,8 @@ expression EventArtFolder = "C:\Users\1995e\sts2-bi-modelling\powerbi\assets\eve
 
 	annotation PBI_ResultType = Text
 
+expression CharacterArtFolder = "C:\Users\1995e\sts2-bi-modelling\powerbi\assets\characters" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 567822c2-5453-49e4-aba2-0551517da44e
+
+	annotation PBI_ResultType = Text
+

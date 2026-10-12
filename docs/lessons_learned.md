@@ -227,6 +227,7 @@ the primary source. Here it was both more legitimate and more accurate.
 | `VAR id = ...` and `VAR rows = ...` failed to parse. | Renamed them `eid` and `lns`. | **`id` and `rows` are reserved words in DAX.** |
 | `IF(cond, table1, table2)` failed with "multiple columns cannot be converted to a scalar". | Pick the scalar key with `IF`, then filter once. | `IF` returns scalars, not tables. |
 | A refresh of the new tables silently loaded nothing. | Fix the broken measures, then refresh again. | A refresh runs as a transaction, so one invalid measure rolls back the whole batch. |
+| The other pages looked plain next to Events. | A dark report theme for the defaults. On each page, a full-page art visual and panel colours driven by the **Character** slicer (character art and palette from the same extractor). Dark row shades from a dbt `shade_hex` macro, and brighter green/red. | Theme files set the defaults; measures set what changes. Doing both kept the per-visual edits small. |
 | Ancients showed "(Blank)" text. | Extract their dialogue per character and visit from `ancients.json`. Show the conversation for the character chosen in the Character slicer (Ironclad by default) in a scrollable panel with an Encounter dropdown. | The "missing" data existed, just under a different key structure. |
 | "(Blank)" appeared in the event picker. | Limit the dialogue to Ancients seen in runs, with a relationship test. | A many-side row with no match creates a blank member on the one side. |
 

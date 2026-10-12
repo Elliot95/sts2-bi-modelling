@@ -1,7 +1,7 @@
 table dim_card
 	lineageTag: ee24af1e-94b4-4eff-9c97-0357243aa7ce
 
-	measure 'Card Row Color' = SELECTEDVALUE(dim_card[card_color_tint], "#ffffff")
+	measure 'Card Row Color' = SELECTEDVALUE(dim_card[card_color_shade], "#111a2e")
 		lineageTag: 8a41ee17-a25a-407a-979d-93b6e891169d
 
 	column card_id
@@ -94,6 +94,15 @@ table dim_card
 		lineageTag: a68b915b-fba3-48c5-aa45-2d1033610b9c
 		summarizeBy: none
 		sourceColumn: in_catalog
+
+		annotation SummarizationSetBy = User
+
+	column card_color_shade
+		dataType: string
+		isHidden
+		lineageTag: 5eec6e9a-7308-42b9-912a-3438d83c4e27
+		summarizeBy: none
+		sourceColumn: card_color_shade
 
 		annotation SummarizationSetBy = User
 

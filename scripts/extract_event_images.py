@@ -1,7 +1,10 @@
 """
-Extracts event artwork from the player's OWN Slay the Spire 2 install for the
-report's Events page: one JPEG background per event, plus palette.csv with a
-colour theme derived from each image (dark base, panel and accent colours).
+Extracts artwork from the player's OWN Slay the Spire 2 install for the report:
+  * powerbi/assets/events/      one background per event (Events page)
+  * powerbi/assets/characters/  one background per character, plus Default
+                                (the other pages, themed by the Character slicer)
+Each folder gets a palette.csv with a colour theme derived from each image
+(dark base, panel and accent colours; characters use their card colour as accent).
 
 The art is Mega Crit's; this script exists so it can be rebuilt by anyone who
 owns the game, rather than redistributing the images themselves (the output
@@ -39,6 +42,11 @@ CANDIDATES = ["res://images/events/{n}.png",
               "res://animations/backgrounds/{n}_room/{n}.png",
               "res://animations/backgrounds/{n}/{n}.png",
               "res://images/ancients/{n}_placeholder.png"]
+# Finished timeline artwork for each character; Default is the title art.
+CHARACTER_ART = {"Ironclad": "ironclad2_epoch", "Silent": "silent1_epoch", "Defect": "defect1_epoch",
+                 "Necrobinder": "necrobinder1_epoch", "Regent": "regent5_epoch", "Default": "main_menu_bg_alt"}
+CHARACTER_ACCENT = {"Ironclad": "#ef4444", "Silent": "#22c55e", "Defect": "#38bdf8",
+                    "Necrobinder": "#8b5cf6", "Regent": "#eab308", "Default": "#f5b041"}
 DATA_IMAGE, DATA_PNG, DATA_WEBP = 0, 1, 2   # Godot CompressedTexture2D data formats
 # Godot Image::Format -> (DXGI format, bytes per 4x4 block) for block-compressed textures
 BLOCK_FORMATS = {17: (71, 8),    # DXT1 -> BC1_UNORM
@@ -100,6 +108,29 @@ def palette(img: Image.Image) -> dict:
     return {"bg": hex_hsv(h, s, 0.09), "panel": hex_hsv(h, s, 0.15), "accent": accent}
 
 
+def save_jpeg(img: Image.Image, path: Path, width: int) -> None:
+    h = round(img.height * width / img.width)
+    img.resize((width, h), Image.LANCZOS).save(path, quality=72, optimize=True)
+
+
+def write_palette(path: Path, key: str, rows: list[dict]) -> None:
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=[key, "bg", "panel", "accent"])
+        w.writeheader()
+        w.writerows(rows)
+
+
+def characters(pck: Pck, ctex: dict, out: Path, width: int) -> None:
+    out.mkdir(parents=True, exist_ok=True)
+    themes = []
+    for name, stem in CHARACTER_ART.items():
+        img = decode_ctex(pck.read(ctex[stem]))
+        save_jpeg(img, out / f"{name}.jpg", width)
+        themes.append({"character": name, **palette(img), "accent": CHARACTER_ACCENT[name]})
+    write_palette(out / "palette.csv", "character", themes)
+    print(f"{len(themes)} character images + palette -> {out}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(REPO / "powerbi" / "assets" / "events"))
@@ -134,14 +165,11 @@ def main():
         except ValueError as e:
             print(f"  skip {event_id}: {e}")
             continue
-        h = round(img.height * args.width / img.width)
-        img.resize((args.width, h), Image.LANCZOS).save(out / f"{name}.jpg", quality=72, optimize=True)
+        save_jpeg(img, out / f"{name}.jpg", args.width)
         themes.append({"event_id": event_id, **palette(img)})
     if not args.only:
-        with open(out / "palette.csv", "w", newline="", encoding="utf-8") as f:
-            w = csv.DictWriter(f, fieldnames=["event_id", "bg", "panel", "accent"])
-            w.writeheader()
-            w.writerows(themes)
+        write_palette(out / "palette.csv", "event_id", themes)
+        characters(pck, ctex, out.parent / "characters", args.width)
     print(f"{len(themes)} event images + palette -> {out}")
 
 

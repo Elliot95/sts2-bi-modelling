@@ -29,10 +29,10 @@ table fct_card_run
 		formatString: +0.0%;-0.0%;0.0%
 		lineageTag: c824930a-afab-446a-bbf5-768fe55a4598
 
-	measure 'Delta Font Color' = SWITCH(TRUE(), ISBLANK([Pick Win Delta]), BLANK(), [Pick Win Delta] > 0, "#15803d", [Pick Win Delta] < 0, "#b91c1c", "#374151")
+	measure 'Delta Font Color' = SWITCH(TRUE(), ISBLANK([Pick Win Delta]), BLANK(), [Pick Win Delta] > 0, "#4ade80", [Pick Win Delta] < 0, "#f87171", "#cbd5e1")
 		lineageTag: 267b8e73-899e-4c0e-be55-9f94704bf5b9
 
-	measure 'Picked Font Color' = IF(ISBLANK([Win Rate Picked]) || ISBLANK([Win Rate Skipped]), BLANK(), IF([Win Rate Picked] >= [Win Rate Skipped], "#15803d", "#b91c1c"))
+	measure 'Picked Font Color' = IF(ISBLANK([Win Rate Picked]) || ISBLANK([Win Rate Skipped]), BLANK(), IF([Win Rate Picked] >= [Win Rate Skipped], "#4ade80", "#f87171"))
 		lineageTag: e0e05da9-10d6-4a51-a24f-42483e838d0d
 
 	column run_id

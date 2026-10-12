@@ -159,6 +159,24 @@ These are the only Power BI queries that don't read `sts2_marts`. They
 are presentation assets, not data, and keeping them local keeps them
 out of BigQuery and the repo.
 
+## Report-wide dark theme, driven by the Character slicer
+
+The other pages share the Events look. `powerbi/theme/sts2_theme.json`
+is a dark theme covering text, axes, gridlines, tables and slicers. On
+Where runs end, Solo vs Multiplayer, Cards and Explore, a full-page Image
+visual shows the selected character's artwork (`Page Image`). Every
+panel's background, border and title follow `Page Panel` / `Page Accent`
+from `character_theme`.
+
+- Pick Ironclad and the pages turn red with Ironclad's art; with no
+  character picked they use the game's title art.
+- The art and palettes come from the same extractor
+  (`powerbi/assets/characters/`, gitignored).
+- Accents use the characters' card colours, so they match the row tints.
+- Rows use `*_color_shade` (dbt's `shade_hex`, the character colour mixed
+  75% into the dark base), and good/bad numbers use light green/red
+  (`#4ade80` / `#f87171`) that read on dark panels.
+
 ## Sharing (free tier)
 
 Publishing to the Power BI Service under **My Workspace** is free, and

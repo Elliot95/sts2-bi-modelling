@@ -37,6 +37,9 @@ models:
       - name: character_color_tint
         data_type: string
         description: Pale tint of character_color (80% white) for readable backgrounds.
+      - name: character_color_shade
+        data_type: string
+        description: Deep shade of character_color (75% dark base) for row backgrounds on the dark report theme.
       - name: ascension
         data_type: int64
       - name: game_mode
@@ -155,6 +158,9 @@ models:
       - name: card_color_tint
         data_type: string
         description: Pale tint of card_color (80% white) for readable table backgrounds.
+      - name: card_color_shade
+        data_type: string
+        description: Deep shade of card_color (75% dark base) for row backgrounds on the dark report theme.
       - name: in_catalog
         data_type: bool
       - name: first_seen_run_id

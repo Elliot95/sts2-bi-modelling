@@ -1,0 +1,51 @@
+table character_image
+	isHidden
+	lineageTag: c341bb23-be97-4149-a568-9f2320776b60
+
+	column character
+		dataType: string
+		isHidden
+		lineageTag: d8fd1c3b-d077-4803-a50b-f47b74a5b443
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = User
+
+	column part
+		dataType: int64
+		isHidden
+		lineageTag: 17f98170-0864-442e-8c3d-5c5f521e08a7
+		summarizeBy: none
+		sourceColumn: part
+
+		annotation SummarizationSetBy = User
+
+	column chunk
+		dataType: string
+		isHidden
+		lineageTag: b883be19-3a50-4e7a-a28c-3c1a25da9b5b
+		summarizeBy: none
+		sourceColumn: chunk
+
+		annotation SummarizationSetBy = User
+
+	partition character_image = m
+		mode: import
+		source =
+				let
+				    // Artwork extracted from the local game install by scripts/extract_event_images.py.
+				    // A text value is capped at 32,766 characters, so each image's base64 is split into
+				    // 30,000-character chunks; the Page Image measure stitches them back together.
+				    // Missing folder -> empty table, so refresh never fails on a fresh clone.
+				    Files = try Table.Buffer(Folder.Files(CharacterArtFolder)) otherwise #table({"Name", "Extension", "Content"}, {}),
+				    Jpgs = Table.SelectRows(Files, each Text.Lower([Extension]) = ".jpg"),
+				    WithId = Table.AddColumn(Jpgs, "character", each Text.BeforeDelimiter([Name], "."), type text),
+				    WithParts = Table.AddColumn(WithId, "parts", each let b64 = Binary.ToText([Content], BinaryEncoding.Base64) in List.Transform({0 .. Number.RoundUp(Text.Length(b64) / 30000) - 1}, (i) => [part = i, chunk = Text.Middle(b64, i * 30000, 30000)])),
+				    Rows = Table.ExpandListColumn(Table.SelectColumns(WithParts, {"character", "parts"}), "parts"),
+				    Expanded = Table.ExpandRecordColumn(Rows, "parts", {"part", "chunk"}),
+				    Result = Table.TransformColumnTypes(Expanded, {{"part", Int64.Type}, {"chunk", type text}})
+				in
+				    Result
+
+	annotation PBI_ResultType = Table
+

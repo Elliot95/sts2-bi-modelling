@@ -36,16 +36,16 @@ table dim_run
 	measure 'Character Color' = SELECTEDVALUE(dim_run[character_color], "#64748b")
 		lineageTag: 23a09d6c-7509-4a39-94c5-d247ba7ff894
 
-	measure 'Character Row Color' = SELECTEDVALUE(dim_run[character_color_tint], "#ffffff")
+	measure 'Character Row Color' = SELECTEDVALUE(dim_run[character_color_shade], "#111a2e")
 		lineageTag: ffb3b050-ef32-4802-b8b9-8a25c9d7d403
 
-	measure 'Win Rate Font Color' = VAR r = [Win Rate (Completed)] VAR overall = CALCULATE([Win Rate (Completed)], ALL(dim_run)) RETURN IF(ISBLANK(r), BLANK(), IF(r >= overall, "#15803d", "#b91c1c"))
+	measure 'Win Rate Font Color' = VAR r = [Win Rate (Completed)] VAR overall = CALCULATE([Win Rate (Completed)], ALL(dim_run)) RETURN IF(ISBLANK(r), BLANK(), IF(r >= overall, "#4ade80", "#f87171"))
 		lineageTag: 8f10db5f-1669-496b-8d03-394681bada1f
 
-	measure 'Floors Font Color' = VAR f = [Avg Floors Reached] VAR overall = CALCULATE([Avg Floors Reached], ALL(dim_run)) RETURN IF(ISBLANK(f), BLANK(), IF(f >= overall, "#15803d", "#b91c1c"))
+	measure 'Floors Font Color' = VAR f = [Avg Floors Reached] VAR overall = CALCULATE([Avg Floors Reached], ALL(dim_run)) RETURN IF(ISBLANK(f), BLANK(), IF(f >= overall, "#4ade80", "#f87171"))
 		lineageTag: 295bea7a-f891-4456-b601-0090cfd1ce4f
 
-	measure 'Outcome Font Color' = SWITCH(SELECTEDVALUE(dim_run[outcome]), "Won", "#15803d", "Lost", "#b91c1c", "Abandoned", "#6b7280")
+	measure 'Outcome Font Color' = SWITCH(SELECTEDVALUE(dim_run[outcome]), "Won", "#4ade80", "Lost", "#f87171", "Abandoned", "#9ca3af")
 		lineageTag: f093957a-9b56-4ed0-b19b-fd828640767f
 
 	column run_id
@@ -317,6 +317,15 @@ table dim_run
 		lineageTag: 6ccfe188-0d79-441c-b815-e5586ce4ec8a
 		summarizeBy: none
 		sourceColumn: run_time_minutes
+
+		annotation SummarizationSetBy = User
+
+	column character_color_shade
+		dataType: string
+		isHidden
+		lineageTag: 2200962b-e49d-41a8-9bdf-ecbdd158ff44
+		summarizeBy: none
+		sourceColumn: character_color_shade
 
 		annotation SummarizationSetBy = User
 

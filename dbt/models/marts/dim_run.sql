@@ -47,6 +47,7 @@ select
     {{ readable_id('r.character') }}            as character_name,
     coalesce(cc.character_color, '#9ca3af')     as character_color,
     {{ tint_hex("coalesce(cc.character_color, '#9ca3af')") }} as character_color_tint,
+    {{ shade_hex("coalesce(cc.character_color, '#9ca3af')") }} as character_color_shade,
     r.ascension,
     r.game_mode,
     r.build_id,
