@@ -13,7 +13,18 @@ def _run_date(start_time: int) -> str:
     return datetime.datetime.fromtimestamp(start_time, datetime.timezone.utc).date().isoformat()
 
 
-def flatten_run(data: dict) -> dict[str, list[dict]]:
+def save_source(object_name: str) -> str:
+    """Which save folder a run came from, from its path under raw/ in GCS:
+    raw/<file>.run -> Vanilla (the original profile1 uploads),
+    raw/modded/profileN/<file>.run -> Modded, raw/profileN/<file>.run -> Profile N."""
+    parts = object_name.split("/")[1:-1]
+    if "modded" in parts:
+        return "Modded"
+    profile = next((p for p in parts if p.startswith("profile")), "profile1")
+    return "Vanilla" if profile == "profile1" else f"Profile {profile[len('profile'):]}"
+
+
+def flatten_run(data: dict, source: str = "Vanilla") -> dict[str, list[dict]]:
     run_id = data["start_time"]
     run_date = _run_date(run_id)
     primary_player = (data.get("players") or [{}])[0]
@@ -34,6 +45,7 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
         "was_abandoned": data.get("was_abandoned"),
         "win": data.get("win"),
         "schema_version": data.get("schema_version"),
+        "save_source": source,
     }]
 
     floor_state, card_choices, cards_gained, event_choices, potion_events = [], [], [], [], []

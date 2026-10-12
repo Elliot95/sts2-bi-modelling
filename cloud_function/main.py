@@ -24,7 +24,7 @@ import os
 import functions_framework
 from google.cloud import bigquery, storage
 
-from flatten import flatten_run
+from flatten import flatten_run, save_source
 
 DATASET = os.environ.get("BQ_DATASET", "sts2")
 
@@ -112,7 +112,7 @@ def load_run(cloud_event):
     blob = storage_client.bucket(bucket_name).blob(object_name)
     data = json.loads(blob.download_as_text())
 
-    tables = flatten_run(data)
+    tables = flatten_run(data, save_source(object_name))
     run_id = tables["fact_run"][0]["run_id"]
     run_date = tables["fact_run"][0]["run_date"]
 

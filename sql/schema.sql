@@ -67,7 +67,11 @@ CREATE TABLE IF NOT EXISTS sts2.fact_run (
   killed_by_event     STRING,
   was_abandoned       BOOL,
   win                 BOOL,
-  schema_version      INT64
+  schema_version      INT64,
+  -- Vanilla / Modded: which save folder the run came from. Added after the
+  -- initial load: ALTER TABLE sts2.fact_run ADD COLUMN save_source STRING
+  -- (older rows are NULL = Vanilla; dbt staging coalesces).
+  save_source         STRING
 )
 PARTITION BY run_date
 CLUSTER BY character, ascension;

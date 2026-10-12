@@ -86,7 +86,13 @@ gcloud functions deploy sts2-load-run \
   --trigger-service-account=$LOADER \
   --timeout=300 \
   --set-env-vars=BQ_DATASET=sts2 \
-  --max-instances=1
+  --max-instances=1 \
+  --retry
+
+# --retry: with one instance, a burst of uploads finds it busy and Eventarc's
+# delivery is aborted ("no available instance"). Without a retry policy those
+# runs are silently dropped; with it they are redelivered. Safe because the
+# loader is idempotent per run_id (delete-then-load).
 
 # The trigger identity must be allowed to invoke the function, otherwise every
 # event is rejected with "The request was not authenticated" (a WARNING, not
