@@ -1,5 +1,4 @@
 table dim_ancient_dialogue
-	isHidden
 	lineageTag: c88262d5-cc19-4d31-ab28-40be0db0ba6c
 
 	column event_id
@@ -40,7 +39,6 @@ table dim_ancient_dialogue
 
 	column speaker
 		dataType: string
-		isHidden
 		lineageTag: 47cc4ca9-2a2a-4908-b02d-31ca76731412
 		summarizeBy: none
 		sourceColumn: speaker
@@ -49,10 +47,35 @@ table dim_ancient_dialogue
 
 	column text
 		dataType: string
-		isHidden
 		lineageTag: cc10f981-7af3-4ed1-934f-9fd859d52c13
 		summarizeBy: none
 		sourceColumn: text
+
+		annotation SummarizationSetBy = User
+
+	column step
+		dataType: int64
+		lineageTag: 959e7142-c790-4f4b-8425-573a31a5af80
+		summarizeBy: none
+		sourceColumn: step
+
+		annotation SummarizationSetBy = User
+
+	column encounter
+		dataType: string
+		lineageTag: 5bad0d50-8c80-44e8-9804-b2b6c2da9321
+		summarizeBy: none
+		sourceColumn: encounter
+		sortByColumn: encounter_order
+
+		annotation SummarizationSetBy = User
+
+	column encounter_order
+		dataType: int64
+		isHidden
+		lineageTag: e3970a19-8bc1-480a-9439-ff3f0b7a84aa
+		summarizeBy: none
+		sourceColumn: encounter_order
 
 		annotation SummarizationSetBy = User
 

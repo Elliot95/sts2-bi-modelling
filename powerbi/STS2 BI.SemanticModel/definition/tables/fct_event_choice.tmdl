@@ -56,6 +56,9 @@ table fct_event_choice
 	measure 'Dialogue Character' = IF(HASONEVALUE(dim_run[character_name]), VALUES(dim_run[character_name]), "Ironclad")
 		lineageTag: 62ff94d2-32b1-4461-bf9f-b48f614a9987
 
+	measure 'Dialogue Line' = VAR ch = [Dialogue Character] VAR lns = FILTER(dim_ancient_dialogue, dim_ancient_dialogue[character] IN {ch, "Any"}) RETURN IF(NOT ISEMPTY(lns), CONCATENATEX(lns, dim_ancient_dialogue[text], " / ", dim_ancient_dialogue[event_id], ASC))
+		lineageTag: c1efd8c8-1b8b-4dc8-9f24-09eb8c987781
+
 	column run_id
 		dataType: int64
 		isHidden

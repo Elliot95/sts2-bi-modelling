@@ -54,3 +54,7 @@ relationship rel_event_event_choice
 	fromColumn: fct_event_choice.event_id
 	toColumn: dim_event.event_id
 
+relationship rel_event_dialogue
+	fromColumn: dim_ancient_dialogue.event_id
+	toColumn: dim_event.event_id
+

@@ -416,9 +416,17 @@ models:
     config:
       contract: {enforced: true}
     columns:
-      - {name: event_id, data_type: string, constraints: [{type: not_null}]}
+      - name: event_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_event'), field: event_id}
       - {name: character, data_type: string, description: "Ironclad / Silent / Defect / Necrobinder / Regent, or Any / First visit for generic lines."}
       - {name: conversation, data_type: int64}
       - {name: line, data_type: int64}
+      - {name: step, data_type: int64, description: 1-based line number within the conversation.}
+      - {name: encounter, data_type: string, description: "Encounter 1 = first meeting, then return visits; Generic N = lines for any character."}
+      - {name: encounter_order, data_type: int64, description: Sort key for encounter.}
       - {name: speaker, data_type: string}
       - {name: text, data_type: string}
