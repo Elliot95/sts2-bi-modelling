@@ -1,21 +1,31 @@
 table event_image
-	lineageTag: 028f85ca-9f88-4e4b-b43b-b3dd370d3fa9
+	isHidden
+	lineageTag: 04c107f4-2e9c-468c-825d-a0c370030ac5
 
 	column event_id
 		dataType: string
 		isHidden
-		lineageTag: 76f4b187-8ada-459c-a1a3-2d895886a78b
+		lineageTag: 099a5110-2ff3-45c1-98b8-1957acf9ed2a
 		summarizeBy: none
 		sourceColumn: event_id
 
 		annotation SummarizationSetBy = User
 
-	column image_url
-		dataType: string
-		lineageTag: 1db0bf05-8c31-455d-ac79-ba0e08fc940b
-		dataCategory: ImageUrl
+	column part
+		dataType: int64
+		isHidden
+		lineageTag: 60862e63-3d40-4f72-a120-981c184ef663
 		summarizeBy: none
-		sourceColumn: image_url
+		sourceColumn: part
+
+		annotation SummarizationSetBy = User
+
+	column chunk
+		dataType: string
+		isHidden
+		lineageTag: 32b455fe-5892-410e-9f90-9af0a3471009
+		summarizeBy: none
+		sourceColumn: chunk
 
 		annotation SummarizationSetBy = User
 
@@ -24,12 +34,16 @@ table event_image
 		source =
 				let
 				    // Artwork extracted from the local game install by scripts/extract_event_images.py.
+				    // A text value is capped at 32,766 characters, so each image's base64 is split into
+				    // 30,000-character chunks; the Event Image measure stitches them back together.
 				    // Missing folder -> empty table, so refresh never fails on a fresh clone.
 				    Files = try Table.Buffer(Folder.Files(EventArtFolder)) otherwise #table({"Name", "Extension", "Content"}, {}),
 				    Jpgs = Table.SelectRows(Files, each Text.Lower([Extension]) = ".jpg"),
 				    WithId = Table.AddColumn(Jpgs, "event_id", each "EVENT." & Text.Upper(Text.BeforeDelimiter([Name], ".")), type text),
-				    WithUrl = Table.AddColumn(WithId, "image_url", each "data:image/jpeg;base64," & Binary.ToText([Content], BinaryEncoding.Base64), type text),
-				    Result = Table.SelectColumns(WithUrl, {"event_id", "image_url"})
+				    WithParts = Table.AddColumn(WithId, "parts", each let b64 = Binary.ToText([Content], BinaryEncoding.Base64) in List.Transform({0 .. Number.RoundUp(Text.Length(b64) / 30000) - 1}, (i) => [part = i, chunk = Text.Middle(b64, i * 30000, 30000)])),
+				    Rows = Table.ExpandListColumn(Table.SelectColumns(WithParts, {"event_id", "parts"}), "parts"),
+				    Expanded = Table.ExpandRecordColumn(Rows, "parts", {"part", "chunk"}),
+				    Result = Table.TransformColumnTypes(Expanded, {{"part", Int64.Type}, {"chunk", type text}})
 				in
 				    Result
 

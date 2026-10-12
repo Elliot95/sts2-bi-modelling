@@ -108,34 +108,56 @@ documented columns, is meant to prevent.
 "decision impact" metric the project README calls out as the end goal —
 it answers "do I win more often in runs where I picked this card?".
 
-## Event artwork
+## Event artwork and theming
 
-The Events page shows each event's illustration. The art belongs to Mega
-Crit, so this public repo never contains it. It is rebuilt from the
-player's own install instead:
+On the Events page, picking an event in the left-hand list re-skins the
+page. The event's illustration fills the background, and every panel,
+title and figure takes on a colour theme derived from that artwork. The
+art belongs to Mega Crit, so this public repo never contains it. It is
+rebuilt from the player's own install instead:
 
-1. `python scripts/extract_event_images.py` reads `SlayTheSpire2.pck`,
-   decodes each event's texture (Godot `.ctex`: embedded WebP/PNG, or
-   BC1/BC3/BC7 blocks wrapped in a DDS header for Pillow), and writes
-   ~480px JPEG thumbnails to `powerbi/assets/events/` (gitignored).
-2. The `event_image` table reads that folder with `Folder.Files` (path
-   in the `EventArtFolder` parameter, Transform data → Edit parameters)
-   and turns each file into a `data:image/jpeg;base64,...` URI. The
-   `Event Image` measure is categorised as *Image URL*, so a table
-   renders it as a picture.
+1. `python scripts/extract_event_images.py` reads `SlayTheSpire2.pck`.
+   It decodes each event's texture (Godot `.ctex`: embedded WebP/PNG,
+   or BC1/BC3/BC7 blocks wrapped in a DDS header for Pillow) and writes
+   a 1600px JPEG per event to `powerbi/assets/events/` (gitignored).
+   It also writes `palette.csv` there, with a dark base, panel and
+   accent colour per event: the image's average hue pushed dark, plus
+   its most vivid dominant colour.
+2. Power BI reads that folder. The folder path is the `EventArtFolder`
+   parameter (Transform data → Edit parameters).
+   - `event_image` holds each image as base64 text, split into
+     30,000-character chunks, because a text value is capped at 32,766
+     characters.
+   - The `Event Image` measure reassembles the chunks with
+     `CONCATENATEX` into a `data:image/jpeg;base64,...` URI.
+   - `event_theme` loads `palette.csv`. Its `Theme Bg` / `Theme Panel` /
+     `Theme Accent` measures drive conditional formatting on every
+     visual's background, border, title and cells.
+   - With no event selected, both fall back to Neow.
+3. A full-page **Image** visual sits behind everything, with its URL
+   bound to `Event Image`.
 
-Why data URIs rather than links: Power BI image visuals only load
-`http(s)` or `data:` URLs, not local paths, and hosting the images
-publicly would mean redistributing them. A text value is capped at
-32,766 characters, so the script keeps every JPEG under 23 KB.
+Design notes:
 
-If the folder is missing (a fresh clone), the query returns an empty
-table and refresh still succeeds; the page just shows no artwork. After
-a game patch, re-run the script and Refresh.
+- **Why a slicer and not a table click.** A slicer filter reaches
+  formatting expressions on every visual, including the image. A
+  table's cross-highlight doesn't.
+- **Why two visuals stay neutral.** The picker never filters itself,
+  and the "All events" comparison table is set to ignore it (a NoFilter
+  interaction). Both would otherwise show a stale theme, so they use a
+  fixed slate style. In the comparison table, each row is tinted by its
+  own event's palette.
+- **Why data URIs rather than links.** Power BI image visuals only load
+  `http(s)` or `data:` URLs, not local paths. Hosting the images
+  publicly would mean redistributing them.
+- **Missing folder.** If the folder is missing (a fresh clone), both
+  queries return empty tables and refresh still succeeds. The page then
+  shows the fallback theme and no art. After a game patch, re-run the
+  script and Refresh.
 
-This is the one Power BI query that doesn't read `sts2_marts`. It is a
-presentation asset, not data, and keeping it local keeps it out of
-BigQuery and the repo.
+These are the only Power BI queries that don't read `sts2_marts`. They
+are presentation assets, not data, and keeping them local keeps them
+out of BigQuery and the repo.
 
 ## Sharing (free tier)
 

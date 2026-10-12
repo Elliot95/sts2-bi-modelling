@@ -54,7 +54,3 @@ relationship rel_event_event_choice
 	fromColumn: fct_event_choice.event_id
 	toColumn: dim_event.event_id
 
-relationship rel_event_image
-	fromColumn: event_image.event_id
-	toColumn: dim_event.event_id
-

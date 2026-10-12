@@ -41,15 +41,11 @@ table fct_event_choice
 		formatString: +0;-0;0
 		lineageTag: a6762bca-9dc9-4be1-9c25-1c21166da39f
 
-	measure 'Choice Win Font Color' = VAR r = [Choice Win Rate] VAR evt = CALCULATE([Choice Win Rate], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r >= evt, "#15803d", "#b91c1c"))
+	measure 'Choice Win Font Color' = VAR r = [Choice Win Rate] VAR evt = CALCULATE([Choice Win Rate], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r >= evt, "#4ade80", "#f87171"))
 		lineageTag: 8fa77e75-d16e-433f-b64f-cdc11e218bfa
 
-	measure 'Death Font Color' = VAR r = [Died Before Next Act %] VAR evt = CALCULATE([Died Before Next Act %], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r <= evt, "#15803d", "#b91c1c"))
+	measure 'Death Font Color' = VAR r = [Died Before Next Act %] VAR evt = CALCULATE([Died Before Next Act %], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r <= evt, "#4ade80", "#f87171"))
 		lineageTag: b8047176-5267-4381-a698-ea85f60c3560
-
-	measure 'Event Image' = SELECTEDVALUE(event_image[image_url])
-		lineageTag: c01e1d48-dd05-4787-8b6c-4778b73bb73c
-		dataCategory: ImageUrl
 
 	measure 'Event Description' = SELECTEDVALUE(dim_event[description], "Select an event to read its opening text.")
 		lineageTag: d61c9eae-27e2-40b2-b90b-7d8b9eb20d30
