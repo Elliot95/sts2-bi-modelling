@@ -38,8 +38,18 @@ reasoning, this file is just the entry point:
   tables. It runs in GitHub Actions (`.github/workflows/dbt.yml`) via
   keyless Workload Identity Federation. Run locally with
   `dbt/.venv/Scripts/dbt build --profiles-dir .` from `dbt/`.
-- Power BI: PBIP project in `powerbi/`, reading **only** `sts2_marts`.
-  Report pages are the current next step (see `docs/progress.md`).
+- Power BI: PBIP project in `powerbi/`, reading **only** `sts2_marts`
+  (plus local event artwork, see below). Pages: Where runs end, Solo vs
+  Multiplayer, Cards, Events, Explore (+ the user's two scratch pages).
+- Reference data comes from the user's installed game, never the web:
+  `scripts/build_reference_seeds.py` (cards via `tools/sts2_reference`,
+  events/options/relics/Ancient dialogue via `scripts/sts2_pck.py`) ->
+  dbt seeds. Do not scrape slaythespire2.gg (its ToS forbids it).
+- Event artwork + palettes: `scripts/extract_event_images.py` ->
+  `powerbi/assets/events/` (gitignored, Mega Crit IP, never commit).
+  Power BI embeds it as chunked base64 data URIs (`event_image`,
+  `event_theme`). See `docs/powerbi_setup.md`.
+- The full story of problems and fixes: `docs/lessons_learned.md`.
 
 ## Conventions
 
@@ -51,6 +61,14 @@ reasoning, this file is just the entry point:
   `"Entity"`/`queryRef` names in `powerbi/STS2 BI.Report/report.json`.
 - The `bq` CLI is unreliable in `cmd.exe` on this machine (Store Python
   alias). Use PowerShell, or the BigQuery console.
+- Report stays in the legacy `report.json` format: always click
+  "Don't upgrade" on save (PBIR broke the project before).
+- DAX: `id` and `rows` are reserved (not usable as VAR names); `IF` can't
+  return tables. A refresh with one invalid measure rolls back the batch.
+- To inspect a running Desktop model: its local Analysis Services port is
+  in `%USERPROFILE%\Microsoft\Power BI Desktop Store App\AnalysisServicesWorkspaces\*\Data\msmdsrv.port.txt`;
+  query it with ADOMD.NET (`Microsoft.PowerBI.AdomdClient.dll` in the
+  Desktop install) for DMVs, DAX, and TMSL refreshes.
 
 ## Things worth knowing before touching the pipeline
 

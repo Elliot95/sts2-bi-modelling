@@ -34,6 +34,11 @@ BigQuery  sts2_marts    tested, contract-enforced star schema
         │  Import mode
         ▼
 Power BI  (powerbi/ PBIP project, reads sts2_marts only)
+
+Second source: the installed game files (SlayTheSpire2.pck, sts2.dll)
+        │  scripts/build_reference_seeds.py  -> dbt seeds (cards, events,
+        │                                       relics, Ancient dialogue)
+        │  scripts/extract_event_images.py   -> local artwork + palettes
 ```
 
 * **Ingestion**: a local script uploads new `.run` files to a GCS bucket,
@@ -56,6 +61,9 @@ GCP, [`docs/powerbi_setup.md`](docs/powerbi_setup.md) for connecting and
 modelling in Power BI. Current build status, deployed resource names, and
 issues hit along the way are tracked in [`docs/progress.md`](docs/progress.md).
 
+**The full story** (every stage, each problem hit, how it was solved and
+why, and the lessons) is in [`docs/lessons_learned.md`](docs/lessons_learned.md).
+
 ---
 
 ## 📂 Project Structure
@@ -67,19 +75,29 @@ sts2-bi-modelling/
 │   ├── gcp_setup.md
 │   ├── powerbi_setup.md
 │   ├── progress.md             # build status + issues hit and fixed
+│   ├── lessons_learned.md      # end-to-end story: problems, fixes, why
+│   ├── audit.md / audit.pdf    # evidence-based end-to-end audit
+│   ├── report.pdf              # static export of the report
 │   └── roadmap.md              # unmodelled raw data -> questions it unlocks
 ├── sql/
 │   └── schema.sql              # raw landing tables DDL
 ├── scripts/
 │   ├── upload_to_gcs.py        # local uploader, run via Task Scheduler
+│   ├── backfill_table.py       # load one table from all local runs
+│   ├── sts2_pck.py             # reader for the game's Godot .pck archive
+│   ├── build_reference_seeds.py  # game files -> dbt reference seeds
+│   ├── extract_event_images.py   # game files -> local event art + palettes
 │   ├── generate_dim_date.py    # deprecated: dim_date now built in dbt
 │   └── exploration/            # early ad-hoc schema-discovery scripts
+├── tools/sts2_reference/       # .NET metadata reader for sts2.dll (card data)
 ├── cloud_function/
-│   ├── main.py                 # flatten + load .run JSON into BigQuery
+│   ├── main.py                 # load into BigQuery (idempotent per run_id)
+│   ├── flatten.py              # pure JSON -> rows logic, shared with backfills
 │   └── requirements.txt
 ├── dbt/
 │   ├── models/staging/         # stg_sts2__* views over the raw tables
 │   ├── models/marts/           # dim_* / fct_* star schema (contracts)
+│   ├── seeds/                  # reference data built from the game files
 │   └── tests/                  # singular data-quality tests
 ├── powerbi/                    # Power BI PBIP project (TMDL semantic model)
 ├── .github/workflows/dbt.yml   # scheduled dbt build
@@ -115,8 +133,11 @@ The star schema Power BI reads lives in `sts2_marts`, built by dbt:
   Run attributes (character, ascension, mode, outcome, killed by) plus
   derived run metrics: `floors_reached`, `acts_reached`, `death_floor`,
   `player_count`, and single-player `final_hp` / `total_damage_taken`
-* `dim_card` / `dim_relic`: catalogs discovered from the data, with a
-  readable name derived from the ID (`CARD.BATTLE_TRANCE` → Battle Trance)
+* `dim_card` / `dim_relic`: catalogs discovered from the data, enriched
+  from the game files (card pool, rarity, type, cost, colour; relic names)
+* `dim_event`: every event and Ancient seen in runs, with its opening text
+* `dim_ancient_dialogue`: what each Ancient says to each character, by
+  encounter
 * `dim_date`: calendar for time intelligence, generated in dbt
 
 **Facts** (each relates to `dim_run` on `run_id`, never to another fact)
@@ -124,6 +145,10 @@ The star schema Power BI reads lives in `sts2_marts`, built by dbt:
 * `fct_card_choice`: one row per card offered at a choice screen, with
   `was_picked`; drives pick-rate and decision-impact analysis
 * `fct_card_gained`: cards added outside a choice screen
+* `fct_card_run`: card offers rolled up to run / player / card (picked vs
+  skipped in the same run, for the win-rate comparison)
+* `fct_event_choice`: one row per event or Ancient choice, joined to what
+  happened next (died before the next act, within 3 floors, HP/gold change)
 * `fct_run_relic` / `fct_run_deck_card`: end-of-run relic and deck snapshots
 
 Grain, column descriptions and contracts are in
@@ -139,7 +164,8 @@ semantic model.
 
 ## ✅ Data Quality
 
-`dbt build` runs 63 checks on every build:
+`dbt build` runs 114 checks on every build (113 pass; 1 expected warning
+for 3 cards the game has since retired):
 
 * **Source tests on the raw tables** (strict): unique/not-null keys. These
   exist because of a real incident: concurrent Cloud Function invocations
@@ -174,18 +200,21 @@ Findings the modelling surfaced:
   teammates' decks/relics/floor state can be compared directly
 * `fact_run.character` only extracts `players[0]` — non-host players'
   character choices aren't captured anywhere yet
-* `dim_card` / `dim_relic` names are derived from IDs; real metadata
-  (rarity, cost, character) needs an external catalog
 * Modifiers, potions and per-room combat detail are in the raw JSON but
   not modelled yet
+* Event artwork is not in the repo: run `scripts/extract_event_images.py`
+  against your own install to see it (the report works without it)
 
 ---
 
 ## 📑 Report & audit
 
-* [`docs/report.pdf`](docs/report.pdf): static export of the Power BI report
-  (Where runs end, Solo vs Multiplayer, Card picks, Explore), viewable
-  without Power BI.
+* Report pages: **Where runs end**, **Solo vs Multiplayer**, **Cards**,
+  **Events** (pick an event and the page takes on its artwork and colours;
+  option outcomes, and Ancient dialogue by character and encounter) and
+  **Explore**.
+* [`docs/report.pdf`](docs/report.pdf): static export of the Power BI report,
+  viewable without Power BI (exported before the Events page was added).
 * [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based
   end-to-end audit from local save files to the report. Covers the
   reconciliation chain (946 runs at every stage), status by stage, and a
@@ -197,8 +226,8 @@ Findings the modelling surfaced:
 
 See [`docs/roadmap.md`](docs/roadmap.md): each unmodelled raw field mapped
 to the table it would become and the question it would answer. Next on
-the report side: finish the report pages around the guiding question,
-"where do my runs end, and what does the run look like on the way there?"
+the model side, `fct_room` (per-room combat detail) is the highest-value
+addition.
 
 ---
 

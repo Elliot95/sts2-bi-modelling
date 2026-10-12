@@ -17,10 +17,14 @@ land — it's the fastest way to answer "where did we leave off?"
 | End-to-end test (1 real run, upload → BigQuery) | ✅ Verified — `fact_run` returned the correct row |
 | Bulk backfill of full local run history       | ✅ Done — 946/946 runs loaded, no duplicates |
 | Task Scheduler automation                     | ✅ Done — monthly, verified with a manual test run (0x0 success) |
-| dbt staging + marts + tests (`dbt/`)          | ✅ Done: 63 checks, all passing |
+| dbt staging + marts + tests (`dbt/`)          | ✅ Done: 114 checks (113 pass, 1 expected warn) |
 | dbt scheduled in GitHub Actions (keyless WIF) | ✅ Done: verified green on PR #1; daily cron starts once merged to `main` |
 | Power BI connected (PBIP, reads `sts2_marts` only) | ✅ Done: refresh verified, no fact-to-fact relationships |
-| Power BI report pages / dashboards            | 🟡 In progress: Totals + Explore pages; guiding-question pages to build |
+| Power BI report pages / dashboards            | ✅ Done: Where runs end, Solo vs Multiplayer, Cards, Events, Explore |
+| Reference data from the game files (seeds)    | ✅ Done: replaced the scraped wiki catalogue (ToS) |
+| Event choices (extract, model, report)        | ✅ Done: 8,596 choices backfilled; immersive Events page |
+| Error alerting + least-privilege loader SA    | ✅ Done (audit F3, F4) |
+| End-to-end audit                              | ✅ Done (`docs/audit.md`); re-audit after the Events work pending |
 
 ## Deployed resources
 
@@ -28,7 +32,8 @@ land — it's the fastest way to answer "where did we leave off?"
 - **GCS bucket**: `sts2-runs-1995ebj` (raw landing zone, objects under `raw/`)
 - **BigQuery dataset**: `sts2` (all 9 tables from `sql/schema.sql` created)
 - **Cloud Function**: `sts2-load-run` (2nd gen, Python 3.12, triggered on new objects in the bucket)
-- **Function service account**: default compute SA (`448620880316-compute@developer.gserviceaccount.com`), granted `roles/bigquery.dataEditor`, `roles/bigquery.jobUser`, `roles/storage.objectViewer`
+- **Function service account**: dedicated `sts2-loader` (least privilege: dataset-level WRITER on `sts2`, `bigquery.jobUser`, bucket read; `run.invoker` for the Eventarc trigger). Replaced the default compute SA (audit F4)
+- **Alerting**: log-based alert policy `17871407405085931371` emails on function errors and on "was not authenticated" rejections (`docs/monitoring_alert_policy.json`)
 - **BigQuery datasets**: `sts2` (raw, Cloud Function), `sts2_staging` (dbt views), `sts2_marts` (dbt tables, read by Power BI)
 - **dbt runner**: service account `dbt-runner@sts2-bi-1995ebj.iam.gserviceaccount.com` (`bigquery.dataEditor`, `bigquery.jobUser`), impersonated from GitHub Actions via Workload Identity Federation pool/provider `github`, restricted to `Elliot95/sts2-bi-modelling`. Repo variables `GCP_WIF_PROVIDER`, `GCP_SA_EMAIL`
 - **Cloud Function concurrency**: `--max-instances=1` (was 10; see issue 6)
@@ -106,6 +111,21 @@ scratch (a new environment, a second machine, etc.):
    `--max-instances=1` to serialize invocations. dbt source tests now catch
    any recurrence, and dbt staging dedupes defensively.
 
+7. **Loader rejected every event after moving to the new service
+   account, silently.** Gen2 functions are Cloud Run services; the
+   Eventarc trigger's identity needed `roles/run.invoker`. The rejection
+   only appeared as a WARNING log, so the alert now matches it too.
+
+8. **The wiki scrape broke the source's terms of service.** Replaced by
+   reading the installed game (`scripts/build_reference_seeds.py`); the
+   scraper was deleted. Matches the old data with zero disagreements.
+
+9. **Power BI quirks hit while building the report** (KEEPFILTERS,
+   syncGroup placement, PBIR upgrade, DAX reserved words `id`/`rows`,
+   `IF` returning tables, 32,766-character text limit, slicers vs
+   cross-highlighting, refresh rolled back by one bad measure): each is
+   written up with its fix in `docs/lessons_learned.md`.
+
 ## Findings from the backfilled data
 
 - **Multiplayer is real, not hypothetical.** The schema was designed
@@ -129,12 +149,14 @@ scratch (a new environment, a second machine, etc.):
 - **5 runs have no floor data**: all abandoned within 2–3 seconds.
   Legitimate, and excluded from the `assert_runs_have_floor_state` test.
 
+- **Event choices:** option pick rates differ sharply from outcomes. At
+  Room Full of Cheese, "Gorge" is picked 74% of the time (36% win) while
+  "Search" wins 57%. Correlation, not causation: the page says so.
+
 ## Next steps
 
-1. Merge PR #1 to `main` so the daily dbt cron starts.
-2. Build the report pages around the guiding question, "where do my runs
-   end?": deaths by encounter, HP by floor for wins vs losses, and card
-   picks vs win rate.
+1. Merge PR #1 to `main` so the daily dbt cron starts (audit F5).
+2. Re-run the audit and re-export `docs/report.pdf` with the Events page.
 3. See `docs/roadmap.md` for model expansion. `fct_room` (per-room combat
    detail) is the highest-value next table, followed by `players[1:]`
-   characters for co-op analysis.
+   characters for co-op analysis, and potions.
