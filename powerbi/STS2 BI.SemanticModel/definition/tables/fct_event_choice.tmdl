@@ -47,11 +47,14 @@ table fct_event_choice
 	measure 'Death Font Color' = VAR r = [Died Before Next Act %] VAR evt = CALCULATE([Died Before Next Act %], REMOVEFILTERS(fct_event_choice[option_name], fct_event_choice[choice_key], fct_event_choice[option_code], fct_event_choice[option_page], fct_event_choice[relic_id], fct_event_choice[option_description])) RETURN IF(ISBLANK(r), BLANK(), IF(r <= evt, "#4ade80", "#f87171"))
 		lineageTag: b8047176-5267-4381-a698-ea85f60c3560
 
-	measure 'Event Description' = SELECTEDVALUE(dim_event[description], "Select an event to read its opening text.")
+	measure 'Event Description' = VAR ev = SELECTEDVALUE(dim_event[event_id]) VAR ch = [Dialogue Character] VAR hasOwn = NOT ISEMPTY(CALCULATETABLE(dim_ancient_dialogue, REMOVEFILTERS(dim_ancient_dialogue), dim_ancient_dialogue[event_id] = ev, dim_ancient_dialogue[character] = ch)) VAR who = IF(hasOwn, ch, "Any") VAR talk = CONCATENATEX(CALCULATETABLE(dim_ancient_dialogue, REMOVEFILTERS(dim_ancient_dialogue), dim_ancient_dialogue[event_id] = ev, dim_ancient_dialogue[character] = who, dim_ancient_dialogue[conversation] = 0), dim_ancient_dialogue[speaker] & ": " & UNICHAR(8220) & dim_ancient_dialogue[text] & UNICHAR(8221), UNICHAR(10), dim_ancient_dialogue[line], ASC) RETURN IF(ISBLANK(ev), "Select an event to read its opening text.", COALESCE(talk, SELECTEDVALUE(dim_event[description])))
 		lineageTag: d61c9eae-27e2-40b2-b90b-7d8b9eb20d30
 
 	measure 'Selected Event' = SELECTEDVALUE(dim_event[event_name], "All events")
 		lineageTag: 77960f30-94a1-4b0e-92bd-2d2f733ba2e2
+
+	measure 'Dialogue Character' = IF(HASONEVALUE(dim_run[character_name]), VALUES(dim_run[character_name]), "Ironclad")
+		lineageTag: 62ff94d2-32b1-4461-bf9f-b48f614a9987
 
 	column run_id
 		dataType: int64

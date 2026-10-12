@@ -408,3 +408,17 @@ models:
       - {name: hp_change, data_type: int64}
       - {name: max_hp_change, data_type: int64}
       - {name: gold_change, data_type: int64}
+
+  - name: dim_ancient_dialogue
+    description: >
+      One row per line of Ancient dialogue: what each Ancient says to each
+      character (conversation 0 = first meeting). From the game's localization.
+    config:
+      contract: {enforced: true}
+    columns:
+      - {name: event_id, data_type: string, constraints: [{type: not_null}]}
+      - {name: character, data_type: string, description: "Ironclad / Silent / Defect / Necrobinder / Regent, or Any / First visit for generic lines."}
+      - {name: conversation, data_type: int64}
+      - {name: line, data_type: int64}
+      - {name: speaker, data_type: string}
+      - {name: text, data_type: string}

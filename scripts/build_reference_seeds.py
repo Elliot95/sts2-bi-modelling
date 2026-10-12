@@ -5,6 +5,7 @@ Builds the dbt reference seeds from the player's OWN Slay the Spire 2 install:
     dbt/seeds/event_catalog.csv         event -> name, opening description
     dbt/seeds/event_option_catalog.csv  event option -> title, description
     dbt/seeds/relic_catalog.csv         relic -> name, description
+    dbt/seeds/ancient_dialogue.csv      Ancient x character x visit -> dialogue lines
 
 Sources (read-only, nothing in the game folder is modified):
   * sts2.dll  - card pools and each card's rarity / type / cost, read as
@@ -115,6 +116,33 @@ def event_catalogs(pck: Pck) -> None:
     write_csv(SEEDS / "event_option_catalog.csv", sorted(options, key=lambda r: r["option_key"]))
 
 
+CHARACTERS = {"IRONCLAD": "Ironclad", "SILENT": "Silent", "DEFECT": "Defect",
+              "NECROBINDER": "Necrobinder", "REGENT": "Regent", "ANY": "Any", "firstVisitEver": "First visit"}
+TALK = re.compile(r"^(?P<ancient>[A-Z_]+)\.talk\.(?P<who>[A-Za-z]+)\.(?P<conv>\d+)-(?P<line>\d+)r?\.(?P<speaker>ancient|char)$")
+
+
+def ancient_dialogue(pck: Pck) -> None:
+    """What each Ancient says to each character, visit by visit (conversation 0 =
+    first meeting). Player reply buttons (".next") are skipped."""
+    loc = json.loads(pck.read("localization/eng/ancients.json"))
+    rows = []
+    for key, value in loc.items():
+        m = TALK.match(key)
+        if not m or m["who"] not in CHARACTERS:
+            continue
+        ancient = m["ancient"]
+        rows.append({
+            "event_id": f"EVENT.{ancient}",
+            "character": CHARACTERS[m["who"]],
+            "conversation": int(m["conv"]),
+            "line": int(m["line"]),
+            "speaker": clean(loc.get(f"{ancient}.title", ancient)) if m["speaker"] == "ancient" else CHARACTERS[m["who"]],
+            "text": clean(value),
+        })
+    write_csv(SEEDS / "ancient_dialogue.csv",
+              sorted(rows, key=lambda r: (r["event_id"], r["character"], r["conversation"], r["line"])))
+
+
 def relic_catalog(pck: Pck) -> None:
     loc = json.loads(pck.read("localization/eng/relics.json"))
     rows = [{"relic_id": f"RELIC.{k[:-len('.title')]}", "relic_name": clean(v),
@@ -131,6 +159,7 @@ def main():
     card_catalog(game_dir, pck)
     event_catalogs(pck)
     relic_catalog(pck)
+    ancient_dialogue(pck)
 
 
 if __name__ == "__main__":

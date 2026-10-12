@@ -1,0 +1,71 @@
+table dim_ancient_dialogue
+	isHidden
+	lineageTag: c88262d5-cc19-4d31-ab28-40be0db0ba6c
+
+	column event_id
+		dataType: string
+		isHidden
+		lineageTag: 93d648ec-7471-4b3b-a311-281045c755fb
+		summarizeBy: none
+		sourceColumn: event_id
+
+		annotation SummarizationSetBy = User
+
+	column character
+		dataType: string
+		isHidden
+		lineageTag: 284210e3-2f5e-4a58-8c6a-99d2fb563508
+		summarizeBy: none
+		sourceColumn: character
+
+		annotation SummarizationSetBy = User
+
+	column conversation
+		dataType: int64
+		isHidden
+		lineageTag: f8d2804c-35fc-4ff9-bdfd-1b6b597d1cf7
+		summarizeBy: none
+		sourceColumn: conversation
+
+		annotation SummarizationSetBy = User
+
+	column line
+		dataType: int64
+		isHidden
+		lineageTag: b4d4777c-3f9d-44a6-99dc-c2d8b0a5b25a
+		summarizeBy: none
+		sourceColumn: line
+
+		annotation SummarizationSetBy = User
+
+	column speaker
+		dataType: string
+		isHidden
+		lineageTag: 47cc4ca9-2a2a-4908-b02d-31ca76731412
+		summarizeBy: none
+		sourceColumn: speaker
+
+		annotation SummarizationSetBy = User
+
+	column text
+		dataType: string
+		isHidden
+		lineageTag: cc10f981-7af3-4ed1-934f-9fd859d52c13
+		summarizeBy: none
+		sourceColumn: text
+
+		annotation SummarizationSetBy = User
+
+	partition dim_ancient_dialogue = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_ancient_dialogue_Table = marts{[Name="dim_ancient_dialogue",Kind="Table"]}[Data]
+				in
+				    dim_ancient_dialogue_Table
+
+	annotation PBI_ResultType = Table
+

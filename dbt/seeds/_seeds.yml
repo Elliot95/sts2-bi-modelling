@@ -87,3 +87,24 @@ seeds:
     columns:
       - name: relic_id
         data_tests: [unique, not_null]
+
+  - name: ancient_dialogue
+    description: >
+      What each Ancient says to each character, from ancients.json.
+      conversation 0 is the first meeting; later numbers are return visits.
+      character "Any" / "First visit" are generic lines.
+    config:
+      schema: sts2_staging
+      column_types:
+        event_id: string
+        character: string
+        conversation: int64
+        line: int64
+        speaker: string
+        text: string
+    columns:
+      - name: event_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('event_catalog'), field: event_id}
