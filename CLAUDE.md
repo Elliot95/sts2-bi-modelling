@@ -39,14 +39,20 @@ reasoning, this file is just the entry point:
   keyless Workload Identity Federation. Run locally with
   `dbt/.venv/Scripts/dbt build --profiles-dir .` from `dbt/`.
 - Power BI: PBIP project in `powerbi/`, reading **only** `sts2_marts`
-  (plus local event artwork, see below). Pages: Where runs end, Solo vs
-  Multiplayer, Cards, Events, Explore (+ the user's two scratch pages).
+  (plus local artwork, see below). Pages: Where runs end, Solo vs
+  Multiplayer, Cards, Events, Potions, Explore (+ the user's two scratch
+  pages). Dark theme; pages are themed by the Character slicer
+  (`character_image` / `character_theme`, `Page *` measures).
 - Reference data comes from the user's installed game, never the web:
   `scripts/build_reference_seeds.py` (cards via `tools/sts2_reference`,
   events/options/relics/Ancient dialogue via `scripts/sts2_pck.py`) ->
   dbt seeds. Do not scrape slaythespire2.gg (its ToS forbids it).
-- Event artwork + palettes: `scripts/extract_event_images.py` ->
-  `powerbi/assets/events/` (gitignored, Mega Crit IP, never commit).
+- Artwork + palettes: `scripts/extract_event_images.py` ->
+  `powerbi/assets/{events,characters,potions}/` (gitignored, Mega Crit IP,
+  never commit).
+- Adding a raw table: extend `cloud_function/flatten.py` + `FACT_TABLES`,
+  add DDL to `sql/schema.sql` and create it, redeploy the function, then
+  `python scripts/backfill_table.py <table>` (uploaded runs only by default).
   Power BI embeds it as chunked base64 data URIs (`event_image`,
   `event_theme`). See `docs/powerbi_setup.md`.
 - The full story of problems and fixes: `docs/lessons_learned.md`.

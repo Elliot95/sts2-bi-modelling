@@ -36,7 +36,7 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
         "schema_version": data.get("schema_version"),
     }]
 
-    floor_state, card_choices, cards_gained, event_choices = [], [], [], []
+    floor_state, card_choices, cards_gained, event_choices, potion_events = [], [], [], [], []
 
     floor_number = 0
     for act_index, act in enumerate(data.get("map_point_history", [])):
@@ -92,6 +92,26 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
                         "card_id": gained.get("id"),
                     })
 
+                # Potions: offered (with was_picked), then used / discarded /
+                # bought on this floor. One row per potion per action.
+                def potion(potion_id, action, was_picked=None):
+                    potion_events.append({
+                        "run_id": run_id,
+                        "run_date": run_date,
+                        "floor_number": floor_number,
+                        "act_index": act_index,
+                        "player_id": player_id,
+                        "potion_id": potion_id,
+                        "action": action,
+                        "was_picked": was_picked,
+                    })
+                for choice in stats.get("potion_choices") or []:
+                    potion(choice.get("choice"), "offered", choice.get("was_picked"))
+                for action, key in (("used", "potion_used"), ("discarded", "potion_discarded"),
+                                    ("bought", "bought_potions")):
+                    for potion_id in stats.get(key) or []:
+                        potion(potion_id, action)
+
                 # Multi-step events record several choices on one floor, in order.
                 for choice_index, choice in enumerate(stats.get("event_choices") or []):
                     title = choice.get("title") or {}
@@ -111,7 +131,7 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
                         "variables_json": json.dumps(choice.get("variables") or {}, sort_keys=True),
                     })
 
-    relics, deck_cards = [], []
+    relics, deck_cards, run_potions = [], [], []
     for player in data.get("players", []):
         player_id = player.get("id")
         for relic in player.get("relics", []):
@@ -121,6 +141,16 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
                 "player_id": player_id,
                 "relic_id": relic.get("id"),
                 "floor_added_to_deck": relic.get("floor_added_to_deck"),
+            })
+        # Potions still held when the run ended (for a loss: died holding them).
+        for held in player.get("potions") or []:
+            run_potions.append({
+                "run_id": run_id,
+                "run_date": run_date,
+                "player_id": player_id,
+                "potion_id": held.get("id"),
+                "slot_index": held.get("slot_index"),
+                "max_potion_slot_count": player.get("max_potion_slot_count"),
             })
         for card in player.get("deck", []):
             deck_cards.append({
@@ -139,4 +169,6 @@ def flatten_run(data: dict) -> dict[str, list[dict]]:
         "fact_relic": relics,
         "fact_deck_card": deck_cards,
         "fact_event_choice": event_choices,
+        "fact_potion_event": potion_events,
+        "fact_run_potion": run_potions,
     }

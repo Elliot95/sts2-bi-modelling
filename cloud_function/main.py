@@ -39,6 +39,8 @@ FACT_TABLES = (
     "fact_relic",
     "fact_deck_card",
     "fact_event_choice",
+    "fact_potion_event",
+    "fact_run_potion",
 )
 
 

@@ -1,0 +1,54 @@
+table dim_potion
+	lineageTag: 5ab71abf-3ca4-4a40-adc6-97d1d033db89
+
+	measure 'Potion Icon' = VAR pid = SELECTEDVALUE(dim_potion[potion_id]) RETURN CALCULATE(MAX(potion_icon[icon_url]), REMOVEFILTERS(potion_icon), potion_icon[potion_id] = pid)
+		lineageTag: c9f30a5c-167f-4965-a384-480694755408
+		dataCategory: ImageUrl
+
+	column potion_id
+		dataType: string
+		isHidden
+		lineageTag: 336b99ff-ba53-4975-9a4d-4a1f89d5961d
+		summarizeBy: none
+		sourceColumn: potion_id
+
+		annotation SummarizationSetBy = User
+
+	column potion_name
+		dataType: string
+		lineageTag: 86ab715d-da68-4b5e-a0b2-48de89bac2c3
+		summarizeBy: none
+		sourceColumn: potion_name
+
+		annotation SummarizationSetBy = User
+
+	column description
+		dataType: string
+		lineageTag: 6c9ba4f6-ecf7-4f85-bedd-0990bedb0253
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = User
+
+	column in_catalog
+		dataType: boolean
+		isHidden
+		lineageTag: e5cf866b-008c-4604-8ca8-8b83b86c1800
+		summarizeBy: none
+		sourceColumn: in_catalog
+
+		annotation SummarizationSetBy = User
+
+	partition dim_potion = m
+		mode: import
+		source =
+				let
+				    Source = GoogleBigQuery.Database([BillingProject="sts2-bi-1995ebj"]),
+				    #"sts2-bi-1995ebj" = Source{[Name="sts2-bi-1995ebj"]}[Data],
+				    marts = #"sts2-bi-1995ebj"{[Name="sts2_marts",Kind="Schema"]}[Data],
+				    dim_potion_Table = marts{[Name="dim_potion",Kind="Table"]}[Data]
+				in
+				    dim_potion_Table
+
+	annotation PBI_ResultType = Table
+

@@ -3,6 +3,8 @@ Extracts artwork from the player's OWN Slay the Spire 2 install for the report:
   * powerbi/assets/events/      one background per event (Events page)
   * powerbi/assets/characters/  one background per character, plus Default
                                 (the other pages, themed by the Character slicer)
+  * powerbi/assets/potions/     one small PNG icon per potion (Potions page),
+                                cropped from the game's potion sprite atlas
 Each folder gets a palette.csv with a colour theme derived from each image
 (dark base, panel and accent colours; characters use their card colour as accent).
 
@@ -24,6 +26,7 @@ import argparse
 import colorsys
 import csv
 import io
+import re
 import struct
 import sys
 from pathlib import Path
@@ -65,20 +68,20 @@ def dds(width: int, height: int, dxgi: int, blocks: bytes) -> bytes:
     return header + pixel_format + caps + dx10 + blocks
 
 
-def decode_ctex(data: bytes) -> Image.Image:
+def decode_ctex(data: bytes, mode: str = "RGB") -> Image.Image:
     magic, _ver, width, height = struct.unpack("<4sIII", data[:16])
     if magic != b"GST2":
         raise ValueError("not a Godot CompressedTexture2D")
     data_format, pw, ph, _mips, img_format = struct.unpack("<IHHII", data[36:52])
     if data_format in (DATA_PNG, DATA_WEBP):               # lossless/lossy blob: u32 size + file
         (size,) = struct.unpack("<I", data[52:56])
-        return Image.open(io.BytesIO(data[56:56 + size])).convert("RGB").crop((0, 0, width, height))
+        return Image.open(io.BytesIO(data[56:56 + size])).convert(mode).crop((0, 0, width, height))
     if data_format != DATA_IMAGE or img_format not in BLOCK_FORMATS:
         raise ValueError(f"unsupported texture (data_format={data_format}, format={img_format})")
     dxgi, block = BLOCK_FORMATS[img_format]
     size = ((pw + 3) // 4) * ((ph + 3) // 4) * block    # first mip level only
     img = Image.open(io.BytesIO(dds(pw, ph, dxgi, data[52:52 + size])))
-    return img.convert("RGB").crop((0, 0, width, height))
+    return img.convert(mode).crop((0, 0, width, height))
 
 
 def hex_hsv(h, s, v):
@@ -131,6 +134,27 @@ def characters(pck: Pck, ctex: dict, out: Path, width: int) -> None:
     print(f"{len(themes)} character images + palette -> {out}")
 
 
+ATLAS_REGION = re.compile(r"region = Rect2\(([\d.]+), ([\d.]+), ([\d.]+), ([\d.]+)\)")
+
+
+def potions(pck: Pck, ctex: dict, out: Path) -> None:
+    """Crop each potion's icon out of potion_atlas using its .tres region. Icons
+    are small enough (well under 32,766 base64 characters) to embed unchunked."""
+    out.mkdir(parents=True, exist_ok=True)
+    atlas = decode_ctex(pck.read(ctex["potion_atlas"]), mode="RGBA")
+    done = 0
+    for entry in pck.entries:
+        if entry.startswith("res://images/atlases/potion_atlas.sprites/") and entry.endswith(".tres"):
+            m = ATLAS_REGION.search(pck.read(entry).decode("utf-8"))
+            if not m:
+                continue
+            x, y, w, h = (round(float(v)) for v in m.groups())
+            name = entry.rsplit("/", 1)[1][:-len(".tres")]
+            atlas.crop((x, y, x + w, y + h)).save(out / f"{name}.png", optimize=True)
+            done += 1
+    print(f"{done} potion icons -> {out}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(REPO / "powerbi" / "assets" / "events"))
@@ -170,6 +194,7 @@ def main():
     if not args.only:
         write_palette(out / "palette.csv", "event_id", themes)
         characters(pck, ctex, out.parent / "characters", args.width)
+        potions(pck, ctex, out.parent / "potions")
     print(f"{len(themes)} event images + palette -> {out}")
 
 

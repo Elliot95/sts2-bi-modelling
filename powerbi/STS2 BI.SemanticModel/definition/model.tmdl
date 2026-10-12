@@ -6,7 +6,7 @@ model Model
 		legacyRedirects
 		returnErrorValuesAsNull
 
-annotation PBI_QueryOrder = ["dim_run","dim_card","dim_relic","dim_date","fct_floor_state","fct_card_choice","fct_card_run","fct_card_gained","fct_run_relic","fct_run_deck_card","dim_event","fct_event_choice","event_image","event_theme","dim_ancient_dialogue","character_image","character_theme"]
+annotation PBI_QueryOrder = ["dim_run","dim_card","dim_relic","dim_date","fct_floor_state","fct_card_choice","fct_card_run","fct_card_gained","fct_run_relic","fct_run_deck_card","dim_event","fct_event_choice","event_image","event_theme","dim_ancient_dialogue","character_image","character_theme","dim_potion","fct_potion_event","fct_potion_run","potion_icon"]
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
@@ -29,4 +29,8 @@ ref table event_theme
 ref table dim_ancient_dialogue
 ref table character_image
 ref table character_theme
+ref table dim_potion
+ref table fct_potion_event
+ref table fct_potion_run
+ref table potion_icon
 

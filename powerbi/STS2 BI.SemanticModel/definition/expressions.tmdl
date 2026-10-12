@@ -8,3 +8,8 @@ expression CharacterArtFolder = "C:\Users\1995e\sts2-bi-modelling\powerbi\assets
 
 	annotation PBI_ResultType = Text
 
+expression PotionArtFolder = "C:\Users\1995e\sts2-bi-modelling\powerbi\assets\potions" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f4524cb2-b6e3-4592-ae11-23ed97402c56
+
+	annotation PBI_ResultType = Text
+

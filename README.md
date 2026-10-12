@@ -149,6 +149,9 @@ The star schema Power BI reads lives in `sts2_marts`, built by dbt:
   skipped in the same run, for the win-rate comparison)
 * `fct_event_choice`: one row per event or Ancient choice, joined to what
   happened next (died before the next act, within 3 floors, HP/gold change)
+* `fct_potion_event`: one row per potion offered / drunk / discarded /
+  bought on a floor; `fct_potion_run` rolls it up per run, player and
+  potion, incl. potions still held when the run ended
 * `fct_run_relic` / `fct_run_deck_card`: end-of-run relic and deck snapshots
 
 Grain, column descriptions and contracts are in
@@ -164,8 +167,8 @@ semantic model.
 
 ## ✅ Data Quality
 
-`dbt build` runs 114 checks on every build (113 pass; 1 expected warning
-for 3 cards the game has since retired):
+`dbt build` runs every check below on every build (all pass, except 1
+expected warning for 3 cards the game has since retired):
 
 * **Source tests on the raw tables** (strict): unique/not-null keys. These
   exist because of a real incident: concurrent Cloud Function invocations
@@ -200,7 +203,7 @@ Findings the modelling surfaced:
   teammates' decks/relics/floor state can be compared directly
 * `fact_run.character` only extracts `players[0]` — non-host players'
   character choices aren't captured anywhere yet
-* Modifiers, potions and per-room combat detail are in the raw JSON but
+* Modifiers and per-room combat detail are in the raw JSON but
   not modelled yet
 * Event artwork is not in the repo: run `scripts/extract_event_images.py`
   against your own install to see it (the report works without it)
@@ -211,8 +214,11 @@ Findings the modelling surfaced:
 
 * Report pages: **Where runs end**, **Solo vs Multiplayer**, **Cards**,
   **Events** (pick an event and the page takes on its artwork and colours;
-  option outcomes, and Ancient dialogue by character and encounter) and
-  **Explore**.
+  option outcomes, and Ancient dialogue by character and encounter),
+  **Potions** (pick and drink rates, picked-vs-skipped win rates, and how
+  often runs are lost with potions unused: 42% of losses) and **Explore**.
+  Every page is dark and themed by the Character slicer (that character's
+  artwork and colour).
 * [`docs/report.pdf`](docs/report.pdf): static export of the Power BI report,
   viewable without Power BI (exported before the Events page was added).
 * [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based

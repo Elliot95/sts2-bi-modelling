@@ -108,3 +108,15 @@ seeds:
           - not_null
           - relationships:
               arguments: {to: ref('event_catalog'), field: event_id}
+
+  - name: potion_catalog
+    description: Every potion's display name and effect text, from the game's potions.json localization.
+    config:
+      schema: sts2_staging
+      column_types:
+        potion_id: string
+        potion_name: string
+        description: string
+    columns:
+      - name: potion_id
+        data_tests: [unique, not_null]

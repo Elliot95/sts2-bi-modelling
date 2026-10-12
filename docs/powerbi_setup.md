@@ -177,6 +177,15 @@ from `character_theme`.
   75% into the dark base), and good/bad numbers use light green/red
   (`#4ade80` / `#f87171`) that read on dark panels.
 
+## Potion icons
+
+`potion_icon` reads `powerbi/assets/potions/` (icons cropped from the
+game's potion sprite atlas by the same extractor, ~10 KB each, so no
+chunking). The `Potion Icon` measure looks the icon up by `potion_id`
+rather than through a relationship: the folder holds every potion in the
+game, and a relationship would add a "(Blank)" potion for the ones never
+seen in runs.
+
 ## Sharing (free tier)
 
 Publishing to the Power BI Service under **My Workspace** is free, and

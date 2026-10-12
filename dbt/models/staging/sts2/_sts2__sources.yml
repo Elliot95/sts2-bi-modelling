@@ -55,6 +55,26 @@ sources:
           - name: event_id
             data_tests: [not_null]
 
+      - name: fact_potion_event
+        description: One row per potion per action (offered / used / discarded / bought) on a floor.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: potion_id
+            data_tests: [not_null]
+          - name: action
+            data_tests:
+              - accepted_values:
+                  arguments: {values: [offered, used, discarded, bought]}
+
+      - name: fact_run_potion
+        description: Potions still held when the run ended, one row per occupied slot.
+        columns:
+          - name: run_id
+            data_tests: [not_null]
+          - name: potion_id
+            data_tests: [not_null]
+
       - name: dim_card
         description: Card catalog, discovered incrementally by the loader.
         columns:

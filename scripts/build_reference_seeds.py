@@ -6,6 +6,7 @@ Builds the dbt reference seeds from the player's OWN Slay the Spire 2 install:
     dbt/seeds/event_option_catalog.csv  event option -> title, description
     dbt/seeds/relic_catalog.csv         relic -> name, description
     dbt/seeds/ancient_dialogue.csv      Ancient x character x visit -> dialogue lines
+    dbt/seeds/potion_catalog.csv        potion -> name, description
 
 Sources (read-only, nothing in the game folder is modified):
   * sts2.dll  - card pools and each card's rarity / type / cost, read as
@@ -143,6 +144,14 @@ def ancient_dialogue(pck: Pck) -> None:
               sorted(rows, key=lambda r: (r["event_id"], r["character"], r["conversation"], r["line"])))
 
 
+def potion_catalog(pck: Pck) -> None:
+    loc = json.loads(pck.read("localization/eng/potions.json"))
+    rows = [{"potion_id": f"POTION.{k[:-len('.title')]}", "potion_name": clean(v),
+             "description": clean(loc.get(k[:-len(".title")] + ".description", ""))}
+            for k, v in loc.items() if k.endswith(".title") and k.count(".") == 1]
+    write_csv(SEEDS / "potion_catalog.csv", sorted(rows, key=lambda r: r["potion_id"]))
+
+
 def relic_catalog(pck: Pck) -> None:
     loc = json.loads(pck.read("localization/eng/relics.json"))
     rows = [{"relic_id": f"RELIC.{k[:-len('.title')]}", "relic_name": clean(v),
@@ -160,6 +169,7 @@ def main():
     event_catalogs(pck)
     relic_catalog(pck)
     ancient_dialogue(pck)
+    potion_catalog(pck)
 
 
 if __name__ == "__main__":

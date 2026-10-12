@@ -436,3 +436,75 @@ models:
       - {name: encounter_order, data_type: int64, description: Sort key for encounter.}
       - {name: speaker, data_type: string}
       - {name: text, data_type: string}
+
+  - name: dim_potion
+    description: One row per potion seen in runs; names and effect text from the game's localization.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: potion_id
+        data_type: string
+        constraints: [{type: not_null}]
+        data_tests: [unique, not_null]
+      - {name: potion_name, data_type: string}
+      - {name: description, data_type: string}
+      - {name: in_catalog, data_type: bool}
+
+  - name: fct_potion_event
+    description: One row per potion per action (offered / used / discarded / bought) on a floor.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - {name: floor_number, data_type: int64}
+      - {name: act, data_type: int64, description: Act (1-based).}
+      - name: potion_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_potion'), field: potion_id}
+      - name: action
+        data_type: string
+        data_tests:
+          - accepted_values:
+              arguments: {values: [offered, used, discarded, bought]}
+      - {name: was_picked, data_type: bool, description: For offered rows, whether the potion was taken.}
+
+  - name: fct_potion_run
+    description: >
+      One row per run / player / potion that player came across. Picked vs
+      skipped (both were offered), use rate, and held_at_end: for a lost run,
+      the player died still holding the potion.
+    config:
+      contract: {enforced: true}
+    columns:
+      - name: run_id
+        data_type: int64
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_run'), field: run_id}
+      - {name: player_id, data_type: int64}
+      - name: potion_id
+        data_type: string
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_potion'), field: potion_id}
+      - {name: times_offered, data_type: int64}
+      - {name: times_picked, data_type: int64}
+      - {name: was_offered, data_type: bool}
+      - {name: was_picked, data_type: bool}
+      - {name: times_used, data_type: int64}
+      - {name: times_discarded, data_type: int64}
+      - {name: times_bought, data_type: int64}
+      - {name: first_offered_floor, data_type: int64}
+      - {name: held_at_end_count, data_type: int64}
+      - {name: held_at_end, data_type: bool, description: Still held when the run ended.}

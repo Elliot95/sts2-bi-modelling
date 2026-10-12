@@ -58,3 +58,19 @@ relationship rel_event_dialogue
 	fromColumn: dim_ancient_dialogue.event_id
 	toColumn: dim_event.event_id
 
+relationship rel_run_potion_run
+	fromColumn: fct_potion_run.run_id
+	toColumn: dim_run.run_id
+
+relationship rel_potion_potion_run
+	fromColumn: fct_potion_run.potion_id
+	toColumn: dim_potion.potion_id
+
+relationship rel_run_potion_event
+	fromColumn: fct_potion_event.run_id
+	toColumn: dim_run.run_id
+
+relationship rel_potion_potion_event
+	fromColumn: fct_potion_event.potion_id
+	toColumn: dim_potion.potion_id
+

@@ -165,3 +165,33 @@ CREATE TABLE IF NOT EXISTS sts2.fact_event_choice (
 )
 PARTITION BY run_date
 CLUSTER BY event_id;
+
+-- fact_potion_event: one row per potion per action on a floor
+-- (run / floor / player). action is offered (was_picked says whether it was
+-- taken), used, discarded or bought. Clustered by potion for per-potion stats.
+CREATE TABLE IF NOT EXISTS sts2.fact_potion_event (
+  run_id        INT64 NOT NULL,
+  run_date      DATE NOT NULL,
+  floor_number  INT64,
+  act_index     INT64,
+  player_id     INT64,
+  potion_id     STRING,
+  action        STRING,
+  was_picked    BOOL
+)
+PARTITION BY run_date
+CLUSTER BY potion_id, action;
+
+-- fact_run_potion: potions still held when the run ended, one row per
+-- occupied slot (a run that ended with empty slots has no rows). For lost
+-- runs this answers "did I die holding potions?".
+CREATE TABLE IF NOT EXISTS sts2.fact_run_potion (
+  run_id                 INT64 NOT NULL,
+  run_date               DATE NOT NULL,
+  player_id              INT64,
+  potion_id              STRING,
+  slot_index             INT64,
+  max_potion_slot_count  INT64
+)
+PARTITION BY run_date
+CLUSTER BY potion_id;

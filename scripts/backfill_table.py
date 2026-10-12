@@ -36,9 +36,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("table", help="raw table to rebuild, e.g. fact_event_choice")
     ap.add_argument("--dry-run", action="store_true", help="flatten and count, but don't load")
+    ap.add_argument("--all-local", action="store_true",
+                    help="include runs not uploaded yet (default: only runs in the upload manifest, "
+                         "so the table covers exactly the runs the other raw tables hold)")
     args = ap.parse_args()
 
     files = sorted(SAVE_FOLDER.glob("*.run"))
+    manifest = REPO / "scripts" / "uploaded_manifest.json"
+    if not args.all_local and manifest.exists():
+        uploaded = set(json.loads(manifest.read_text(encoding="utf-8")))
+        skipped = [f for f in files if f.name not in uploaded]
+        files = [f for f in files if f.name in uploaded]
+        if skipped:
+            print(f"skipping {len(skipped)} runs not uploaded yet (the monthly upload will load them)")
     if not files:
         raise SystemExit(f"No .run files found in {SAVE_FOLDER}")
 
