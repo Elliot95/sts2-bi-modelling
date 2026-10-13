@@ -207,6 +207,12 @@ models:
         data_type: int64
       - name: month_name
         data_type: string
+      - name: year_month
+        data_type: string
+        description: Month label for charts across years, e.g. "Mar 2026".
+      - name: year_month_sort
+        data_type: int64
+        description: Sort key for year_month (yyyymm).
       - name: day
         data_type: int64
       - name: day_of_week

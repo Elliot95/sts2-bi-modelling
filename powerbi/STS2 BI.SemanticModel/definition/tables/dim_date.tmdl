@@ -43,6 +43,7 @@ table dim_date
 		lineageTag: 054beada-67ec-4c6e-ab05-4626299b6016
 		summarizeBy: none
 		sourceColumn: month_name
+		sortByColumn: month
 
 		annotation SummarizationSetBy = User
 
@@ -83,6 +84,24 @@ table dim_date
 		lineageTag: ed52ec8f-51b2-41e8-bf19-42dcc1bc74aa
 		summarizeBy: none
 		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = User
+
+	column year_month
+		dataType: string
+		lineageTag: 30582afd-b4b1-4e3b-9bb7-b795f66aae6f
+		summarizeBy: none
+		sourceColumn: year_month
+		sortByColumn: year_month_sort
+
+		annotation SummarizationSetBy = User
+
+	column year_month_sort
+		dataType: int64
+		isHidden
+		lineageTag: 1403c34f-d816-4c60-b88d-b4f6e7beffb7
+		summarizeBy: none
+		sourceColumn: year_month_sort
 
 		annotation SummarizationSetBy = User
 
