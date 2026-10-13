@@ -107,3 +107,10 @@ reasoning, this file is just the entry point:
   to get the real interpreter path when it matters.
 - `STS2_GCS_BUCKET` is set as a permanent user environment variable via
   `setx`, not hardcoded in scripts.
+- Save folders: the game keeps modded play in a separate tree
+  (`...\steam\<id>\modded\profile1\saves\history`). The uploader reads
+  `profile1` from both trees; runs are tagged `save_source` (Vanilla / Modded)
+  from their GCS path. `profile2` (a few old test runs) is deliberately
+  excluded, the user's choice.
+- The loader trigger has a retry policy (`--retry`); keep it on any redeploy,
+  or bursts of uploads get dropped while the single instance is busy.

@@ -329,6 +329,14 @@ table dim_run
 
 		annotation SummarizationSetBy = User
 
+	column save_source
+		dataType: string
+		lineageTag: 3b7a3ff9-3605-4b07-8d3c-f141803bf3ba
+		summarizeBy: none
+		sourceColumn: save_source
+
+		annotation SummarizationSetBy = User
+
 	partition dim_run = m
 		mode: import
 		source =

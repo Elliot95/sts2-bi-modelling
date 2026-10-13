@@ -51,6 +51,7 @@ select
     r.ascension,
     r.game_mode,
     r.build_id,
+    r.save_source,
     r.platform_type,
     r.seed,
     r.win,

@@ -13,5 +13,7 @@ select
     killed_by_event,
     cast(was_abandoned as bool)         as was_abandoned,
     cast(win as bool)                   as win,
-    cast(schema_version as int64)       as schema_version
+    cast(schema_version as int64)       as schema_version,
+    -- Rows loaded before save_source existed all came from the vanilla profile.
+    coalesce(save_source, 'Vanilla')    as save_source
 from {{ source('sts2', 'fact_run') }}

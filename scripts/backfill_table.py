@@ -22,12 +22,13 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "cloud_function"))
-from flatten import flatten_run  # noqa: E402
+from flatten import flatten_run, save_source  # noqa: E402
 
-SAVE_FOLDER = Path(os.environ.get(
-    "STS2_SAVE_FOLDER",
-    r"C:\Users\1995e\AppData\Roaming\SlayTheSpire2\steam\76561199024701292\profile1\saves\history",
+SAVE_ROOT = Path(os.environ.get(
+    "STS2_SAVE_ROOT",
+    r"C:\Users\1995e\AppData\Roaming\SlayTheSpire2\steam\76561199024701292",
 ))
+HISTORY_GLOBS = ("profile1/saves/history", "modded/profile1/saves/history")   # as upload_to_gcs.py
 PROJECT = os.environ.get("GCP_PROJECT", "sts2-bi-1995ebj")
 DATASET = os.environ.get("BQ_DATASET", "sts2")
 
@@ -41,7 +42,8 @@ def main():
                          "so the table covers exactly the runs the other raw tables hold)")
     args = ap.parse_args()
 
-    files = sorted(SAVE_FOLDER.glob("*.run"))
+    files = sorted((f for g in HISTORY_GLOBS for folder in SAVE_ROOT.glob(g) for f in folder.glob("*.run")),
+                   key=lambda f: f.name)
     manifest = REPO / "scripts" / "uploaded_manifest.json"
     if not args.all_local and manifest.exists():
         uploaded = set(json.loads(manifest.read_text(encoding="utf-8")))
@@ -50,11 +52,12 @@ def main():
         if skipped:
             print(f"skipping {len(skipped)} runs not uploaded yet (the monthly upload will load them)")
     if not files:
-        raise SystemExit(f"No .run files found in {SAVE_FOLDER}")
+        raise SystemExit(f"No .run files found under {SAVE_ROOT}")
 
     rows = []
     for f in files:
-        tables = flatten_run(json.loads(f.read_text(encoding="utf-8")))
+        rel = f.parent.parent.parent.relative_to(SAVE_ROOT).as_posix()
+        tables = flatten_run(json.loads(f.read_text(encoding="utf-8")), save_source(f"raw/{rel}/{f.name}"))
         if args.table not in tables:
             raise SystemExit(f"Unknown table {args.table!r}; flatten_run produces {sorted(tables)}")
         rows.extend(tables[args.table])

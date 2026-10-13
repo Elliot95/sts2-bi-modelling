@@ -226,12 +226,13 @@ Findings the modelling surfaced:
   often runs are lost with potions unused: 42% of losses) and **Explore**.
   Every page is dark and themed by the Character slicer (that character's
   artwork and colour).
-* [`docs/report.pdf`](docs/report.pdf): static export of the Power BI report,
-  viewable without Power BI (exported before the Events page was added).
+* [`docs/report.pdf`](docs/report.pdf): static export of all seven report
+  pages, viewable without Power BI (screenshots in `docs/screenshots/`).
 * [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based
-  end-to-end audit from local save files to the report. Covers the
-  reconciliation chain (946 runs at every stage), status by stage, and a
-  prioritised findings register.
+  end-to-end re-audit (12-13 Oct 2026): status by stage, a reconciliation
+  chain (1,061 runs at every stage from disk to report, KPIs matched against
+  BigQuery), and a findings register with each item's status, including the
+  missing modded saves it found and fixed.
 
 ---
 

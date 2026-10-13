@@ -39,7 +39,7 @@ land — it's the fastest way to answer "where did we leave off?"
 - **Alerting**: log-based alert policy `17871407405085931371` emails on function errors and on "was not authenticated" rejections (`docs/monitoring_alert_policy.json`)
 - **BigQuery datasets**: `sts2` (raw, Cloud Function), `sts2_staging` (dbt views), `sts2_marts` (dbt tables, read by Power BI)
 - **dbt runner**: service account `dbt-runner@sts2-bi-1995ebj.iam.gserviceaccount.com` (`bigquery.dataEditor`, `bigquery.jobUser`), impersonated from GitHub Actions via Workload Identity Federation pool/provider `github`, restricted to `Elliot95/sts2-bi-modelling`. Repo variables `GCP_WIF_PROVIDER`, `GCP_SA_EMAIL`
-- **Cloud Function concurrency**: `--max-instances=1` (was 10; see issue 6)
+- **Cloud Function concurrency**: `--max-instances=1` (was 10; see issue 6), with `--retry` so deliveries that arrive while it's busy are redelivered, not dropped (issue 10)
 - **Task Scheduler task**: `STS2 Upload to GCS`, monthly trigger (day 1, 14:32), runs `scripts/upload_to_gcs.py` via the real Python interpreter path (not the Microsoft Store execution alias, which is unreliable under Task Scheduler) — `STS2_GCS_BUCKET` is set as a permanent user environment variable via `setx` rather than hardcoded in the script
 
 ## Verified end-to-end
@@ -128,6 +128,14 @@ scratch (a new environment, a second machine, etc.):
    `IF` returning tables, 32,766-character text limit, slicers vs
    cross-highlighting, refresh rolled back by one bad measure): each is
    written up with its fix in `docs/lessons_learned.md`.
+
+10. **115 runs were never uploaded: the game saves modded play in a
+    separate folder.** Since May (and for every run after 30 Aug) runs went
+    to `steam/<id>/modded/profile1/saves/history`, which the uploader didn't
+    read. Fixed: the uploader reads both trees, runs carry `save_source`
+    (Vanilla / Modded), and the trigger now retries, because uploading the
+    backlog in a burst would otherwise have dropped deliveries ("no available
+    instance", already seen once in the logs on 11 Oct).
 
 ## Findings from the backfilled data
 
