@@ -163,7 +163,10 @@ def flatten_run(data: dict, source: str = "Vanilla") -> dict[str, list[dict]]:
                         "act_index": act_index,
                         "player_id": player_id,
                         "choice_index": choice_index,
-                        "event_id": event_id,
+                        # A few choices happen on floors whose room isn't the event
+                        # (e.g. the Key Door after a boss); its key still names it.
+                        "event_id": event_id or (f"EVENT.{key.split('.')[0]}"
+                                                 if title.get("table") == "events" and key else None),
                         "choice_table": title.get("table"),
                         "choice_key": key.removesuffix(".title"),
                         # Rewards/details vary by event (card offered, gold,
