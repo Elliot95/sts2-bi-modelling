@@ -36,6 +36,7 @@ land — it's the fastest way to answer "where did we leave off?"
 - **BigQuery dataset**: `sts2` (all 9 tables from `sql/schema.sql` created)
 - **Cloud Function**: `sts2-load-run` (2nd gen, Python 3.12, triggered on new objects in the bucket)
 - **Function service account**: dedicated `sts2-loader` (least privilege: dataset-level WRITER on `sts2`, `bigquery.jobUser`, bucket read; `run.invoker` for the Eventarc trigger). Replaced the default compute SA (audit F4)
+- **Budget alert**: "STS2 BI - any spend (1p)", GBP 0.01/month on this project, emails on actual or forecast spend (Budget API enabled 13 Oct)
 - **Alerting**: log-based alert policy `17871407405085931371` emails on function errors and on "was not authenticated" rejections (`docs/monitoring_alert_policy.json`)
 - **BigQuery datasets**: `sts2` (raw, Cloud Function), `sts2_staging` (dbt views), `sts2_marts` (dbt tables, read by Power BI)
 - **dbt runner**: service account `dbt-runner@sts2-bi-1995ebj.iam.gserviceaccount.com` (`bigquery.dataEditor`, `bigquery.jobUser`), impersonated from GitHub Actions via Workload Identity Federation pool/provider `github`, restricted to `Elliot95/sts2-bi-modelling`. Repo variables `GCP_WIF_PROVIDER`, `GCP_SA_EMAIL`

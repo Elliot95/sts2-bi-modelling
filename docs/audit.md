@@ -16,7 +16,7 @@ The pipeline is correct end to end and now complete: all 1,061 runs on disk reco
 | 4. Transform + load (Cloud Function) | AMBER | Correct, least-privilege, alerting, retries; ~1 min per run limits backlog speed |
 | 5. Raw warehouse (BigQuery sts2) | GREEN | 1,061 runs, no duplicate keys, partitioned + clustered |
 | 6. Modelling + tests (dbt) | GREEN | 167 checks: 166 pass, 1 expected warning; contracts on all marts |
-| 7. CI / access (GitHub Actions, IAM) | AMBER | Daily build live and keyless; default compute SA still holds Editor; no budget alert |
+| 7. CI / access (GitHub Actions, IAM) | AMBER | Daily build live and keyless; 1p budget alert; default compute SA still holds Editor |
 | 8. Semantic model + report (Power BI) | GREEN | Reads sts2_marts (+ local art only); star schema; numbers reconcile |
 | 9. Repo hygiene + docs | GREEN | No secrets, raw data, cache or art files tracked (screenshots: F20); docs current |
 
@@ -24,9 +24,9 @@ The pipeline is correct end to end and now complete: all 1,061 runs on disk reco
 
 | When | Actions |
 |---|---|
-| Done | F15 modded saves loaded and tagged; F16 retry policy; F1-F3, F5, F6, F9, F13 from the first audit |
+| Done | F15 modded saves loaded and tagged; F16 retry policy; F10 1p budget alert; F1-F3, F5, F6, F9, F13 from the first audit |
 | Next | F17 batch the loader (or ELT); F18 dev target for local dbt; F4 remove Editor from the default SA |
-| Later | F7 catalogues into dbt; F10 budget alert; F11 scope dbt-runner; F8 all players' characters |
+| Later | F7 catalogues into dbt; F11 scope dbt-runner; F8 all players' characters |
 
 ## Reconciliation chain
 
@@ -128,13 +128,13 @@ Deprecated utcfromtimestamp fixed; fact_run.character still only captures player
 - **Recommendation:** Model all players' characters (fct_run_player) when co-op analysis matters.
 - **Effort:** 30 min
 
-### F10 - Low - Cost / ops - Open
+### F10 - Low - Cost / ops - Resolved
 
-No billing budget alert (the Budget API is not enabled).
+There was no budget alert for the project.
 
-- **Evidence:** gcloud billing budgets list: SERVICE_DISABLED.
-- **Recommendation:** Create a GBP 1 budget with email alerts.
-- **Effort:** 5 min
+- **Evidence:** Budget 'STS2 BI - any spend (1p)': GBP 0.01/month on sts2-bi-1995ebj, alerts at 100% of actual and forecast spend (gcloud stored 0.01GBP as 1 nano-pound; corrected via the API and verified).
+- **Recommendation:** Done 13 Oct: any spend at all emails the billing admins. Budgets alert, they don't cap.
+- **Effort:** Done
 
 ### F11 - Low - IAM - Open
 
