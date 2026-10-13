@@ -228,6 +228,9 @@ Findings the modelling surfaced:
   vanilla/modded; runs and win rate by ascension and by month).
   Every page is dark and themed by the Character slicer (that character's
   artwork and colour).
+* [`docs/roadmap_3d.html`](docs/roadmap_3d.html): the project as an explorable 3D roadmap. Each phase is a
+  chunk on a road through time, and every milestone opens its decision: what was chosen, why, what was
+  considered instead, and how it turned out. Open the file in a browser.
 * [`docs/report.pdf`](docs/report.pdf): static export of all eight report
   pages, viewable without Power BI (screenshots in `docs/screenshots/`).
 * [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based
