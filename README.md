@@ -223,10 +223,12 @@ Findings the modelling surfaced:
   **Events** (pick an event and the page takes on its artwork and colours;
   option outcomes, and Ancient dialogue by character and encounter),
   **Potions** (pick and drink rates, picked-vs-skipped win rates, and how
-  often runs are lost with potions unused: 42% of losses) and **Explore**.
+  often runs are lost with potions unused: 42% of losses), **Explore** and
+  **Totals** (headline totals for any slice: ascension, mode, character,
+  vanilla/modded; runs and win rate by ascension and by month).
   Every page is dark and themed by the Character slicer (that character's
   artwork and colour).
-* [`docs/report.pdf`](docs/report.pdf): static export of all seven report
+* [`docs/report.pdf`](docs/report.pdf): static export of all eight report
   pages, viewable without Power BI (screenshots in `docs/screenshots/`).
 * [`docs/audit.pdf`](docs/audit.pdf) ([markdown](docs/audit.md)): evidence-based
   end-to-end re-audit (12-13 Oct 2026): status by stage, a reconciliation

@@ -16,6 +16,8 @@ select
     extract(quarter from date_key)      as quarter,
     extract(month from date_key)        as month,
     format_date('%B', date_key)         as month_name,
+    format_date('%b %Y', date_key)      as year_month,
+    extract(year from date_key) * 100 + extract(month from date_key) as year_month_sort,
     extract(day from date_key)          as day,
     extract(dayofweek from date_key)    as day_of_week,
     format_date('%A', date_key)         as day_name,

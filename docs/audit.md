@@ -181,3 +181,4 @@ Each stage was checked against live systems: local save folders and Task Schedul
 ![Events](screenshots/events.jpg)
 ![Potions](screenshots/potions.jpg)
 ![Explore](screenshots/explore.jpg)
+![Totals](screenshots/totals.jpg)
