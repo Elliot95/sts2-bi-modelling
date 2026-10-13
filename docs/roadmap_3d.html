@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 3D project roadmap. Published copy: https://claude.ai/artifact/QkZCvXug5Tbu5P2dWDBT4p
+     Open this file in a browser (needs an internet connection for three.js and fonts). -->
+<title>STS2 BI Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-bleed 3D scene; title card top-left, phase legend right (bottom strip on phones), detail panel slides over. Single dark look by choice, like the org chart it follows. */
+:root {
+  color-scheme: dark;
+  --void: #0b0e10;
+  --panel: rgba(17, 22, 28, 0.86);
+  --panel-solid: #11161c;
+  --line: #2a333d;
+  --ink: #e8e6e0;
+  --muted: #a9a59b;
+  --ember: #f5b041;
+  --done: #7fd8a4;
+  --next: #f5b041;
+  --later: #8fa3b8;
+  --display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+html, body { height: 100%; }
+body { margin: 0; background: var(--void); color: var(--ink); font-family: var(--body); overflow: hidden; }
+#app { position: relative; width: 100%; height: 100%; }
+#scene { display: block; width: 100%; height: 100%; touch-action: none; }
+#scene:focus-visible { outline: 2px solid var(--ember); outline-offset: -2px; }
+
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; backdrop-filter: blur(6px); }
+
+#title { position: absolute; top: 16px; left: 16px; max-width: min(560px, calc(100% - 32px)); padding: 14px 16px; display: grid; gap: 6px; }
+#title h1 { margin: 0; font-family: var(--display); font-weight: 700; font-size: 1.35rem; letter-spacing: 0.06em; text-wrap: balance; }
+#title p { margin: 0; color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+#facts { display: flex; flex-wrap: wrap; gap: 6px 14px; font-family: var(--mono); font-size: 0.75rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+#facts span b { color: var(--ember); font-weight: 500; }
+
+#legend { position: absolute; top: 16px; right: 16px; width: 270px; max-height: calc(100% - 32px); overflow-y: auto; padding: 10px; display: grid; gap: 4px; }
+#legend .head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 2px 4px 6px; }
+#legend .head span { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.nav { display: flex; gap: 4px; }
+button { font: inherit; color: var(--ink); background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; cursor: pointer; }
+button:hover { border-color: var(--ember); }
+button:focus-visible { outline: 2px solid var(--ember); outline-offset: 1px; }
+.phase { display: grid; grid-template-columns: 10px 1fr auto; align-items: center; gap: 8px; width: 100%; text-align: left; border-color: transparent; padding: 6px 8px; }
+.phase .sw { width: 10px; height: 10px; border-radius: 3px; }
+.phase .nm { font-size: 0.85rem; min-width: 0; }
+.phase .dt { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.phase[aria-pressed="true"] { border-color: var(--ember); background: rgba(245, 176, 65, 0.08); }
+.phase.dim { opacity: 0.45; }
+.key { display: flex; gap: 12px; padding: 8px 4px 2px; border-top: 1px solid var(--line); margin-top: 4px; font-size: 0.72rem; color: var(--muted); }
+.key i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+
+.label { position: absolute; left: 0; top: 0; transform: translate(-50%, -100%); pointer-events: none; text-align: center; white-space: nowrap; text-shadow: 0 1px 4px #000; transition: opacity 0.25s; }
+.label .ln { font-family: var(--display); font-weight: 600; font-size: 0.82rem; letter-spacing: 0.05em; }
+.label .ld { font-family: var(--mono); font-size: 0.68rem; color: var(--muted); }
+.ilabel { position: absolute; left: 0; top: 0; transform: translate(-50%, -150%); pointer-events: none; font-size: 0.72rem; color: var(--ink); background: rgba(11, 14, 16, 0.75); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; white-space: nowrap; transition: opacity 0.25s; }
+
+#tip { position: absolute; pointer-events: none; padding: 6px 9px; font-size: 0.8rem; transform: translate(12px, 12px); max-width: 260px; }
+#tip .s { color: var(--muted); font-size: 0.72rem; }
+
+#detail { position: absolute; left: 16px; bottom: 16px; width: min(440px, calc(100% - 32px)); max-height: 62%; overflow-y: auto; padding: 14px 16px 16px; display: grid; gap: 8px; }
+#detail h2 { margin: 0; font-family: var(--display); font-size: 1.05rem; letter-spacing: 0.04em; text-wrap: balance; padding-right: 28px; }
+#detail .meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+#detail p { margin: 0; font-size: 0.88rem; line-height: 1.55; color: var(--ink); max-width: 65ch; }
+#detail ul { margin: 0; padding-left: 18px; font-size: 0.84rem; line-height: 1.5; color: var(--ink); }
+#detail .bar { height: 4px; border-radius: 4px; margin: -4px 0 2px; }
+.flabel { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.ilist { display: grid; gap: 4px; }
+.iopen { display: flex; justify-content: space-between; gap: 8px; text-align: left; font-size: 0.85rem; padding: 6px 10px; }
+.prof { margin: 0; display: grid; gap: 4px 0; }
+.prof dt { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+.prof dd { margin: 0; font-size: 0.88rem; line-height: 1.55; max-width: 65ch; }
+.pager { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 6px; padding-top: 8px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+.link { border: none; padding: 0; background: none; font: inherit; text-decoration: underline; text-underline-offset: 2px; }
+#close { position: absolute; top: 10px; right: 10px; padding: 2px 8px; }
+.pill { border-radius: 999px; padding: 1px 8px; border: 1px solid currentColor; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.st-done { color: var(--done); } .st-next { color: var(--next); } .st-later { color: var(--later); }
+
+#hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); font-size: 0.75rem; color: var(--muted); pointer-events: none; text-align: center; padding: 0 16px; }
+#fallback { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; color: var(--muted); }
+
+@media (max-width: 720px) {
+  #title { padding: 10px 12px; }
+  #title h1 { font-size: 1.1rem; }
+  #title p.long { display: none; }
+  #legend { top: auto; bottom: 16px; left: 16px; right: 16px; width: auto; max-height: none; display: flex; overflow-x: auto; overflow-y: hidden; gap: 4px; padding: 6px; }
+  #legend .head, #legend .key { display: none; }
+  .phase { width: auto; flex: 0 0 auto; grid-template-columns: 10px auto; }
+  .phase .dt { display: none; }
+  #detail { bottom: 76px; max-height: 58%; }
+  #hint { display: none; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="scene" tabindex="0" aria-label="3D roadmap. Use the phase list to move between phases."></canvas>
+
+  <header id="title" class="card">
+    <h1>STS2 BI Roadmap</h1>
+    <p>Slay the Spire 2 save files to a tested, audited Power BI report, April to October 2026, and what comes next.</p>
+    <p class="long">Drag to orbit, scroll or pinch to zoom, click a chunk to fly to it, click a node to open its decision: what was chosen, why, what else was considered, and how it turned out.</p>
+    <div id="facts"><span><b>1,061</b> runs</span><span><b>167</b> dbt checks</span><span><b>8</b> report pages</span><span><b>£0</b>/month</span></div>
+  </header>
+
+  <nav id="legend" class="card" aria-label="Phases">
+    <div class="head"><span>Phases</span>
+      <div class="nav"><button id="prev" aria-label="Previous phase">&larr;</button><button id="overview">Overview</button><button id="next" aria-label="Next phase">&rarr;</button></div>
+    </div>
+    <div id="phase-list" style="display:contents"></div>
+    <div class="key"><span><i style="background:var(--done)"></i>Done</span><span><i style="background:var(--next)"></i>Next</span><span><i style="background:var(--later)"></i>Later</span></div>
+  </nav>
+
+  <div id="labels"></div>
+  <div id="tip" class="card" hidden></div>
+
+  <section id="detail" class="card" hidden aria-live="polite">
+    <button id="close" aria-label="Close details">&times;</button>
+    <div id="detail-body"></div>
+  </section>
+
+  <div id="hint">Click a phase name or a glowing hub to explore that chunk</div>
+  <div id="fallback" hidden>This roadmap needs WebGL, which isn't available in this browser.</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+  // ---------------------------------------------------------------- content
+  // Phases in order along the road. Dates come from the project's git history;
+  // "next" items are the open audit findings, "later" ones the roadmap doc.
+  const PHASES = [
+    {
+      "id": "spark",
+      "name": "Spark",
+      "date": "18 Apr 2026",
+      "status": "done",
+      "color": 14209730,
+      "about": "The repo is created and the first .run files are explored by hand to understand what a run records.",
+      "items": [
+        {
+          "name": "Repo created",
+          "d": "Build a BI project around one personal question: what drives my win rate in Slay the Spire 2?",
+          "y": "My own ~1,000 run files are real, messy, nested data with a question I actually care about, which makes better practice than a tidy sample dataset.",
+          "a": "A public dataset or scraped community stats: cleaner, but not my decisions and nothing to learn about my play.",
+          "r": "The guiding question became \"where do my runs end?\", which shaped the first report page."
+        },
+        {
+          "name": "Schema discovery",
+          "d": "Profile the nested run JSON with scripts before designing any tables.",
+          "y": "The structure (acts, floors, per-player stats) decides the grain of every table.",
+          "a": "Design the schema from one sample file.",
+          "r": "Mostly right, but one sample misled twice: player_id turned out to be a real Steam64 ID in co-op runs, and acts_completed is always 3. Lesson: profile the whole dataset, not one file."
+        }
+      ]
+    },
+    {
+      "id": "pipeline",
+      "name": "Pipeline",
+      "date": "30-31 Aug",
+      "status": "done",
+      "color": 5219299,
+      "about": "Save files flow automatically from the PC to BigQuery.",
+      "items": [
+        {
+          "name": "GCS landing bucket",
+          "d": "Land every run file unchanged in a Cloud Storage bucket before transforming anything.",
+          "y": "A raw, immutable copy means any later stage can be rebuilt by replaying files.",
+          "a": "Load straight from the PC into BigQuery.",
+          "r": "Every later fix (backfills, the missing modded saves) was just a replay of files already in the bucket."
+        },
+        {
+          "name": "Cloud Function loader",
+          "d": "An event-driven function flattens each run, deleting that run's rows before loading them again.",
+          "y": "No server or schedule to run, and delete-then-load per run_id makes the load idempotent: re-running it can never duplicate data.",
+          "a": "Append-only loads (duplicates on retry), or row-by-row MERGEs (more complex, slower).",
+          "r": "Idempotency turned every later failure into \"just run it again\"."
+        },
+        {
+          "name": "BigQuery star schema",
+          "d": "A star schema at run grain, partitioned by run date and clustered on the usual filter columns.",
+          "y": "Standard BI modelling, and a chance to show query-cost design even at small scale.",
+          "a": "One wide, flat table per run.",
+          "r": "Queries stay inside the free tier, and every later model builds on the same keys."
+        },
+        {
+          "name": "946-run backfill",
+          "d": "Cap the function's concurrency and replay the whole history.",
+          "y": "946 uploads at once ran into BigQuery's limit of 20 concurrent DML statements, and runs were silently dropped.",
+          "a": "Write per-run retry scripts.",
+          "r": "946 of 946 runs loaded with no duplicates. A later race on catalogue updates pushed the cap down to one instance."
+        },
+        {
+          "name": "Monthly upload",
+          "d": "Windows Task Scheduler runs the uploader monthly, with a manifest so only new files go up.",
+          "y": "The save files live on this PC, and monthly is enough for a personal dashboard.",
+          "a": "Daily uploads, or a cloud-sync folder.",
+          "r": "Works, but depends on the PC being on: October's run was missed, so catch-up runs were switched on after the first audit."
+        }
+      ]
+    },
+    {
+      "id": "first-report",
+      "name": "First report",
+      "date": "1 Sep",
+      "status": "done",
+      "color": 10125280,
+      "about": "Power BI connected to BigQuery as a PBIP project, so the model and report are text in git.",
+      "items": [
+        {
+          "name": "PBIP project",
+          "d": "Save the report as a Power BI Project (text files) instead of a .pbix.",
+          "y": "Text can be diffed, versioned and edited by scripts, so report changes are reviewable like code.",
+          "a": "The usual single binary .pbix file.",
+          "r": "It made scripted page building possible, at the cost of fragile edits: TMDL is whitespace-sensitive and the newer report format broke the project, so it stays on the legacy format."
+        },
+        {
+          "name": "Import mode",
+          "d": "Import the data into Power BI rather than query BigQuery live (DirectQuery).",
+          "y": "The data is MB-scale, Import is fastest for viewers, and there's no per-query BigQuery cost.",
+          "a": "DirectQuery: always current, but slower and billed per query.",
+          "r": "Every visual answers in under 120 ms. The trade-off is a manual Refresh click."
+        }
+      ]
+    },
+    {
+      "id": "modelling",
+      "name": "Modelling layer",
+      "date": "11 Oct",
+      "status": "done",
+      "color": 6017423,
+      "about": "dbt turns raw tables into a tested, contract-enforced star schema that Power BI reads exclusively.",
+      "items": [
+        {
+          "name": "Staging + marts",
+          "d": "Layer the warehouse with dbt: raw, then staging views, then tested mart tables. Power BI reads only the marts.",
+          "y": "One tested semantic layer instead of logic scattered through Power Query and DAX.",
+          "a": "Transform inside Power BI.",
+          "r": "Contracts make a renamed or retyped column fail the build before it can break a visual."
+        },
+        {
+          "name": "Data-quality tests",
+          "d": "Keep strict unique / not-null tests on the raw tables, even though staging deduplicates.",
+          "y": "Duplicate cards from a loader race were only discovered when Power BI refused a relationship. The raw layer is where real problems show up first.",
+          "a": "Trust the staging dedupe and test only the marts.",
+          "r": "167 checks now run on every build, and the strict tests later caught an event choice with no event in the new modded data."
+        },
+        {
+          "name": "Keyless CI",
+          "d": "Run dbt daily in GitHub Actions, authenticating through Workload Identity Federation.",
+          "y": "No long-lived service-account key exists to leak, and Actions is free for a public repo.",
+          "a": "A JSON key stored in GitHub secrets, or Cloud Build.",
+          "r": "The daily build has run from main since PR #1 was merged on 12 Oct."
+        },
+        {
+          "name": "Logic placement",
+          "d": "Row-level logic lives in dbt; aggregations are DAX measures.",
+          "y": "dbt logic is tested and reusable; measures stay small and fast.",
+          "a": "Calculated columns in Power BI.",
+          "r": "A wrong \"floors reached\" metric (built on the always-3 acts column) was fixed once, in dbt, for every page."
+        }
+      ]
+    },
+    {
+      "id": "report-v1",
+      "name": "Report v1",
+      "date": "11 Oct",
+      "status": "done",
+      "color": 14918223,
+      "about": "The first finished pages, built around one question: where do my runs end?",
+      "items": [
+        {
+          "name": "Where runs end",
+          "d": "Build the first page around a single question rather than a list of charts.",
+          "y": "A focused question tells you which visuals earn their place.",
+          "a": "A general overview dashboard of every metric.",
+          "r": "Deaths by encounter and HP floor by floor for won, lost and abandoned runs."
+        },
+        {
+          "name": "Cards",
+          "d": "Compare runs where a card was picked with runs where it was offered and skipped.",
+          "y": "Comparing picked runs to the overall win rate is biased: runs that last longer see more card offers.",
+          "a": "Win rate of runs containing the card.",
+          "r": "A fairer \"pick win delta\" per card. Still correlation, and the page says so."
+        },
+        {
+          "name": "Solo vs Multiplayer",
+          "d": "Treat co-op as first-class, with party size on every run.",
+          "y": "The data showed 25% of runs are multiplayer, with real Steam64 player IDs.",
+          "a": "Filter co-op runs out as noise.",
+          "r": "A dedicated page. One known gap: only the host's character is recorded."
+        },
+        {
+          "name": "Synced filters",
+          "d": "Sync the Mode, Character and Outcome dropdowns across pages, and use KEEPFILTERS in measures.",
+          "y": "A measure was overriding the slicer: abandoned runs showed 27.8% when the true figure was 20.8%.",
+          "a": "Separate filters on each page.",
+          "r": "Consistent context everywhere, and the bug fixed."
+        }
+      ]
+    },
+    {
+      "id": "audit-1",
+      "name": "Audit & hardening",
+      "date": "11 Oct",
+      "status": "done",
+      "color": 13720463,
+      "about": "An evidence-based audit reconciled every stage and raised 14 findings; the important ones were fixed the same day.",
+      "items": [
+        {
+          "name": "Fail-fast uploader",
+          "d": "Stop with a clear error when the bucket setting or save folder is missing.",
+          "y": "A placeholder bucket name meant the next real upload would have failed silently.",
+          "a": "Keep the placeholder default.",
+          "r": "Audit finding F1 closed; misconfiguration now announces itself immediately."
+        },
+        {
+          "name": "Least-privilege loader",
+          "d": "Run the loader as a dedicated service account with only the access it needs.",
+          "y": "The default account held the project-wide Editor role.",
+          "a": "Keep using the default account.",
+          "r": "Done, with one surprise: the new account needed permission to invoke the function, and until it had it every upload was rejected silently."
+        },
+        {
+          "name": "Error alerting",
+          "d": "Alert by email on loader errors and on the specific \"not authenticated\" rejection text.",
+          "y": "Failures had been silent, including that rejection, which only logs a warning.",
+          "a": "Check the logs by hand.",
+          "r": "Known failure modes now email the owner."
+        }
+      ]
+    },
+    {
+      "id": "game-files",
+      "name": "Game-file data",
+      "date": "11 Oct",
+      "status": "done",
+      "color": 3003583,
+      "about": "Reference data read from the player's own install, replacing a wiki scrape whose terms forbade it.",
+      "items": [
+        {
+          "name": "PCK archive reader",
+          "d": "Read names and text from the game's own package files instead of a fan wiki.",
+          "y": "The wiki's terms forbid automated collection, and the game files are the primary source anyway.",
+          "a": "Keep scraping the wiki.",
+          "r": "Matched the old data with zero disagreements, and unlocked new data: event options, encounter death lines, Ancient dialogue."
+        },
+        {
+          "name": ".NET metadata reader",
+          "d": "Read card pools, cost, type and rarity from the game DLL's metadata, without running or decompiling it.",
+          "y": "That information only exists in the game's code.",
+          "a": "Type a card table by hand.",
+          "r": "596 cards catalogued. A parsing bug on three cards was fixed by matching constructor calls only."
+        },
+        {
+          "name": "Reference seeds",
+          "d": "Commit the reference data as dbt seeds.",
+          "y": "Versioned, reproducible and tested, joined like any other table.",
+          "a": "Build the reference data locally on each machine.",
+          "r": "Clean joins everywhere. The trade-off: short game text now lives in a public repo (audit F20)."
+        },
+        {
+          "name": "Local artwork",
+          "d": "Never commit the game's artwork; extract it locally and embed it in Power BI at refresh.",
+          "y": "The art belongs to Mega Crit, and Power BI can't show images from a local file path.",
+          "a": "Host the images publicly.",
+          "r": "Works by embedding images as text, split into chunks to get past Power BI's 32,766-character limit."
+        }
+      ]
+    },
+    {
+      "id": "deep-dives",
+      "name": "Deep dives",
+      "date": "12 Oct",
+      "status": "done",
+      "color": 16020150,
+      "about": "New questions answered end to end, each from extraction to a themed page.",
+      "items": [
+        {
+          "name": "Events",
+          "d": "Make the event picker a slicer and theme the whole page from the chosen event's artwork.",
+          "y": "A slicer's filter reaches formatting expressions on every visual; clicking a table row doesn't.",
+          "a": "Pick events by clicking table rows.",
+          "r": "An immersive page with option outcomes, plus Ancient dialogue by character and encounter."
+        },
+        {
+          "name": "Potions",
+          "d": "Roll potions up per run: offered, picked, drunk, and still held at the end.",
+          "y": "The same picked-vs-skipped logic as cards, plus the question \"do I die holding potions?\".",
+          "a": "Count raw potion events only.",
+          "r": "42% of losses ended with potions unused."
+        },
+        {
+          "name": "Fights & rest sites",
+          "d": "One row per fight per player, with the HP going in and an HP band.",
+          "y": "To test whether the HP you bring into a fight matters, and whether resting beats smithing.",
+          "a": "Floor-level HP only.",
+          "r": "Bosses entered under 40% HP end the run 29% of the time, versus 8% above 70%."
+        },
+        {
+          "name": "Character theming",
+          "d": "A dark report theme, with the Character slicer driving each page's art and colours.",
+          "y": "A consistent, immersive look that is data-driven rather than hard-coded.",
+          "a": "A static colour theme.",
+          "r": "Every page themed, and visuals still answer in under 120 ms."
+        }
+      ]
+    },
+    {
+      "id": "complete",
+      "name": "Complete & re-audited",
+      "date": "12-13 Oct",
+      "status": "done",
+      "color": 16101441,
+      "about": "The data is complete and the pipeline re-audited: 1,061 runs reconcile from disk to report.",
+      "items": [
+        {
+          "name": "Modded saves found",
+          "d": "Read both the vanilla and modded save folders, tag every run Vanilla or Modded, and leave profile2 out.",
+          "y": "115 runs (11%, every run since 30 Aug) sat in the game's separate modded folder. Found by asking whether local was aimed right.",
+          "a": "Exclude modded runs entirely.",
+          "r": "1,061 runs reconcile at every stage."
+        },
+        {
+          "name": "Retry policy",
+          "d": "Turn on delivery retries rather than allow more loader instances.",
+          "y": "More instances would reopen the catalogue race; retries are safe because the loader is idempotent.",
+          "a": "Raise the instance cap.",
+          "r": "No more dropped uploads. The catch: a backlog drains slowly, about a run a minute (audit F17)."
+        },
+        {
+          "name": "Re-audit",
+          "d": "Re-check every stage against the live systems and give every finding a status.",
+          "y": "To prove the first audit's fixes and find new gaps.",
+          "a": "Trust the earlier audit.",
+          "r": "Every High and Medium finding closed, and the modded-saves gap found and fixed."
+        },
+        {
+          "name": "1p budget alert",
+          "d": "A budget of 1p a month on actual and forecast spend.",
+          "y": "Any spend at all would be unexpected: the project runs at £0.",
+          "a": "A £1 budget.",
+          "r": "Live. gcloud stored the amount as a billionth of a pound; it was corrected through the API and verified."
+        },
+        {
+          "name": "Totals page",
+          "d": "Rebuild the scratch Totals page properly, with the month label built in dbt.",
+          "y": "Row logic belongs in dbt, and a year-month label keeps working across years.",
+          "a": "Leave the scratch page as it was.",
+          "r": "A finished page. Its card scorecards can only sort A to Z, which the title says."
+        }
+      ]
+    },
+    {
+      "id": "next",
+      "name": "Next",
+      "date": "planned",
+      "status": "next",
+      "color": 16101441,
+      "about": "Open findings from the re-audit: small, known, and in rough priority order.",
+      "items": [
+        {
+          "name": "Faster loader",
+          "d": "Batch each run's writes, or move flattening into dbt.",
+          "y": "About 28 sequential BigQuery jobs per run made the 115-run backlog take two hours.",
+          "a": "One multi-statement transaction per run; load every table then one delete per table; or true ELT.",
+          "r": "Fast backfills, and room to raise concurrency once catalogues move to dbt. About 2-4 hours."
+        },
+        {
+          "name": "Dev dataset",
+          "d": "Point local dbt builds at their own datasets.",
+          "y": "A local build ran at the same moment as CI and made a CI run fail.",
+          "a": "Simply avoid building locally while CI runs.",
+          "r": "Safe local development. About 30 minutes."
+        },
+        {
+          "name": "IAM tidy-up",
+          "d": "Remove the unused Editor role from the default service account, and scope the dbt account to its datasets.",
+          "y": "Least privilege everywhere, not just on the loader.",
+          "a": "Leave the roles as they are; nothing uses them.",
+          "r": "A smaller blast radius if anything is ever compromised. About 20 minutes."
+        },
+        {
+          "name": "Catalogues in dbt",
+          "d": "Build the card and relic catalogues in dbt instead of updating them in the loader.",
+          "y": "The loader's catalogue updates are why it must run one instance at a time.",
+          "a": "Keep the single-instance cap forever.",
+          "r": "Unblocks loader concurrency. About 1-2 hours."
+        }
+      ]
+    },
+    {
+      "id": "later",
+      "name": "Later",
+      "date": "ideas",
+      "status": "later",
+      "color": 9413560,
+      "about": "Data already in the run files that would open new questions.",
+      "items": [
+        {
+          "name": "Co-op characters",
+          "d": "Model every player's character, not just the host's.",
+          "y": "Co-op is 25% of runs, but teammates' characters aren't captured today.",
+          "a": "Leave co-op analysis host-only.",
+          "r": "Answers which party compositions win."
+        },
+        {
+          "name": "Run modifiers",
+          "d": "Model run modifiers as their own dimension.",
+          "y": "Modified and challenge runs may behave differently from standard ones.",
+          "a": "Ignore modifiers.",
+          "r": "Compares performance on modified runs versus standard."
+        },
+        {
+          "name": "Card upgrades & removals",
+          "d": "Model deck shaping: upgrades, removals and transforms.",
+          "y": "Winning may depend on what you do to the deck, not just what you pick.",
+          "a": "Picks only.",
+          "r": "Answers whether removing cards or upgrading early pays off."
+        },
+        {
+          "name": "Game patches",
+          "d": "Add a patch dimension from each run's game build.",
+          "y": "Balance changes can shift win rates between versions.",
+          "a": "Treat all builds as one game.",
+          "r": "Compares win rates across patches."
+        },
+        {
+          "name": "True ELT",
+          "d": "Land raw JSON in BigQuery and flatten it in dbt.",
+          "y": "The function would only move files, and every transform would be tested and versioned in one place.",
+          "a": "Keep flattening in the function (today's ETL design).",
+          "r": "Simpler loader, faster backfills, and all transformation logic in dbt."
+        }
+      ]
+    }
+  ];
+
+  // ---------------------------------------------------------------- DOM
+  const canvas = document.getElementById("scene");
+  const labelsEl = document.getElementById("labels");
+  const tip = document.getElementById("tip");
+  const detail = document.getElementById("detail");
+  const detailBody = document.getElementById("detail-body");
+  const list = document.getElementById("phase-list");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const css = (hex) => "#" + hex.toString(16).padStart(6, "0");
+  const statusLabel = { done: "Done", next: "Next", later: "Later" };
+
+  PHASES.forEach((ph, i) => {
+    const b = document.createElement("button");
+    b.className = "phase"; b.type = "button"; b.dataset.i = i; b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<span class="sw" style="background:${css(ph.color)}"></span><span class="nm">${ph.name}</span><span class="dt">${ph.date}</span>`;
+    b.addEventListener("click", () => focusPhase(focused === i ? null : i));
+    list.appendChild(b);
+  });
+
+  if (!window.THREE || !(() => { try { return !!document.createElement("canvas").getContext("webgl"); } catch (e) { return false; } })()) {
+    document.getElementById("fallback").hidden = false;
+    return;
+  }
+
+  // ---------------------------------------------------------------- scene
+  const BG = 0x0b0e10;
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(BG);
+  scene.fog = new THREE.FogExp2(BG, 0.0065);
+  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 3000);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  scene.add(new THREE.HemisphereLight(0xcfd8e3, 0x2b2016, 0.85));
+  const key = new THREE.DirectionalLight(0xfff2df, 1.05); key.position.set(30, 50, 40); scene.add(key);
+  const fill = new THREE.DirectionalLight(0x9fc9ff, 0.45); fill.position.set(-40, 20, -30); scene.add(fill);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.minDistance = 8; controls.maxDistance = 520;
+  controls.maxPolarAngle = Math.PI * 0.49;
+
+  // road: phases spaced evenly left to right (order matters more than calendar gaps)
+  const SPACING = 26;
+  const hubPos = PHASES.map((_, i) => new THREE.Vector3((i - (PHASES.length - 1) / 2) * SPACING, Math.sin(i * 0.9) * 1.2, Math.cos(i * 0.7) * 2));
+  const roadCurve = new THREE.CatmullRomCurve3(hubPos.map((p) => p.clone()), false, "catmullrom", 0.4);
+  const firstFuture = PHASES.findIndex((p) => p.status !== "done");
+
+  function roadSegment(fromIdx, toIdx, color, opacity, radius) {
+    const pts = roadCurve.getSpacedPoints(400).filter((_, k, all) => {
+      const t = k / (all.length - 1), a = fromIdx / (PHASES.length - 1), b = toIdx / (PHASES.length - 1);
+      return t >= a - 1e-6 && t <= b + 1e-6;
+    });
+    const geo = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), pts.length, radius, 10, false);
+    const mat = new THREE.MeshStandardMaterial({ color, emissive: color, emissiveIntensity: 0.35, roughness: 0.5, transparent: opacity < 1, opacity });
+    scene.add(new THREE.Mesh(geo, mat));
+  }
+  roadSegment(0, firstFuture - 1, 0xb98b3e, 1, 0.45);
+  roadSegment(firstFuture - 1, PHASES.length - 1, 0x8fa3b8, 0.35, 0.3);
+
+  // faint ground dust for depth
+  {
+    const n = 900, g = new THREE.BufferGeometry(), arr = new Float32Array(n * 3);
+    for (let k = 0; k < n; k++) {
+      arr[k * 3] = (Math.random() - 0.5) * SPACING * (PHASES.length + 4);
+      arr[k * 3 + 1] = -6 - Math.random() * 10;
+      arr[k * 3 + 2] = (Math.random() - 0.5) * 120;
+    }
+    g.setAttribute("position", new THREE.BufferAttribute(arr, 3));
+    scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0x5b6470, size: 0.35, transparent: true, opacity: 0.55 })));
+  }
+
+  // hubs, branches and item nodes, grouped per phase so a chunk can be dimmed
+  const groups = [], pickables = [], labelEls = [], itemLabels = [];
+  const hubGeo = new THREE.IcosahedronGeometry(1.6, 1);
+  const nodeGeo = new THREE.SphereGeometry(0.62, 18, 14);
+  PHASES.forEach((ph, i) => {
+    const g = new THREE.Group(); scene.add(g); groups.push(g);
+    const done = ph.status === "done", later = ph.status === "later";
+    const baseOpacity = later ? 0.5 : 1;
+    const hubMat = new THREE.MeshStandardMaterial({ color: ph.color, emissive: ph.color, emissiveIntensity: done ? 0.45 : 0.25,
+      roughness: 0.4, metalness: 0.1, transparent: true, opacity: baseOpacity, wireframe: !done });
+    const hub = new THREE.Mesh(hubGeo, hubMat); hub.position.copy(hubPos[i]); g.add(hub);
+    hub.userData = { kind: "phase", phase: i, baseOpacity };
+    pickables.push(hub);
+
+    ph.items.forEach((it, k) => {
+      const side = k % 2 === 0 ? 1 : -1, rank = Math.floor(k / 2);
+      const end = hubPos[i].clone().add(new THREE.Vector3((k - (ph.items.length - 1) / 2) * 2.4, 4 + rank * 3.2 + (k % 2) * 1.2, side * (6 + rank * 2.2)));
+      const ctrl = hubPos[i].clone().lerp(end, 0.5).add(new THREE.Vector3(0, 2.8, 0));
+      const curve = new THREE.QuadraticBezierCurve3(hubPos[i].clone(), ctrl, end);
+      const branchMat = new THREE.MeshStandardMaterial({ color: ph.color, emissive: ph.color, emissiveIntensity: 0.15, roughness: 0.8,
+        transparent: true, opacity: baseOpacity * 0.85 });
+      const branch = new THREE.Mesh(new THREE.TubeGeometry(curve, 24, 0.11, 6, false), branchMat);
+      branch.userData = { kind: "branch", baseOpacity: baseOpacity * 0.85 };
+      g.add(branch);
+      const nodeMat = new THREE.MeshStandardMaterial({ color: ph.color, emissive: ph.color, emissiveIntensity: done ? 0.3 : 0.55,
+        roughness: 0.45, transparent: true, opacity: baseOpacity, wireframe: ph.status === "next" });
+      const node = new THREE.Mesh(nodeGeo, nodeMat); node.position.copy(end); g.add(node);
+      node.userData = { kind: "item", phase: i, item: k, baseOpacity };
+      pickables.push(node);
+      const il = document.createElement("div"); il.className = "ilabel"; il.textContent = it.name; il.style.opacity = 0;
+      labelsEl.appendChild(il); itemLabels.push({ el: il, pos: end, phase: i });
+    });
+
+    const lab = document.createElement("div"); lab.className = "label";
+    lab.innerHTML = `<div class="ln" style="color:${css(ph.color)}">${ph.name}</div><div class="ld">${ph.date}</div>`;
+    labelsEl.appendChild(lab); labelEls.push({ el: lab, pos: hubPos[i].clone().add(new THREE.Vector3(0, -2.6, 0)), phase: i });
+  });
+
+  // ---------------------------------------------------------------- camera moves
+  let focused = null, anim = null;
+  function overviewPose() {
+    const span = SPACING * (PHASES.length - 1) + 30;
+    const vFov = THREE.MathUtils.degToRad(camera.fov);
+    const hDist = (span / 2) / (Math.tan(vFov / 2) * camera.aspect);
+    const dist = Math.max(hDist * 0.92, 70);
+    return { pos: new THREE.Vector3(0, dist * 0.42, dist * 0.9), target: new THREE.Vector3(0, 3, 0) };
+  }
+  function phasePose(i) {
+    const t = hubPos[i].clone().add(new THREE.Vector3(0, 5, 0));
+    const d = camera.aspect < 0.8 ? 46 : 32;
+    return { pos: t.clone().add(new THREE.Vector3(d * 0.35, d * 0.45, d)), target: t };
+  }
+  function flyTo(pose) {
+    if (reduceMotion) { camera.position.copy(pose.pos); controls.target.copy(pose.target); controls.update(); return; }
+    anim = { t0: performance.now(), dur: 950, fromPos: camera.position.clone(), fromTgt: controls.target.clone(), pose };
+  }
+  const ease = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+
+  function setDim() {
+    groups.forEach((g, i) => {
+      const dim = focused !== null && i !== focused;
+      g.traverse((o) => { if (o.material) o.material.opacity = (o.userData.baseOpacity ?? 1) * (dim ? 0.12 : 1); });
+    });
+    list.querySelectorAll(".phase").forEach((b, i) => {
+      b.setAttribute("aria-pressed", String(i === focused));
+      b.classList.toggle("dim", focused !== null && i !== focused);
+    });
+  }
+  function focusPhase(i) {
+    focused = i;
+    setDim();
+    if (i === null) { flyTo(overviewPose()); hideDetail(); return; }
+    flyTo(phasePose(i));
+    showPhase(i);
+    const btn = list.children[i]; if (btn && btn.scrollIntoView) btn.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+
+  // ---------------------------------------------------------------- detail panel
+  function pill(status) { return `<span class="pill st-${status}">${statusLabel[status]}</span>`; }
+  const FIELDS = {
+    done: [["d", "Decision"], ["y", "Why"], ["a", "Considered instead"], ["r", "Outcome"]],
+    next: [["d", "Proposal"], ["y", "Why"], ["a", "Options"], ["r", "What it gets us"]],
+    later: [["d", "Idea"], ["y", "Why"], ["a", "Instead of"], ["r", "What it would answer"]],
+  };
+  let current = null;   // { phase, item } shown in the panel
+  function showPhase(i) {
+    const ph = PHASES[i];
+    current = { phase: i, item: null };
+    detailBody.innerHTML = `<div class="bar" style="background:${css(ph.color)}"></div>
+      <h2>${ph.name}</h2><div class="meta">${pill(ph.status)}<span>${ph.date}</span><span>Phase ${i + 1} of ${PHASES.length}</span></div>
+      <p>${ph.about}</p>
+      <div class="flabel">${ph.status === "done" ? "Decisions in this phase" : "Items"}</div>
+      <div class="ilist">${ph.items.map((it, k) => `<button class="iopen" data-k="${k}"><span>${it.name}</span><span aria-hidden="true">&rsaquo;</span></button>`).join("")}</div>`;
+    detailBody.querySelectorAll(".iopen").forEach((b) => b.addEventListener("click", () => showItem(i, +b.dataset.k)));
+    detail.hidden = false;
+  }
+  function showItem(i, k) {
+    const ph = PHASES[i], it = ph.items[k], n = ph.items.length;
+    current = { phase: i, item: k };
+    detailBody.innerHTML = `<div class="bar" style="background:${css(ph.color)}"></div>
+      <h2>${it.name}</h2>
+      <div class="meta">${pill(ph.status)}<button class="link" id="to-phase" style="color:${css(ph.color)}">${ph.name}</button><span>${ph.date}</span></div>
+      <dl class="prof">${FIELDS[ph.status].map(([f, lab]) => `<dt>${lab}</dt><dd>${it[f]}</dd>`).join("")}</dl>
+      <div class="pager"><button id="pv" aria-label="Previous in ${ph.name}">&lsaquo; Prev</button><span>${k + 1} of ${n} in ${ph.name}</span><button id="nx" aria-label="Next in ${ph.name}">Next &rsaquo;</button></div>`;
+    detailBody.querySelector("#pv").addEventListener("click", () => showItem(i, (k - 1 + n) % n));
+    detailBody.querySelector("#nx").addEventListener("click", () => showItem(i, (k + 1) % n));
+    detailBody.querySelector("#to-phase").addEventListener("click", () => showPhase(i));
+    detail.hidden = false;
+  }
+  function hideDetail() { detail.hidden = true; }
+  document.getElementById("close").addEventListener("click", hideDetail);
+  document.getElementById("overview").addEventListener("click", () => focusPhase(null));
+  document.getElementById("prev").addEventListener("click", () => focusPhase(focused === null ? 0 : Math.max(0, focused - 1)));
+  document.getElementById("next").addEventListener("click", () => focusPhase(focused === null ? 0 : Math.min(PHASES.length - 1, focused + 1)));
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") document.getElementById("next").click();
+    else if (e.key === "ArrowLeft") document.getElementById("prev").click();
+    else if (e.key === "Escape") focusPhase(null);
+  });
+
+  // ---------------------------------------------------------------- picking
+  const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+  function pick(x, y) {
+    const r = canvas.getBoundingClientRect();
+    mouse.set(((x - r.left) / r.width) * 2 - 1, -((y - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(mouse, camera);
+    const hit = ray.intersectObjects(pickables, false)[0];
+    return hit ? hit.object.userData : null;
+  }
+  let down = null;
+  canvas.addEventListener("pointerdown", (e) => { down = { x: e.clientX, y: e.clientY }; });
+  canvas.addEventListener("pointerup", (e) => {
+    if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 6) { down = null; return; }
+    down = null;
+    const d = pick(e.clientX, e.clientY);
+    if (!d) return;
+    if (d.kind === "phase") focusPhase(d.phase);
+    else { if (focused !== d.phase) { focused = d.phase; setDim(); flyTo(phasePose(d.phase)); } showItem(d.phase, d.item); }
+  });
+  let pending = null;
+  canvas.addEventListener("pointermove", (e) => {
+    if (e.pointerType !== "mouse") return;
+    pending = e;
+  });
+  canvas.addEventListener("pointerleave", () => { tip.hidden = true; });
+
+  // ---------------------------------------------------------------- loop
+  const v = new THREE.Vector3();
+  function project(pos, el, visible) {
+    v.copy(pos).project(camera);
+    const r = canvas.getBoundingClientRect();
+    const on = visible && v.z < 1 && Math.abs(v.x) < 1.1 && Math.abs(v.y) < 1.1;
+    el.style.opacity = on ? 1 : 0;
+    if (on) el.style.transform = `translate(${(v.x * 0.5 + 0.5) * r.width}px, ${(-v.y * 0.5 + 0.5) * r.height}px) translate(-50%, -100%)`;
+  }
+  function resize() {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    camera.aspect = w / Math.max(h, 1); camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+  }
+  window.addEventListener("resize", resize);
+  resize();
+  const start = overviewPose(); camera.position.copy(start.pos); controls.target.copy(start.target); controls.update();
+
+  function tick(now) {
+    if (anim) {
+      const x = Math.min(1, (now - anim.t0) / anim.dur), k = ease(x);
+      camera.position.lerpVectors(anim.fromPos, anim.pose.pos, k);
+      controls.target.lerpVectors(anim.fromTgt, anim.pose.target, k);
+      if (x >= 1) anim = null;
+    }
+    controls.update();
+    if (!reduceMotion) groups.forEach((g, i) => { g.children[0].rotation.y = now * 0.0003 + i; });
+    if (pending) {
+      const e = pending; pending = null;
+      const d = pick(e.clientX, e.clientY);
+      if (d && d.kind !== "branch") {
+        const ph = PHASES[d.phase];
+        tip.innerHTML = d.kind === "phase" ? `${ph.name}<div class="s">${ph.date} · ${statusLabel[ph.status]} · ${ph.items.length} items</div>`
+          : `${ph.items[d.item].name}<div class="s">${ph.name} · ${statusLabel[ph.status]}</div>`;
+        tip.style.left = e.clientX + "px"; tip.style.top = e.clientY + "px"; tip.hidden = false; canvas.style.cursor = "pointer";
+      } else { tip.hidden = true; canvas.style.cursor = "grab"; }
+    }
+    labelEls.forEach((l) => project(l.pos, l.el, focused === null || focused === l.phase));
+    itemLabels.forEach((l) => project(l.pos, l.el, focused === l.phase));
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+
+</body>
+</html>
